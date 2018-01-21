@@ -3,13 +3,20 @@ buildscript {
 
     repositories {
         jcenter()
+        maven { url "http://dl.bintray.com/kotlin/kotlin-eap" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.26"
     }
 }
 
+subprojects {
+    ext.html_version = "0.6.6"
 
-group 'com.github.felipehjcosta'
-version '1.0-SNAPSHOT'
+    repositories {
+        jcenter()
+        maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
+    }
+}
 

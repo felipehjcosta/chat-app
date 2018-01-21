@@ -1,3 +1,4 @@
 rootProject.name = 'chatapp'
 include 'backend'
+include 'frontend'
 

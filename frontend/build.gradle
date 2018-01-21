@@ -1,0 +1,70 @@
+group 'com.github.felipehjcosta'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'kotlin2js'
+apply plugin: 'kotlin-dce-js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+repositories {
+    jcenter()
+    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:$html_version"
+    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
+
+    compile 'org.jetbrains:kotlin-react:16.2.0-pre.17-kotlin-1.2.0'
+    compile 'org.jetbrains:kotlin-react-dom:16.2.0-pre.17-kotlin-1.2.0'
+}
+
+kotlinFrontend {
+// uncomment this to specify exact nodejs version (bundle will be downloaded)
+//    downloadNodeJsVersion = "8.7.0"
+
+    sourceMaps = true
+
+    npm {
+        replaceVersion("kotlinx-html-js", "1.1.0")
+        replaceVersion("kotlinx-html-shared", "1.1.0")
+        replaceVersion("kotlin-js-library", "1.1.0")
+
+        dependency("react")
+        dependency("react-dom")
+        dependency("react-router")
+        dependency("jquery")
+        dependency("react-markdown")
+        dependency("@jetbrains/kotlin-react")
+        dependency("@jetbrains/kotlin-react-dom")
+        dependency("style-loader")
+
+        devDependency("css-loader")
+        devDependency("style-loader")
+        devDependency("babel-loader")
+        devDependency("babel-core")
+        devDependency("karma")
+        devDependency("image-webpack-loader")
+    }
+
+    webpackBundle {
+        bundleName = "index"
+        sourceMapEnabled = true
+        contentPath = file('src/main/web')
+    }
+}
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
