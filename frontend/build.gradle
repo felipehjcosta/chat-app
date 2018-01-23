@@ -45,13 +45,13 @@ kotlinFrontend {
         devDependency("babel-loader")
         devDependency("babel-core")
         devDependency("karma")
-        devDependency("image-webpack-loader")
+        devDependency("svg-react-loader")
     }
 
     webpackBundle {
         bundleName = "index"
         sourceMapEnabled = true
-        contentPath = file('src/main/web')
+        contentPath = file('web')
     }
 }
 
@@ -61,6 +61,18 @@ compileKotlin2Js {
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
+}
+
+sourceSets {
+    main {
+        kotlin.srcDirs += "src"
+        resources.srcDirs += "resources"
+        output.resourcesDir = "build/js/min/"
+    }
+    test {
+        kotlin.srcDirs += "test"
+        resources.srcDirs += "testResources"
+    }
 }
 
 kotlin {

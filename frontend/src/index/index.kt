@@ -6,7 +6,7 @@ import react.dom.*
 import kotlin.browser.*
 
 fun main(args: Array<String>) {
-//    requireAll(require.context("src", true, js("/\\.css$/")))
+    requireAll(require.context("/", true, js("/\\.css$/")))
     console.log("Hello World Kotlin JS")
 
     render(document.getElementById("root")) {
