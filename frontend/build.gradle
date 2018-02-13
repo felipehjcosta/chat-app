@@ -53,6 +53,11 @@ kotlinFrontend {
         sourceMapEnabled = true
         contentPath = file('web')
     }
+
+    karma {
+        port = 9876
+        runnerPort = 9100
+    }
 }
 
 compileKotlin2Js {
@@ -61,6 +66,13 @@ compileKotlin2Js {
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
+}
+
+compileTestKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
 }
 
 sourceSets {
