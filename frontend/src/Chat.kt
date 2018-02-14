@@ -30,7 +30,7 @@ class Chat : RComponent<RProps, RState>() {
                                 }
                                 br {}
                                 button(classes = "btn btn-primary form-control") {
-                                    +"Sendø"
+                                    +"Send"
                                 }
                             }
                         }
