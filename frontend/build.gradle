@@ -49,7 +49,7 @@ kotlinFrontend {
     }
 
     webpackBundle {
-        bundleName = "index"
+        bundleName = "main"
         sourceMapEnabled = true
         contentPath = file('web')
     }
