@@ -1,6 +1,3 @@
-package app
-
-import chat.chat
 import react.RBuilder
 import react.RComponent
 import react.RProps

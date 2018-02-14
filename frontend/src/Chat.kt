@@ -1,5 +1,3 @@
-package chat
-
 import kotlinx.html.InputType
 import react.RBuilder
 import react.RComponent
