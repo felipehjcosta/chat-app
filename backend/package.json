@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "kotlin": "^1.2.20"
+    "kotlin": "^1.2.20",
+    "socket.io": "^2.0.4"
   }
 }
