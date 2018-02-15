@@ -9,7 +9,7 @@ Explain how to run the application
 ### Backend
 Use the following command:
 ```
-./gradlew  backend:run --console=plain
+./gradlew :backend:run --console=plain
 ```
 
 ### Frontend
