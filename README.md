@@ -2,7 +2,21 @@
 
 A chat web app written in Kotlin JS. This a pet project which objective is experiment the language in both frontend and backend. Stay tuned! :)
 
+## Running
 
+Explain how to run the application
+
+### Backend
+Use the following command:
+```
+./gradlew  backend:run --console=plain
+```
+
+### Frontend
+Use the following command:
+```
+./gradlew :frontend:run --console=plain
+```
 
 License
 -------
