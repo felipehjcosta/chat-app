@@ -36,12 +36,12 @@ task installSocketIO(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['install', 'socket.io@2.0.4', '--save']
 }
 
-task helloWorld(type: NodeTask) {
+task runNode(type: NodeTask) {
     script = file('node')
 }
 
 task run(type: GradleBuild) {
-    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'helloWorld', 'build']
+    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'runNode', 'build']
 }
 
 task assembleNode(type: Sync) {
