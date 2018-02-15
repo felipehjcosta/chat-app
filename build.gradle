@@ -1,14 +1,17 @@
 buildscript {
     ext.kotlin_version = '1.2.10'
+    ext.serialization_version = '0.4.1'
 
     repositories {
         jcenter()
         maven { url "http://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.26"
+        classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
         classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
     }
 }

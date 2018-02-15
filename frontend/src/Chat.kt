@@ -1,6 +1,7 @@
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import kotlinx.serialization.Serializable
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import react.*
@@ -23,13 +24,13 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     private fun sendMessage() {
-        receiveMessage(mapOf("author" to state.username, "message" to state.message))
+        receiveMessage(Message(state.username, state.message))
     }
 
-    private fun receiveMessage(data: Map<String, String>) {
-        console.log(">>> Message '${data["message"]}' from '${data["author"]}' received")
+    private fun receiveMessage(newMessage: Message) {
+        console.log(">>> Message '${newMessage.message}' from '${newMessage.author}' received")
         setState {
-            messages = messages.toMutableList().apply { add(data["author"]!! to data["message"]!!) }
+            messages = messages.toMutableList().apply { add(newMessage) }
         }
     }
 
@@ -44,7 +45,7 @@ class Chat : RComponent<RProps, Chat.State>() {
                             div(classes = "messages") {
                                 state.messages.map {
                                     div {
-                                        +"${it.first}: ${it.second}"
+                                        +"${it.author}: ${it.message}"
                                     }
                                 }
                             }
@@ -97,7 +98,10 @@ class Chat : RComponent<RProps, Chat.State>() {
 
     class State(var username: String = "",
                 var message: String = "",
-                var messages: List<Pair<String, String>> = emptyList()) : RState
+                var messages: List<Message> = emptyList()) : RState
 }
+
+@Serializable
+data class Message(val author: String, val message: String)
 
 fun RBuilder.chat() = child(Chat::class) {}
