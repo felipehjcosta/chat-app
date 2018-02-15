@@ -1,4 +1,5 @@
 apply plugin: 'kotlin2js'
+apply plugin: 'com.moowork.node'
 
 sourceCompatibility = 1.8
 
@@ -12,13 +13,38 @@ dependencies {
 
 compileKotlin2Js.kotlinOptions {
     moduleKind = "commonjs"
-    outputFile = "${projectDir}/web/index.js"
+    outputFile = "${projectDir}/node/index.js"
 
 //    sourceMap = true
 //    sourceMapEmbedSources = "always"
 }
 
-task assembleWeb(type: Sync) {
+node {
+    version = '9.3.0'
+    download = true
+}
+
+task installEspress(type: NpmTask, dependsOn: 'npmInstall') {
+    args = ['install', 'express@4.16.2', '--save']
+}
+
+task installKotlin(type: NpmTask, dependsOn: 'npmInstall') {
+    args = ['install', 'kotlin@1.2.20', '--save']
+}
+
+task installSocketIO(type: NpmTask, dependsOn: 'npmInstall') {
+    args = ['install', 'socket.io@2.0.4', '--save']
+}
+
+task helloWorld(type: NodeTask) {
+    script = file('node')
+}
+
+task run(type: GradleBuild) {
+    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'helloWorld', 'build']
+}
+
+task assembleNode(type: Sync) {
     configurations.compile.each { File file ->
         from(zipTree(file.absolutePath), {
             includeEmptyDirs = false
@@ -30,9 +56,9 @@ task assembleWeb(type: Sync) {
         })
     }
     from compileKotlin2Js.destinationDir
-    into "${projectDir}/web"
+    into "${projectDir}/node"
 
     dependsOn classes
 }
 
-assemble.dependsOn assembleWeb
+assemble.dependsOn assembleNode
