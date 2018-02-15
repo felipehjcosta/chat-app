@@ -42,6 +42,7 @@ kotlinFrontend {
         dependency("@jetbrains/kotlin-react")
         dependency("@jetbrains/kotlin-react-dom")
         dependency("style-loader")
+        dependency("socket.io-client", "2.0.4")
 
         devDependency("css-loader")
         devDependency("style-loader")

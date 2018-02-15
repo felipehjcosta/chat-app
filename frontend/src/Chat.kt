@@ -7,6 +7,8 @@ import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
 
+external fun require(module: String): dynamic
+
 class Chat : RComponent<RProps, Chat.State>() {
 
     private val sendButtonHandler: (Event) -> Unit = {
@@ -18,17 +20,25 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
+    private val socket: dynamic
+
     init {
         state = State()
 
+        val io = require("socket.io-client")
+        socket = io("localhost:8080")
+
+        this.socket.on("RECEIVE_MESSAGE", { data ->
+            receiveMessage(JSON.parse(data))
+        })
     }
 
     private fun sendMessage() {
-        receiveMessage(Message(state.username, state.message))
+        this.socket.emit("SEND_MESSAGE", JSON.stringify(Message(this.state.username, this.state.message)))
     }
 
     private fun receiveMessage(newMessage: Message) {
-        console.log(">>> Message '${newMessage.message}' from '${newMessage.author}' received")
+        console.log("Message '${newMessage.message}' receivedfrom '${newMessage.author}'")
         setState {
             messages = messages.toMutableList().apply { add(newMessage) }
         }
