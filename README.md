@@ -1,6 +1,8 @@
 # Chat App
 
-A chat web app written in Kotlin JS. This a pet project which objective is experiment the language in both frontend and backend. Stay tuned! :)
+[![Build Status](https://travis-ci.org/felipehjcosta/chat-app.svg?branch=master)](https://travis-ci.org/felipehjcosta/chat-app)
+
+A chat web app written in Kotlin JS. This is a pet project which objective is to experiment the language in both frontend and backend. Stay tuned! :)
 
 ## Running
 
