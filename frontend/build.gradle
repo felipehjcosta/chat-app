@@ -19,13 +19,14 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
 
-    compile 'org.jetbrains:kotlin-react:16.2.0-pre.17-kotlin-1.2.0'
-    compile 'org.jetbrains:kotlin-react-dom:16.2.0-pre.17-kotlin-1.2.0'
+    compile 'org.jetbrains:kotlin-react:16.2.1-pre.11-kotlin-1.2.21'
+    compile 'org.jetbrains:kotlin-react-dom:16.2.1-pre.11-kotlin-1.2.21'
 }
 
 kotlinFrontend {
 // uncomment this to specify exact nodejs version (bundle will be downloaded)
 //    downloadNodeJsVersion = "8.7.0"
+    downloadNodeJsVersion = 'latest'
 
     sourceMaps = true
 
@@ -39,8 +40,6 @@ kotlinFrontend {
         dependency("react-router")
         dependency("jquery")
         dependency("react-markdown")
-        dependency("@jetbrains/kotlin-react")
-        dependency("@jetbrains/kotlin-react-dom")
         dependency("style-loader")
         dependency("socket.io-client", "2.0.4")
 
