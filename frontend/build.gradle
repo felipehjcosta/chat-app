@@ -45,7 +45,7 @@ kotlinFrontend {
 
         devDependency("css-loader")
         devDependency("style-loader")
-        devDependency("babel-loader")
+        devDependency("babel-loader", "7.1.3")
         devDependency("babel-core")
         devDependency("karma")
         devDependency("svg-react-loader")
