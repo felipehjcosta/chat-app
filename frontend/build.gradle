@@ -19,8 +19,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
 
-    compile 'org.jetbrains:kotlin-react:16.2.1-pre.11-kotlin-1.2.21'
-    compile 'org.jetbrains:kotlin-react-dom:16.2.1-pre.11-kotlin-1.2.21'
+    compile 'org.jetbrains:kotlin-react:16.4.2-pre.50-kotlin-1.2.61'
+    compile 'org.jetbrains:kotlin-react-dom:16.4.2-pre.50-kotlin-1.2.61'
 }
 
 kotlinFrontend {
@@ -31,9 +31,6 @@ kotlinFrontend {
     sourceMaps = true
 
     npm {
-        replaceVersion("kotlinx-html-js", "1.1.0")
-        replaceVersion("kotlinx-html-shared", "1.1.0")
-        replaceVersion("kotlin-js-library", "1.1.0")
 
         dependency("react")
         dependency("react-dom")
