@@ -6,9 +6,9 @@ fun main(args: Array<String>) {
     val express = require("express")
     val app = express()
 
-    val server = app.listen(8080, {
+    val server = app.listen(8080) {
         println("Server is running on port 8080")
-    })
+    }
 
     val socket = require("socket.io")
     val io = socket(server)
@@ -22,9 +22,9 @@ fun main(args: Array<String>) {
         }
     }
 
-    app.get("/", { req, res ->
+    app.get("/") { _, res ->
         res.type("text/plain")
         res.send("Hello World Kotlin JS!")
-    })
+    }
 
 }
