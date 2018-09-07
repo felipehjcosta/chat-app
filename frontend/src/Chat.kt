@@ -1,7 +1,6 @@
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
-import kotlinx.serialization.Serializable
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import react.*
@@ -110,8 +109,5 @@ class Chat : RComponent<RProps, Chat.State>() {
                 var message: String = "",
                 var messages: List<Message> = emptyList()) : RState
 }
-
-@Serializable
-data class Message(val author: String, val message: String)
 
 fun RBuilder.chat() = child(Chat::class) {}
