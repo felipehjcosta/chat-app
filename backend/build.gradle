@@ -41,7 +41,7 @@ task runNode(type: NodeTask) {
 }
 
 task run(type: GradleBuild) {
-    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'runNode', 'build']
+    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'build', 'runNode']
 }
 
 task assembleNode(type: Sync) {
