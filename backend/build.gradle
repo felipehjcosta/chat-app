@@ -4,11 +4,15 @@ apply plugin: 'com.moowork.node'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
+    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+    compile project(":common-js")
 }
 
 compileKotlin2Js.kotlinOptions {

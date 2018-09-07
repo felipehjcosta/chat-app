@@ -17,7 +17,8 @@ fun main(args: Array<String>) {
         println("socket ID: ${socket.id}")
 
         socket.on("SEND_MESSAGE") { data ->
-            println("SEND_MESSAGE: ${data}")
+            val message = JSON.parse<Message>(data)
+            println("Send message \"${message.message}\" from author \"${message.author}\"")
             io.emit("RECEIVE_MESSAGE", data)
         }
     }
