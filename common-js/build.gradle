@@ -1,0 +1,22 @@
+plugins {
+    id 'kotlin-platform-js'
+}
+
+apply plugin: 'kotlinx-serialization'
+
+repositories {
+    mavenCentral()
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+}
+
+dependencies {
+    expectedBy project(":common")
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js"
+}
+
+
+compileKotlin2Js {
+    kotlinOptions.moduleKind = 'commonjs'
+}
