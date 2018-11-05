@@ -11,8 +11,12 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
+import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.json.JSON
+import kotlinx.serialization.parse
 import java.util.*
 
+@ImplicitReflectionSerializer
 fun main() {
     embeddedServer(Netty, port = 8080) {
         install(WebSockets)
@@ -30,6 +34,8 @@ fun main() {
                         when (val frame = incoming.receive()) {
                             is Frame.Text -> {
                                 val text = frame.readText()
+                                val message = JSON.parse<Message>(text)
+                                println("Send message \"${message.message}\" from author \"${message.author}\"")
                                 wsConnections.forEach { it.outgoing.send(Frame.Text(text)) }
                             }
                         }
