@@ -2,8 +2,6 @@ import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.MessageEvent
-import org.w3c.dom.WebSocket
 import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
@@ -21,24 +19,17 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    private val socket: WebSocket
+    private val chatClient = ChatClient("ws://localhost:8080/chat")
 
     init {
         state = State()
 
-        socket = WebSocket("ws://localhost:8080/chat")
-        socket.onmessage = {
-            println("on message event: $it")
-            val event = it
-            when (event) {
-                is MessageEvent -> receiveMessage(JSON.parse(event.data.toString()))
-            }
-        }
+        chatClient.receive(::receiveMessage)
 
     }
 
     private fun sendMessage() {
-        socket.send(JSON.stringify(Message(this.state.username, this.state.message)))
+        chatClient.send(Message(this.state.username, this.state.message))
     }
 
     private fun receiveMessage(newMessage: Message) {
