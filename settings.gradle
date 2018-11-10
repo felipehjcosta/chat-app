@@ -16,8 +16,8 @@ pluginManagement {
     }
 }
 rootProject.name = 'chatapp'
-include 'common', 'common-jvm', 'common-js'
-include 'backend', 'backend'
-include 'frontend'
+include ':core:common', ':core:common-jvm', ':core:common-js'
+include ':backend'
+include ':frontend'
 include ':android'
 
