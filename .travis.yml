@@ -45,5 +45,5 @@ env:
   - ANDROID_HOME=$HOME/android-sdk
 
 script:
-- "./gradlew :frontend:clean :frontend:test --console=plain"
+  - "./gradlew clean test --console=plain"
 
