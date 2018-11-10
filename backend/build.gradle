@@ -1,68 +1,29 @@
-apply plugin: 'kotlin2js'
-apply plugin: 'com.moowork.node'
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'application'
+
+mainClassName = 'MainKt'
 
 sourceCompatibility = 1.8
+compileKotlin { kotlinOptions.jvmTarget = "1.8" }
+compileTestKotlin { kotlinOptions.jvmTarget = "1.8" }
+
 
 repositories {
+    mavenCentral()
     jcenter()
-    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
+    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
     maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
-    compile project(":common-js")
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+    compile "io.ktor:ktor-server-netty:$ktor_version"
+    compile "io.ktor:ktor-websockets:$ktor_version"
+    compile project(":common-jvm")
+    compile "ch.qos.logback:logback-classic:1.2.3"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
-compileKotlin2Js.kotlinOptions {
-    moduleKind = "commonjs"
-    outputFile = "${projectDir}/node/index.js"
-
-//    sourceMap = true
-//    sourceMapEmbedSources = "always"
-}
-
-node {
-    version = '9.3.0'
-    download = true
-}
-
-task installEspress(type: NpmTask, dependsOn: 'npmInstall') {
-    args = ['install', 'express@4.16.2', '--save']
-}
-
-task installKotlin(type: NpmTask, dependsOn: 'npmInstall') {
-    args = ['install', 'kotlin@1.2.20', '--save']
-}
-
-task installSocketIO(type: NpmTask, dependsOn: 'npmInstall') {
-    args = ['install', 'socket.io@2.0.4', '--save']
-}
-
-task runNode(type: NodeTask) {
-    script = file('node')
-}
-
-task run(type: GradleBuild) {
-    tasks = ['installEspress', 'installKotlin', 'installSocketIO', 'build', 'runNode']
-}
-
-task assembleNode(type: Sync) {
-    configurations.compile.each { File file ->
-        from(zipTree(file.absolutePath), {
-            includeEmptyDirs = false
-            include { fileTreeElement ->
-                def path = fileTreeElement.path
-                path.endsWith(".js") && (path.startsWith("META-INF/resources/") ||
-                        !path.startsWith("META-INF/"))
-            }
-        })
-    }
-    from compileKotlin2Js.destinationDir
-    into "${projectDir}/node"
-
-    dependsOn classes
-}
-
-assemble.dependsOn assembleNode
