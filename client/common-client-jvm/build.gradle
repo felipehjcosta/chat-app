@@ -13,7 +13,7 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile 'com.squareup.okhttp3:okhttp:3.11.0'
-    compile project(":core:common")
+    compile project(":core:common-jvm")
     expectedBy project(':client:common-client')
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
