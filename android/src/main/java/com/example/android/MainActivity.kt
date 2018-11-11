@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.username_input as usernameIn
 @ImplicitReflectionSerializer
 class MainActivity : AppCompatActivity() {
 
-    private val chatClient = ChatClient("ws://192.168.1.6:8080/chat")
+    private val chatClient = ChatClient("${BuildConfig.CHAT_URL_SERVER}/chat")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
