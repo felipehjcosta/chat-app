@@ -1,4 +1,6 @@
 import com.github.felipehjcosta.chatapp.Message
+import com.github.felipehjcosta.chatapp.logging.Logger
+import com.github.felipehjcosta.chatapp.logging.LoggerAdapter
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.http.ContentType
@@ -15,10 +17,22 @@ import io.ktor.websocket.webSocket
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.parse
+import org.slf4j.LoggerFactory
 import java.util.*
 
 @ImplicitReflectionSerializer
 fun main() {
+    Logger {
+        loggerAdapter = object : LoggerAdapter {
+
+            val loggerFactory = LoggerFactory.getLogger("Logger")
+
+            override fun info(message: String) {
+                loggerFactory.info(message)
+            }
+        }
+    }
+
     embeddedServer(Netty, port = 8080) {
         install(WebSockets)
         routing {
@@ -36,7 +50,7 @@ fun main() {
                             is Frame.Text -> {
                                 val text = frame.readText()
                                 val message = JSON.parse<Message>(text)
-                                println("Send message \"${message.message}\" from author \"${message.author}\"")
+                                Logger.info("Send message \"${message.message}\" from author \"${message.author}\"")
                                 wsConnections.forEach { it.outgoing.send(Frame.Text(text)) }
                             }
                         }

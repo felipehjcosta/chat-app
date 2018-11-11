@@ -1,6 +1,7 @@
 package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
+import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
@@ -33,7 +34,7 @@ actual class ChatClient actual constructor(url: String) : WebSocketListener() {
 
     @ImplicitReflectionSerializer
     override fun onMessage(webSocket: WebSocket, text: String) {
-        super.onMessage(webSocket, text)
+        Logger.info("Message Received: $text")
         receiveMessage?.let { it(JSON.parse(Message::class.serializer(), text)) }
     }
 }

@@ -1,6 +1,7 @@
 package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
+import com.github.felipehjcosta.chatapp.logging.Logger
 import org.w3c.dom.MessageEvent
 import org.w3c.dom.WebSocket
 
@@ -14,7 +15,7 @@ actual class ChatClient actual constructor(url: String) {
 
     actual fun receive(receiveBlock: (Message) -> Unit) {
         socket.onmessage = {
-            println("on message event: $it")
+            Logger.info("on message event: $it")
             val event = it
             when (event) {
                 is MessageEvent -> receiveBlock(JSON.parse(event.data.toString()))

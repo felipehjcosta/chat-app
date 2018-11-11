@@ -1,5 +1,6 @@
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
@@ -27,7 +28,6 @@ class Chat : RComponent<RProps, Chat.State>() {
         state = State()
 
         chatClient.receive(::receiveMessage)
-
     }
 
     private fun sendMessage() {
@@ -35,7 +35,7 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     private fun receiveMessage(newMessage: Message) {
-        console.log("Message '${newMessage.message}' receivedfrom '${newMessage.author}'")
+        Logger.info("Message '${newMessage.message}' receivedfrom '${newMessage.author}'")
         setState {
             messages = messages.toMutableList().apply { add(newMessage) }
         }
