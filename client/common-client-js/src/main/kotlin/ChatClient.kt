@@ -1,3 +1,6 @@
+package com.github.felipehjcosta.chatapp.client
+
+import com.github.felipehjcosta.chatapp.Message
 import org.w3c.dom.MessageEvent
 import org.w3c.dom.WebSocket
 

@@ -1,3 +1,5 @@
+package com.github.felipehjcosta.chatapp
+
 import kotlinx.serialization.Serializable
 
 @Serializable

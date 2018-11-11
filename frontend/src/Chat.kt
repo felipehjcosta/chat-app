@@ -1,3 +1,5 @@
+import com.github.felipehjcosta.chatapp.Message
+import com.github.felipehjcosta.chatapp.client.ChatClient
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction

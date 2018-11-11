@@ -1,3 +1,6 @@
+package com.github.felipehjcosta.chatapp.client
+
+import com.github.felipehjcosta.chatapp.Message
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer

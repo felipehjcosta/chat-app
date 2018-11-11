@@ -1,3 +1,4 @@
+import com.github.felipehjcosta.chatapp.Message
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.http.ContentType
