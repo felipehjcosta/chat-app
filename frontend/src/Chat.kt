@@ -35,7 +35,7 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     private fun receiveMessage(newMessage: Message) {
-        Logger.info("Message '${newMessage.message}' receivedfrom '${newMessage.author}'")
+        Logger.info("Message '${newMessage.message}' received from '${newMessage.author}'")
         setState {
             messages = messages.toMutableList().apply { add(newMessage) }
         }
