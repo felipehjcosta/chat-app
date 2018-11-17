@@ -31,3 +31,6 @@ subprojects {
         maven { url "https://kotlin.bintray.com/kotlinx" }
     }
 }
+
+task runBackend(dependsOn: ':backend:run')
+task runFrontend(dependsOn: ':frontend:run')
