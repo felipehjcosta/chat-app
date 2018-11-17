@@ -7,9 +7,7 @@ apply plugin: 'org.jetbrains.kotlin.frontend'
 apply plugin: 'kotlinx-serialization'
 
 repositories {
-    jcenter()
     maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
-    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
