@@ -11,13 +11,13 @@ Explain how to run the application
 ### Backend
 Use the following command:
 ```
-./gradlew :backend:run --console=plain
+./gradlew runBackend --console=plain
 ```
 
 ### Frontend
 Use the following command:
 ```
-./gradlew :frontend:run --console=plain
+./gradlew runFrontend --console=plain
 ```
 
 License
