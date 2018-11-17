@@ -23,7 +23,7 @@ actual class ChatClient actual constructor(url: String) : WebSocketListener() {
         websocketClient = okHttpClient.newWebSocket(request, this)
     }
 
-    @ImplicitReflectionSerializer
+    @UseExperimental(ImplicitReflectionSerializer::class)
     actual fun send(message: Message) {
         websocketClient.send(JSON.stringify(Message::class.serializer(), message))
     }
@@ -32,7 +32,7 @@ actual class ChatClient actual constructor(url: String) : WebSocketListener() {
         receiveMessage = receiveBlock
     }
 
-    @ImplicitReflectionSerializer
+    @UseExperimental(ImplicitReflectionSerializer::class)
     override fun onMessage(webSocket: WebSocket, text: String) {
         Logger.info("Message Received: $text")
         receiveMessage?.let { it(JSON.parse(Message::class.serializer(), text)) }

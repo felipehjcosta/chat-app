@@ -13,6 +13,8 @@ dependencies {
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile "io.mockk:mockk:1.8.13.kotlin13"
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.11.0'
 }
 
 compileKotlin {
