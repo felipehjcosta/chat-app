@@ -2,22 +2,28 @@
 
 [![Build Status](https://travis-ci.org/felipehjcosta/chat-app.svg?branch=master)](https://travis-ci.org/felipehjcosta/chat-app)
 
-A chat web app written in Kotlin JS. This is a pet project which objective is to experiment the language in both frontend and backend. Stay tuned! :)
+A chat web app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
 
 ## Running
 
 Explain how to run the application
 
 ### Backend
-Use the following command:
+Use the command below.
 ```
-./gradlew runBackend --console=plain
+./gradlew runBackend
 ```
 
 ### Frontend
-Use the following command:
+Use the command below.
 ```
-./gradlew runFrontend --console=plain
+./gradlew runFrontend
+```
+
+### Android
+Use the command below (You need a connected device or a virtual device).
+```
+./gradlew assembleDebug installDebug
 ```
 
 License
