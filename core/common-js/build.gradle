@@ -12,6 +12,8 @@ dependencies {
 }
 
 
-compileKotlin2Js {
-    kotlinOptions.moduleKind = 'commonjs'
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions {
+        moduleKind = 'commonjs'
+    }
 }
