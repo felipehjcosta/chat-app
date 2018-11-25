@@ -11,18 +11,17 @@ actual class ChatClient actual constructor(url: String) {
 
     private val socket: WebSocket = WebSocket(url)
 
-    var receiveMessage: ((Message) -> Unit)? = null
+    private var receiveMessage: ((Message) -> Unit)? = null
 
     init {
-        socket.onmessage = {
-            Logger.info("on message event: $it")
-            val event = it
-            when (event) {
-                is org.w3c.dom.MessageEvent -> receiveMessage?.let {
-                    it(kotlinx.serialization.json.JSON.parse(Message::class.serializer(), event.data.toString()))
+        socket.onmessage = { event ->
+            Logger.info("on message event: $event")
+            if (event.type == "message") {
+                receiveMessage?.let {
+                    it(kotlinx.serialization.json.JSON.parse(Message::class.serializer(), event.asDynamic().data.toString()))
                 }
-                else -> Logger.info("message event unhandled")
-
+            } else {
+                Logger.info("message event unhandled")
             }
         }
     }
