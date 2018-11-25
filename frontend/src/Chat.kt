@@ -18,6 +18,7 @@ class Chat : RComponent<RProps, Chat.State>() {
         sendMessage()
 
         setState {
+            username = ""
             message = ""
         }
     }
@@ -62,7 +63,7 @@ class Chat : RComponent<RProps, Chat.State>() {
                                         classes = "form-control") {
                                     attrs {
                                         placeholder = "Username"
-                                        defaultValue = state.username
+                                        value = state.username
                                         onChangeFunction = {
 
                                             val value = it.target.unsafeCast<HTMLInputElement>().value
@@ -77,7 +78,7 @@ class Chat : RComponent<RProps, Chat.State>() {
                                         classes = "form-control") {
                                     attrs {
                                         placeholder = "Message"
-                                        defaultValue = state.message
+                                        value = state.message
                                         onChangeFunction = {
                                             val value = it.target.unsafeCast<HTMLInputElement>().value
                                             setState {
