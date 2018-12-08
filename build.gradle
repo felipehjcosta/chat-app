@@ -1,7 +1,7 @@
 apply from: './gradleScripts/my_ip.gradle'
 
 buildscript {
-    ext.kotlin_version = '1.3.10'
+    ext.kotlin_version = '1.3.11'
     ext.serialization_version = '0.9.0'
     ext.ktor_version = '1.0.0'
 
