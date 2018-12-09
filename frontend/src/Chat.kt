@@ -32,6 +32,7 @@ class Chat : RComponent<RProps, Chat.State>() {
     override fun componentDidMount() {
         chatClient = ChatClient("ws://localhost:8080/chat").apply {
             receive(::receiveMessage)
+            onFailure(::receiveFailure)
             start()
         }
     }
@@ -44,6 +45,13 @@ class Chat : RComponent<RProps, Chat.State>() {
         Logger.info("Message '${newMessage.message}' received from '${newMessage.author}'")
         setState {
             messages = messages.toMutableList().apply { add(newMessage) }
+        }
+    }
+
+    private fun receiveFailure(throwable: Throwable) {
+        Logger.info("Failure '$throwable'")
+        setState {
+            hasFailure = true
         }
     }
 
@@ -98,8 +106,15 @@ class Chat : RComponent<RProps, Chat.State>() {
 
                                     attrs {
                                         onClickFunction = sendButtonHandler
+                                        disabled = state.hasFailure
                                     }
 
+                                }
+
+                            }
+                            if (state.hasFailure) {
+                                div(classes = "alert alert-danger") {
+                                    +"Connection with the server failed."
                                 }
                             }
                         }
@@ -112,7 +127,8 @@ class Chat : RComponent<RProps, Chat.State>() {
     class State(
             var username: String = "",
             var message: String = "",
-            var messages: List<Message> = emptyList()
+            var messages: List<Message> = emptyList(),
+            var hasFailure: Boolean = false
     ) : RState
 }
 
