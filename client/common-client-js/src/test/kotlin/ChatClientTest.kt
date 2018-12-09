@@ -1,5 +1,6 @@
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
+import kotlinx.io.IOException
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
@@ -64,6 +65,24 @@ class ChatClientTest {
                 mockServer.stop()
                 resolve(Unit)
             }
+        }
+    }
+
+    @UseExperimental(ImplicitReflectionSerializer::class)
+    @Test
+    fun ensureFailureEventIsReceivedByClient() = Promise<Unit> { resolve, _ ->
+        mockServer.on("connection") { socket ->
+            mockServer.simulate("error")
+        }
+
+        ChatClient(fakeURL).apply {
+            onFailure {
+                assertEquals(IOException::class, it::class)
+                assertEquals("error", it.message)
+                mockServer.stop()
+                resolve(Unit)
+            }
+            start()
         }
     }
 }

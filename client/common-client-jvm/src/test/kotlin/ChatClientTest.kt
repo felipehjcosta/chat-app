@@ -28,7 +28,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test
+    @Test(timeout = 1000L)
     fun ensureAStartedConnectionIsOpenedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -42,7 +42,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test
+    @Test(timeout = 1000L)
     fun ensureMessageSendByServerIsReceivedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -51,11 +51,15 @@ class ChatClientTest {
         val mockOnReceive = mockk<(Message) -> Unit>()
         chatClient.receive(mockOnReceive)
 
+        Thread.sleep(500L)
+
         val webSocketSlot = slot<WebSocket>()
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
 
         val message = Message("Test", "Hello, WebSockets!")
         webSocketSlot.captured.send(JSON.stringify(Message::class.serializer(), message))
+
+        Thread.sleep(500L)
 
         val receivedMessageSlot = slot<Message>()
         verify { mockOnReceive(capture(receivedMessageSlot)) }
@@ -63,7 +67,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test
+    @Test(timeout = 1000L)
     fun ensureSendMessageIsReceivedByServer() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
@@ -74,5 +78,18 @@ class ChatClientTest {
         chatClient.send(message)
 
         verify { mockServerWebSocketListener.onMessage(any(), JSON.stringify(Message::class.serializer(), message)) }
+    }
+
+    @Test(timeout = 1000L)
+    fun ensureFailureEventIsReceivedByClient() {
+        mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
+        val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
+
+        val mockOnFailure = mockk<(Throwable) -> Unit>()
+        chatClient.onFailure(mockOnFailure)
+
+        mockWebServer.shutdown()
+
+        verify { mockOnFailure(any()) }
     }
 }

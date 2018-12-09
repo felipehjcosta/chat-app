@@ -2,6 +2,7 @@ package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
+import kotlinx.io.IOException
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.serializer
 import org.w3c.dom.WebSocket
@@ -12,6 +13,8 @@ actual class ChatClient actual constructor(private val url: String) {
     private var socket: WebSocket? = null
 
     private var receiveMessage: ((Message) -> Unit)? = null
+
+    private var failure: ((Throwable) -> Unit)? = null
 
     actual fun start() {
         socket = WebSocket(url)
@@ -25,6 +28,10 @@ actual class ChatClient actual constructor(private val url: String) {
                 Logger.info("message event unhandled")
             }
         }
+        socket?.onerror = { event ->
+            Logger.info("on error event: $event")
+            failure?.let { it(IOException(event.type)) }
+        }
     }
 
     actual fun send(message: Message) {
@@ -33,5 +40,9 @@ actual class ChatClient actual constructor(private val url: String) {
 
     actual fun receive(receiveBlock: (Message) -> Unit) {
         receiveMessage = receiveBlock
+    }
+
+    actual fun onFailure(throwableBlock: (Throwable) -> Unit) {
+        failure = throwableBlock
     }
 }
