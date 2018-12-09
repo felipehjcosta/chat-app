@@ -23,12 +23,17 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    private val chatClient = ChatClient("ws://localhost:8080/chat")
+    private lateinit var chatClient: ChatClient
 
     init {
         state = State()
+    }
 
-        chatClient.receive(::receiveMessage)
+    override fun componentDidMount() {
+        chatClient = ChatClient("ws://localhost:8080/chat").apply {
+            receive(::receiveMessage)
+            start()
+        }
     }
 
     private fun sendMessage() {
@@ -104,9 +109,11 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    class State(var username: String = "",
-                var message: String = "",
-                var messages: List<Message> = emptyList()) : RState
+    class State(
+            var username: String = "",
+            var message: String = "",
+            var messages: List<Message> = emptyList()
+    ) : RState
 }
 
 fun RBuilder.chat() = child(Chat::class) {}
