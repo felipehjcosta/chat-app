@@ -10,13 +10,13 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-actual class ChatClient actual constructor(url: String) : WebSocketListener() {
+actual class ChatClient actual constructor(private val url: String) : WebSocketListener() {
 
-    private val websocketClient: WebSocket
+    private var websocketClient: WebSocket? = null
 
     private var receiveMessage: ((Message) -> Unit)? = null
 
-    init {
+    actual fun start() {
         val okHttpClient = OkHttpClient.Builder().build()
         val request = Request.Builder().url(url).build()
 
@@ -25,7 +25,7 @@ actual class ChatClient actual constructor(url: String) : WebSocketListener() {
 
     @UseExperimental(ImplicitReflectionSerializer::class)
     actual fun send(message: Message) {
-        websocketClient.send(JSON.stringify(Message::class.serializer(), message))
+        websocketClient?.send(JSON.stringify(Message::class.serializer(), message))
     }
 
     actual fun receive(receiveBlock: (Message) -> Unit) {

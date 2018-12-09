@@ -7,6 +7,7 @@ import io.mockk.verify
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
+import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okhttp3.mockwebserver.MockResponse
@@ -28,10 +29,24 @@ class ChatClientTest {
 
     @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
-    fun ensureMessageSendByServerIsReceivedByClient() {
+    fun ensureAStartedConnectionIsOpenedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}")
+        chatClient.start()
+
+        val webSocketSlot = slot<WebSocket>()
+        val responseSlot = slot<Response>()
+        verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), capture(responseSlot)) }
+        assertEquals(101, responseSlot.captured.code())
+    }
+
+    @UseExperimental(ImplicitReflectionSerializer::class)
+    @Test
+    fun ensureMessageSendByServerIsReceivedByClient() {
+
+        mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
+        val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
 
         val mockOnReceive = mockk<(Message) -> Unit>()
         chatClient.receive(mockOnReceive)
@@ -51,7 +66,7 @@ class ChatClientTest {
     @Test
     fun ensureSendMessageIsReceivedByServer() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
-        val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}")
+        val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
 
         verify { mockServerWebSocketListener.onOpen(any(), any()) }
 

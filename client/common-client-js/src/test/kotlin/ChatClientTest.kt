@@ -3,6 +3,7 @@ import com.github.felipehjcosta.chatapp.client.ChatClient
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
+import org.w3c.dom.WebSocket
 import kotlin.js.Promise
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -20,6 +21,18 @@ class ChatClientTest {
 
     @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
+    fun ensureAStartedConnectionIsOpenedByClient() = Promise<Unit> { resolve, _ ->
+        mockServer.on("connection") { socket ->
+            assertEquals(WebSocket.OPEN, socket.readyState)
+            mockServer.stop()
+            resolve(Unit)
+        }
+
+        ChatClient(fakeURL).apply { start() }
+    }
+
+    @UseExperimental(ImplicitReflectionSerializer::class)
+    @Test
     fun ensureSendMessageIsReceivedByServer() = Promise<Unit> { resolve, _ ->
         val messageSent = Message("Test", "Hello, WebSockets!")
         mockServer.on("connection") { socket ->
@@ -30,8 +43,10 @@ class ChatClientTest {
             }
         }
 
-        val chatClient = ChatClient(fakeURL)
-        chatClient.send(messageSent)
+        ChatClient(fakeURL).apply {
+            start()
+            send(messageSent)
+        }
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
@@ -42,12 +57,13 @@ class ChatClientTest {
             socket.send(JSON.stringify(Message::class.serializer(), messageSent))
         }
 
-        val chatClient = ChatClient(fakeURL)
-
-        chatClient.receive {
-            assertEquals(messageSent, it)
-            mockServer.stop()
-            resolve(Unit)
+        ChatClient(fakeURL).apply {
+            start()
+            receive {
+                assertEquals(messageSent, it)
+                mockServer.stop()
+                resolve(Unit)
+            }
         }
     }
 }
