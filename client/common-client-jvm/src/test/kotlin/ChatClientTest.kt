@@ -28,7 +28,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test(timeout = 2000L)
+    @Test(timeout = 5000L)
     fun ensureAStartedConnectionIsOpenedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -42,7 +42,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test(timeout = 2000L)
+    @Test(timeout = 5000L)
     fun ensureMessageSendByServerIsReceivedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -67,7 +67,7 @@ class ChatClientTest {
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    @Test(timeout = 2000L)
+    @Test(timeout = 5000L)
     fun ensureSendMessageIsReceivedByServer() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
@@ -80,7 +80,7 @@ class ChatClientTest {
         verify { mockServerWebSocketListener.onMessage(any(), JSON.stringify(Message::class.serializer(), message)) }
     }
 
-    @Test(timeout = 2000L)
+    @Test(timeout = 5000L)
     fun ensureFailureEventIsReceivedByClient() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
