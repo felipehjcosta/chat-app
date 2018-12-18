@@ -72,10 +72,14 @@ class ChatClientTest {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
 
+        Thread.sleep(500L)
+
         verify { mockServerWebSocketListener.onOpen(any(), any()) }
 
         val message = Message("Test", "Hello, WebSockets!")
         chatClient.send(message)
+
+        Thread.sleep(500L)
 
         verify { mockServerWebSocketListener.onMessage(any(), JSON.stringify(Message::class.serializer(), message)) }
     }
@@ -84,6 +88,8 @@ class ChatClientTest {
     fun ensureFailureEventIsReceivedByClient() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
+
+        Thread.sleep(500L)
 
         val mockOnFailure = mockk<(Throwable) -> Unit>()
         chatClient.onFailure(mockOnFailure)
