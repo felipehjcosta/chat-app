@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         chatClient.receive { runOnUiThread { receiveMessage(it) } }
 
         sendButton.setOnClickListener { sendMessage() }
+
+        chatClient.start()
     }
 
     private fun setupRecyclerView() {
