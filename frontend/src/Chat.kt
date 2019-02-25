@@ -1,13 +1,22 @@
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
-import react.*
-import react.dom.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
+import react.dom.br
+import react.dom.button
+import react.dom.div
+import react.dom.hr
+import react.dom.input
+import react.setState
 
 external fun require(module: String): dynamic
 
@@ -23,22 +32,21 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    private lateinit var chatClient: ChatClient
+    private lateinit var chatViewModel: ChatViewModel
 
     init {
         state = State()
     }
 
     override fun componentDidMount() {
-        chatClient = ChatClient("ws://localhost:8080/chat").apply {
-            receive(::receiveMessage)
-            onFailure(::receiveFailure)
-            start()
-        }
+        chatViewModel = ChatViewModel(ChatClient("ws://localhost:8080/chat")).apply {
+            onChat = this@Chat::receiveMessage
+            showFailureMessage = { receiveFailure() }
+        }.also { it.start() }
     }
 
     private fun sendMessage() {
-        chatClient.send(Message(this.state.username, this.state.message))
+        chatViewModel.sendMessage(Message(this.state.username, this.state.message))
     }
 
     private fun receiveMessage(newMessage: Message) {
@@ -48,8 +56,7 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    private fun receiveFailure(throwable: Throwable) {
-        Logger.info("Failure '$throwable'")
+    private fun receiveFailure() {
         setState {
             hasFailure = true
         }
@@ -72,8 +79,10 @@ class Chat : RComponent<RProps, Chat.State>() {
                             }
 
                             div(classes = "card-footer") {
-                                input(type = InputType.text,
-                                        classes = "form-control") {
+                                input(
+                                    type = InputType.text,
+                                    classes = "form-control"
+                                ) {
                                     attrs {
                                         placeholder = "Username"
                                         value = state.username
@@ -87,8 +96,10 @@ class Chat : RComponent<RProps, Chat.State>() {
                                     }
                                 }
                                 br {}
-                                input(type = InputType.text,
-                                        classes = "form-control") {
+                                input(
+                                    type = InputType.text,
+                                    classes = "form-control"
+                                ) {
                                     attrs {
                                         placeholder = "Message"
                                         value = state.message
@@ -125,10 +136,10 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     class State(
-            var username: String = "",
-            var message: String = "",
-            var messages: List<Message> = emptyList(),
-            var hasFailure: Boolean = false
+        var username: String = "",
+        var message: String = "",
+        var messages: List<Message> = emptyList(),
+        var hasFailure: Boolean = false
     ) : RState
 }
 

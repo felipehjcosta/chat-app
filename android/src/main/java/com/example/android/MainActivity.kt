@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.android.synthetic.main.activity_main.message_input as messageInput
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.username_input as usernameIn
 @ImplicitReflectionSerializer
 class MainActivity : AppCompatActivity() {
 
-    private val chatClient = ChatClient("${BuildConfig.CHAT_URL_SERVER}/chat")
+    private val chatViewModel = ChatViewModel(ChatClient("${BuildConfig.CHAT_URL_SERVER}/chat"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
-        chatClient.receive { runOnUiThread { receiveMessage(it) } }
+        chatViewModel.onChat = { runOnUiThread { receiveMessage(it) } }
 
         sendButton.setOnClickListener { sendMessage() }
 
-        chatClient.start()
+        chatViewModel.start()
     }
 
     private fun setupRecyclerView() {
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private fun sendMessage() {
         val author = usernameInput.text.toString()
         val message = messageInput.text.toString()
-        chatClient.send(Message(author, message))
+        chatViewModel.sendMessage(Message(author, message))
         usernameInput.text?.clear()
         messageInput.text?.clear()
     }
