@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
 import okhttp3.*
 
-actual class ChatClient actual constructor(private val url: String) : WebSocketListener() {
+internal actual open class ChatClient actual constructor(private val url: String) : WebSocketListener() {
 
     private var websocketClient: WebSocket? = null
 
@@ -15,7 +15,7 @@ actual class ChatClient actual constructor(private val url: String) : WebSocketL
 
     private var failure: ((Throwable) -> Unit)? = null
 
-    actual fun start() {
+    actual open fun start() {
         val okHttpClient = OkHttpClient.Builder().build()
         val request = Request.Builder().url(url).build()
 
@@ -23,11 +23,11 @@ actual class ChatClient actual constructor(private val url: String) : WebSocketL
     }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
-    actual fun send(message: Message) {
+    actual open fun send(message: Message) {
         websocketClient?.send(JSON.stringify(Message::class.serializer(), message))
     }
 
-    actual fun receive(receiveBlock: (Message) -> Unit) {
+    actual open fun receive(receiveBlock: (Message) -> Unit) {
         receiveMessage = receiveBlock
     }
 
@@ -37,7 +37,7 @@ actual class ChatClient actual constructor(private val url: String) : WebSocketL
         receiveMessage?.let { it(JSON.parse(Message::class.serializer(), text)) }
     }
 
-    actual fun onFailure(throwableBlock: (Throwable) -> Unit) {
+    actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
         failure = throwableBlock
     }
 

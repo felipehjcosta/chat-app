@@ -8,7 +8,7 @@ import kotlinx.serialization.serializer
 import org.w3c.dom.WebSocket
 
 @UseExperimental(ImplicitReflectionSerializer::class)
-actual class ChatClient actual constructor(private val url: String) {
+internal actual open class ChatClient actual constructor(private val url: String) {
 
     private var socket: WebSocket? = null
 
@@ -16,7 +16,7 @@ actual class ChatClient actual constructor(private val url: String) {
 
     private var failure: ((Throwable) -> Unit)? = null
 
-    actual fun start() {
+    actual open fun start() {
         socket = WebSocket(url)
         socket?.onmessage = { event ->
             Logger.info("on message event: $event")
@@ -34,15 +34,15 @@ actual class ChatClient actual constructor(private val url: String) {
         }
     }
 
-    actual fun send(message: Message) {
+    actual open fun send(message: Message) {
         socket?.send(JSON.stringify(message))
     }
 
-    actual fun receive(receiveBlock: (Message) -> Unit) {
+    actual open fun receive(receiveBlock: (Message) -> Unit) {
         receiveMessage = receiveBlock
     }
 
-    actual fun onFailure(throwableBlock: (Throwable) -> Unit) {
+    actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
         failure = throwableBlock
     }
 }
