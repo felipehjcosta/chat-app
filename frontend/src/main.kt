@@ -1,3 +1,4 @@
+import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.logging.Logger
 import com.github.felipehjcosta.chatapp.logging.LoggerAdapter
 import kotlinext.js.require
@@ -14,6 +15,10 @@ fun main(args: Array<String>) {
                 console.log(message)
             }
         }
+    }
+
+    ChatInjector {
+        baseUrl = "ws://localhost:8080/chat"
     }
 
     render(document.getElementById("root")) {

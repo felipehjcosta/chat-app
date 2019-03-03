@@ -1,5 +1,5 @@
 import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.html.InputType
@@ -32,17 +32,18 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    private lateinit var chatViewModel: ChatViewModel
+    private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
 
     init {
         state = State()
     }
 
     override fun componentDidMount() {
-        chatViewModel = ChatViewModel(ChatClient("ws://localhost:8080/chat")).apply {
+        chatViewModel.run {
             onChat = this@Chat::receiveMessage
             showFailureMessage = { receiveFailure() }
-        }.also { it.start() }
+            start()
+        }
     }
 
     private fun sendMessage() {

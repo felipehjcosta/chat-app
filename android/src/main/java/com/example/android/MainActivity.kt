@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
 import kotlinx.serialization.ImplicitReflectionSerializer
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.username_input as usernameIn
 @ImplicitReflectionSerializer
 class MainActivity : AppCompatActivity() {
 
-    private val chatViewModel = ChatViewModel(ChatClient("${BuildConfig.CHAT_URL_SERVER}/chat"))
+    private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
