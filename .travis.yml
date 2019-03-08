@@ -44,6 +44,11 @@ install:
 env:
   - ANDROID_HOME=$HOME/android-sdk
 
-script:
-  - "./gradlew clean test --console=plain"
-
+jobs:
+  include:
+    - stage: "Lint"
+      script:
+        - ./gradlew detekt --console=plain
+    - stage: "Test"
+      script:
+        - ./gradlew test --console=plain
