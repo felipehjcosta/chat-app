@@ -84,9 +84,3 @@ sourceSets {
         resources.srcDirs += "testResources"
     }
 }
-
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
