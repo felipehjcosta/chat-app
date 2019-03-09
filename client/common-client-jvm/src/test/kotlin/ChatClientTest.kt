@@ -5,7 +5,7 @@ import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
 import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import okhttp3.Response
 import okhttp3.WebSocket
@@ -57,7 +57,7 @@ class ChatClientTest {
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
 
         val message = Message("Test", "Hello, WebSockets!")
-        webSocketSlot.captured.send(JSON.stringify(Message::class.serializer(), message))
+        webSocketSlot.captured.send(Json.stringify(Message::class.serializer(), message))
 
         Thread.sleep(500L)
 
@@ -81,7 +81,7 @@ class ChatClientTest {
 
         Thread.sleep(500L)
 
-        verify { mockServerWebSocketListener.onMessage(any(), JSON.stringify(Message::class.serializer(), message)) }
+        verify { mockServerWebSocketListener.onMessage(any(), Json.stringify(Message::class.serializer(), message)) }
     }
 
     @Test(timeout = 5000L)

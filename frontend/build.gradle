@@ -64,6 +64,7 @@ compileKotlin2Js {
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
     kotlinOptions.main = "call"
+    kotlinOptions.allWarningsAsErrors = true
 }
 
 compileTestKotlin2Js {
@@ -71,6 +72,7 @@ compileTestKotlin2Js {
     kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.allWarningsAsErrors = true
 }
 
 sourceSets {

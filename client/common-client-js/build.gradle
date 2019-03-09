@@ -17,6 +17,8 @@ dependencies {
 
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {
     kotlinOptions.moduleKind = "commonjs"
+    kotlinOptions.allWarningsAsErrors = true
+    kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
 }
 
 task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {

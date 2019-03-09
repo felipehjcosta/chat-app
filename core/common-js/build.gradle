@@ -15,5 +15,6 @@ dependencies {
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {
     kotlinOptions {
         moduleKind = 'commonjs'
+        allWarningsAsErrors = true
     }
 }
