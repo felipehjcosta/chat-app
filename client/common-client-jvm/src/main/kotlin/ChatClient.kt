@@ -5,7 +5,11 @@ import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
 
 internal actual open class ChatClient actual constructor(private val url: String) : WebSocketListener() {
 
@@ -34,7 +38,7 @@ internal actual open class ChatClient actual constructor(private val url: String
     @UseExperimental(ImplicitReflectionSerializer::class)
     override fun onMessage(webSocket: WebSocket, text: String) {
         Logger.info("Message Received: $text")
-        receiveMessage?.let { it(JSON.parse(Message::class.serializer(), text)) }
+        receiveMessage?.invoke(JSON.parse(Message::class.serializer(), text))
     }
 
     actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
@@ -43,6 +47,6 @@ internal actual open class ChatClient actual constructor(private val url: String
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Logger.info("WebSocket Failure: $t")
-        failure?.let { it(t) }
+        failure?.invoke(t)
     }
 }
