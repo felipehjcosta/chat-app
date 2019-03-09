@@ -3,7 +3,7 @@ import com.github.felipehjcosta.chatapp.client.ChatClient
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-internal class StubChatClient : ChatClient("") {
+internal class FakeChatClient : ChatClient("") {
 
     private var isStartCalled: Boolean = false
 
