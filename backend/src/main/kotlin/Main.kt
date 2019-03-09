@@ -15,14 +15,12 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
 import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.Collections.synchronizedSet
 
-@ImplicitReflectionSerializer
 fun main() {
     setupLogger()
     setupServer()
@@ -51,6 +49,7 @@ fun setupServer() {
     }.start(wait = true)
 }
 
+
 fun Routing.chat() {
     val wsConnections = synchronizedSet(LinkedHashSet<DefaultWebSocketSession>())
     webSocket("/chat") {
@@ -67,9 +66,10 @@ fun Routing.chat() {
     }
 }
 
-fun handleTextMessage(frame: Frame.Text, wsConnections: Set<DefaultWebSocketSession>) {
+@UseExperimental(kotlinx.serialization.ImplicitReflectionSerializer::class)
+suspend fun handleTextMessage(frame: Frame.Text, wsConnections: Set<DefaultWebSocketSession>) {
     val text = frame.readText()
-    val message = JSON.parse<Message>(text)
+    val message = Json.parse<Message>(text)
     Logger.info("Send message \"${message.message}\" from author \"${message.author}\"")
     wsConnections.forEach { it.outgoing.send(Frame.Text(text)) }
 }

@@ -4,7 +4,7 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.io.IOException
 import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import org.w3c.dom.WebSocket
 
@@ -22,7 +22,7 @@ internal actual open class ChatClient actual constructor(private val url: String
         socket?.onmessage = { event ->
             Logger.info("on message event: $event")
             if (event.type == "message") {
-                receiveMessage?.invoke(JSON.parse(Message::class.serializer(), event.asDynamic().data.toString()))
+                receiveMessage?.invoke(Json.parse(Message::class.serializer(), event.asDynamic().data.toString()))
             } else {
                 Logger.info("message event unhandled")
             }
@@ -34,7 +34,7 @@ internal actual open class ChatClient actual constructor(private val url: String
     }
 
     actual open fun send(message: Message) {
-        socket?.send(JSON.stringify(message))
+        socket?.send(Json.stringify(Message::class.serializer(), message))
     }
 
     actual open fun receive(receiveBlock: (Message) -> Unit) {
