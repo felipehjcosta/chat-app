@@ -1,6 +1,6 @@
 # Chat App
 
-[![Build Status](https://travis-ci.org/felipehjcosta/chat-app.svg?branch=master)](https://travis-ci.org/felipehjcosta/chat-app)
+[![CircleCI](https://circleci.com/gh/felipehjcosta/chat-app.svg?style=svg)](https://circleci.com/gh/felipehjcosta/chat-app)
 
 A chat web app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
 
