@@ -12,7 +12,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-js"
-    testCompile 'org.jetbrains:kotlin-mocha:3.0.1-pre.59-kotlin-1.3.0'
+    testCompile "org.jetbrains:kotlin-mocha:$kotlin_mocha_version"
 }
 
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {
