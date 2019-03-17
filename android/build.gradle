@@ -38,10 +38,6 @@ android {
         preDexLibraries = preDexEnabled && !CIBuild
     }
 
-//    lintOptions {
-//        abortOnError false
-//    }
-
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
