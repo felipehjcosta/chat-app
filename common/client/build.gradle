@@ -1,0 +1,144 @@
+apply plugin: "kotlin-multiplatform"
+apply plugin: 'kotlinx-serialization'
+
+kotlin {
+    jvm {
+        compilations.main.kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+    }
+    js {
+        compilations.main.kotlinOptions {
+            moduleKind = "commonjs"
+            suppressWarnings = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+        compilations.test.kotlinOptions {
+            moduleKind = "commonjs"
+            suppressWarnings = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                api project(":common:core")
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+                implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+                implementation "junit:junit:4.12"
+                implementation "io.mockk:mockk:1.8.13.kotlin13"
+                implementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
+            }
+        }
+
+        jsMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+            }
+        }
+
+        jsTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+                implementation "org.jetbrains:kotlin-mocha:$kotlin_mocha_version"
+            }
+        }
+    }
+
+    // Configure all compilations of all targets:
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                allWarningsAsErrors = true
+            }
+        }
+    }
+}
+
+apply from: file("$rootProject.projectDir/gradleScripts/node_js.gradle")
+apply from: file("$rootProject.projectDir/gradleScripts/test_mocha_js.gradle")
+
+// Workaround the problem with Node downloading
+//repositories.whenObjectAdded {
+//    if (it instanceof IvyArtifactRepository) {
+//        metadataSources {
+//            artifact()
+//        }
+//    }
+//}
+
+//def originalJsFile = "$buildDir/classes/kotlin/js/test/atomicfu_test.js"
+//def transformedJsFile = "$buildDir/classes/kotlin/js/test/atomicfu_test_transformed.js"
+//
+//task transformJS(type: JavaExec, dependsOn: [compileTestKotlinJs]) {
+//    main = "kotlinx.atomicfu.transformer.AtomicFUTransformerJSKt"
+//    args = [originalJsFile, transformedJsFile, true]
+//    classpath = configurations.transformer
+//    inputs.file(originalJsFile)
+//    outputs.file(transformedJsFile)
+//}
+//
+//testMochaNode.dependsOn transformJS
+
+//task populateNodeModules(type: Copy, dependsOn: kotlin.targets.js.compilations.main.compileKotlinTask) {
+//    from kotlin.targets.js.compilations.main.compileKotlinTask.destinationDir
+//
+//    afterEvaluate {
+//        configurations.jsTestRuntimeClasspath.each {
+//            if (it.absolutePath.endsWith(".jar")) {
+//                from zipTree(it.absolutePath).matching {
+//                    include '*.js'
+//                }
+//            }
+//        }
+//    }
+//
+//    into "${buildDir}/node_modules"
+//}
+//
+//node {
+//    version = '8.9.4'
+//    download = true
+//}
+//
+//task installMocha(type: NpmTask) {
+//    args = ['install', 'mocha']
+//}
+//
+//task installMockSocket(type: NpmTask) {
+//    args = ['install', 'mock-socket']
+//}
+//
+//task installDependencies(dependsOn: [installMocha, installMockSocket])
+//
+//task runMocha(type: NodeTask, dependsOn: [kotlin.targets.js.compilations.test.compileKotlinTask, populateNodeModules, installDependencies]) {
+//    script = file('node_modules/mocha/bin/mocha')
+//    args = [kotlin.targets.js.compilations.test.compileKotlinTask.outputFile]
+//}
+//
+//jsTest.dependsOn runMocha

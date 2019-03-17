@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import org.w3c.dom.WebSocket
 import kotlin.js.Promise
+import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,6 +20,11 @@ class ChatClientTest {
     @BeforeTest
     fun setUp() {
     }
+
+//    @AfterTest
+//    fun tearDown() {
+//        mockServer.stop()
+//    }
 
     @UseExperimental(ImplicitReflectionSerializer::class)
     @Test

@@ -27,11 +27,11 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
-    compile "io.ktor:ktor-server-netty:$ktor_version"
-    compile "io.ktor:ktor-websockets:$ktor_version"
-    compile project(":core:common-jvm")
-    compile "ch.qos.logback:logback-classic:$logback_version"
-    testCompile "junit:junit:4.12"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-websockets:$ktor_version"
+    implementation project(":common:core")
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    testImplementation "junit:junit:4.12"
 }

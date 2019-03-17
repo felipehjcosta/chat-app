@@ -1,0 +1,17 @@
+
+task installMockSocket(type: NpmTask, dependsOn: [npmInstall]) {
+    args = ['install', "mocha@$mocha_version"]
+}
+
+// -- Testing with Mocha under Node
+task installDependenciesMochaNode(type: NpmTask, dependsOn: [npmInstall]) {
+    args = ['install', "mocha"]
+}
+
+task testMochaNode(type: NodeTask, dependsOn: [installMockSocket, installDependenciesMochaNode]) {
+    script = file("$node.nodeModulesDir/node_modules/mocha/bin/mocha")
+    args = [kotlin.targets.js.compilations.test.compileKotlinTask.outputFile]
+//    args = [kotlin.targets.js.compilations.test.compileKotlinTask.outputFile, '--require', 'source-map-support/register']
+}
+
+jsTest.dependsOn testMochaNode

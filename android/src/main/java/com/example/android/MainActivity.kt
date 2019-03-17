@@ -7,13 +7,11 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
-import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.android.synthetic.main.activity_main.message_input as messageInput
 import kotlinx.android.synthetic.main.activity_main.messages_recycler_view as messagesRecyclerView
 import kotlinx.android.synthetic.main.activity_main.send_button as sendButton
 import kotlinx.android.synthetic.main.activity_main.username_input as usernameInput
 
-@ImplicitReflectionSerializer
 class MainActivity : AppCompatActivity() {
 
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()

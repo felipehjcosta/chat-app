@@ -1,0 +1,72 @@
+apply plugin: "kotlin-multiplatform"
+apply plugin: 'kotlinx-serialization'
+
+kotlin {
+    jvm {
+        compilations.main.kotlinOptions {
+            jvmTarget = "1.8"
+            allWarningsAsErrors = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+        compilations.test.kotlinOptions {
+            jvmTarget = "1.8"
+            allWarningsAsErrors = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+    }
+    js {
+        compilations.main.kotlinOptions {
+            moduleKind = "commonjs"
+            allWarningsAsErrors = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+        compilations.test.kotlinOptions {
+            moduleKind = "commonjs"
+            allWarningsAsErrors = true
+            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+            }
+        }
+
+        jsMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+            }
+        }
+
+        jsTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+            }
+        }
+    }
+}

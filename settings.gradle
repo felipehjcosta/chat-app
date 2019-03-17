@@ -12,12 +12,15 @@ pluginManagement {
             if (requested.id.id == "kotlin-platform-js") {
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
             }
+
+            if (requested.id.id == "kotlinx-serialization") {
+                useModule("org.jetbrains.kotlin:kotlin-serialization:${requested.version}")
+            }
         }
     }
 }
 rootProject.name = 'chatapp'
-include ':core:common', ':core:common-jvm', ':core:common-js'
-include ':client:common-client', ':client:common-client-jvm', ':client:common-client-js'
+include ':common:core', ':common:client'
 include ':backend'
 include ':frontend'
 include ':android'

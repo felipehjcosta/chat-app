@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    compile project(":client:common-client-js")
+    implementation project(":common:client")
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_js_version"
     compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
