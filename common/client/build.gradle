@@ -11,12 +11,10 @@ kotlin {
     js {
         compilations.main.kotlinOptions {
             moduleKind = "commonjs"
-            suppressWarnings = true
             freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
         compilations.test.kotlinOptions {
             moduleKind = "commonjs"
-            suppressWarnings = true
             freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
     }
