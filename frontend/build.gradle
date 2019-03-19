@@ -23,9 +23,7 @@ dependencies {
 }
 
 kotlinFrontend {
-// uncomment this to specify exact nodejs version (bundle will be downloaded)
-//    downloadNodeJsVersion = "8.7.0"
-    downloadNodeJsVersion = '9.3.0'
+    downloadNodeJsVersion = "$node_version"
 
     sourceMaps = true
 
