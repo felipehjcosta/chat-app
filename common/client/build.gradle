@@ -78,5 +78,5 @@ kotlin {
     }
 }
 
-apply from: file("$rootProject.projectDir/gradleScripts/node_js.gradle")
-apply from: file("$rootProject.projectDir/gradleScripts/test_mocha_js.gradle")
+apply from: file("$rootProject.projectDir/gradle/node_js.gradle")
+apply from: file("$rootProject.projectDir/gradle/test_mocha_js.gradle")

@@ -1,4 +1,4 @@
-apply from: './gradleScripts/my_ip.gradle'
+apply from: './gradle/my_ip.gradle'
 
 buildscript {
 
