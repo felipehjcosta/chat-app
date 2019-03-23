@@ -5,6 +5,8 @@ import com.github.felipehjcosta.chatapp.logging.Logger
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onKeyUpFunction
+import org.w3c.dom.Element
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import react.RBuilder
@@ -14,6 +16,7 @@ import react.RState
 import react.dom.br
 import react.dom.button
 import react.dom.div
+import react.dom.findDOMNode
 import react.dom.hr
 import react.dom.input
 import react.setState
@@ -24,6 +27,7 @@ class Chat : RComponent<RProps, Chat.State>() {
 
     private val sendButtonHandler: (Event) -> Unit = {
         it.preventDefault()
+        sendButtonElement.asDynamic().blur()
         sendMessage()
 
         setState {
@@ -33,6 +37,8 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
+    private var messageInputElement: Element? = null
+    private var sendButtonElement: Element? = null
 
     init {
         state = State()
@@ -94,13 +100,25 @@ class Chat : RComponent<RProps, Chat.State>() {
                                                 username = value
                                             }
                                         }
+
+                                        onKeyUpFunction = {
+                                            if (it.asDynamic().key == "Enter") {
+                                                it.preventDefault()
+                                                messageInputElement.asDynamic().focus()
+                                            }
+
+                                        }
                                     }
                                 }
                                 br {}
                                 input(
                                     type = InputType.text,
+                                    name = "message",
                                     classes = "form-control"
                                 ) {
+                                    ref {
+                                        messageInputElement = findDOMNode(it)
+                                    }
                                     attrs {
                                         placeholder = "Message"
                                         value = state.message
@@ -110,11 +128,23 @@ class Chat : RComponent<RProps, Chat.State>() {
                                                 message = value
                                             }
                                         }
+
+                                        onKeyUpFunction = {
+                                            if (it.asDynamic().key == "Enter") {
+                                                it.preventDefault()
+                                                sendButtonElement.asDynamic().click()
+                                                messageInputElement.asDynamic().blur()
+                                            }
+                                        }
                                     }
                                 }
                                 br {}
                                 button(classes = "btn btn-primary form-control") {
                                     +"Send"
+
+                                    ref {
+                                        sendButtonElement = findDOMNode(it)
+                                    }
 
                                     attrs {
                                         onClickFunction = sendButtonHandler
