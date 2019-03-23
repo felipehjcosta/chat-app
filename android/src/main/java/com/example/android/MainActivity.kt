@@ -1,6 +1,10 @@
 package com.example.android
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.felipehjcosta.chatapp.Message
@@ -11,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.message_input as messageInpu
 import kotlinx.android.synthetic.main.activity_main.messages_recycler_view as messagesRecyclerView
 import kotlinx.android.synthetic.main.activity_main.send_button as sendButton
 import kotlinx.android.synthetic.main.activity_main.username_input as usernameInput
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +30,15 @@ class MainActivity : AppCompatActivity() {
         chatViewModel.onChat = { runOnUiThread { receiveMessage(it) } }
 
         sendButton.setOnClickListener { sendMessage() }
+        messageInput.setOnEditorActionListener { _, actionId, _ ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    sendMessage()
+                    true
+                }
+                else -> false
+            }
+        }
 
         chatViewModel.start()
     }
@@ -43,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
+        hideKeyboard()
         val author = usernameInput.text.toString()
         val message = messageInput.text.toString()
         chatViewModel.sendMessage(Message(author, message))
@@ -55,6 +70,13 @@ class MainActivity : AppCompatActivity() {
             bind(android.R.layout.simple_list_item_1) {
                 addExtraItems(listOf(message))
             }
+        }
+    }
+
+    private fun hideKeyboard() {
+        findViewById<View>(android.R.id.content)?.run {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager?
+            imm?.hideSoftInputFromWindow(windowToken, 0)
         }
     }
 }
