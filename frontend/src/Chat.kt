@@ -25,7 +25,45 @@ external fun require(module: String): dynamic
 
 class Chat : RComponent<RProps, Chat.State>() {
 
-    private val sendButtonHandler: (Event) -> Unit = {
+    private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
+
+    private var userNameInputElement: Element? = null
+    private var messageInputElement: Element? = null
+    private var sendButtonElement: Element? = null
+
+    private val userNameInputOnKeyUpHandler: (Event) -> Unit = {
+        if (it.asDynamic().key == "Enter") {
+            it.preventDefault()
+            messageInputElement.asDynamic().focus()
+        }
+    }
+
+    private val messageInputOnKeyUpHandler: (Event) -> Unit = {
+        if (it.asDynamic().key == "Enter") {
+            it.preventDefault()
+            sendButtonElement.asDynamic().click()
+            messageInputElement.asDynamic().blur()
+        }
+    }
+
+    private val userNameInputOnChangeHandler: (Event) -> Unit = {
+        it.target.unsafeCast<HTMLInputElement>().value.run {
+            setState {
+                username = this@run
+            }
+        }
+
+    }
+
+    private val messageInputOnChangeHandler: (Event) -> Unit = {
+        it.target.unsafeCast<HTMLInputElement>().value.run {
+            setState {
+                message = this@run
+            }
+        }
+    }
+
+    private val sendButtonOnClickHandler: (Event) -> Unit = {
         it.preventDefault()
         sendButtonElement.asDynamic().blur()
         sendMessage()
@@ -35,11 +73,6 @@ class Chat : RComponent<RProps, Chat.State>() {
             message = ""
         }
     }
-
-    private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
-    private var messageInputElement: Element? = null
-    private var sendButtonElement: Element? = null
-
     init {
         state = State()
     }
@@ -90,24 +123,16 @@ class Chat : RComponent<RProps, Chat.State>() {
                                     type = InputType.text,
                                     classes = "form-control"
                                 ) {
+
+                                    ref {
+                                        userNameInputElement = findDOMNode(it)
+                                    }
+
                                     attrs {
                                         placeholder = "Username"
                                         value = state.username
-                                        onChangeFunction = {
-
-                                            val value = it.target.unsafeCast<HTMLInputElement>().value
-                                            setState {
-                                                username = value
-                                            }
-                                        }
-
-                                        onKeyUpFunction = {
-                                            if (it.asDynamic().key == "Enter") {
-                                                it.preventDefault()
-                                                messageInputElement.asDynamic().focus()
-                                            }
-
-                                        }
+                                        onChangeFunction = userNameInputOnChangeHandler
+                                        onKeyUpFunction = userNameInputOnKeyUpHandler
                                     }
                                 }
                                 br {}
@@ -116,26 +141,16 @@ class Chat : RComponent<RProps, Chat.State>() {
                                     name = "message",
                                     classes = "form-control"
                                 ) {
+
                                     ref {
                                         messageInputElement = findDOMNode(it)
                                     }
+
                                     attrs {
                                         placeholder = "Message"
                                         value = state.message
-                                        onChangeFunction = {
-                                            val value = it.target.unsafeCast<HTMLInputElement>().value
-                                            setState {
-                                                message = value
-                                            }
-                                        }
-
-                                        onKeyUpFunction = {
-                                            if (it.asDynamic().key == "Enter") {
-                                                it.preventDefault()
-                                                sendButtonElement.asDynamic().click()
-                                                messageInputElement.asDynamic().blur()
-                                            }
-                                        }
+                                        onChangeFunction = messageInputOnChangeHandler
+                                        onKeyUpFunction = messageInputOnKeyUpHandler
                                     }
                                 }
                                 br {}
@@ -147,7 +162,7 @@ class Chat : RComponent<RProps, Chat.State>() {
                                     }
 
                                     attrs {
-                                        onClickFunction = sendButtonHandler
+                                        onClickFunction = sendButtonOnClickHandler
                                         disabled = state.hasFailure
                                     }
 
