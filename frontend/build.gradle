@@ -12,14 +12,14 @@ repositories {
 
 dependencies {
     implementation project(":common:client")
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_js_version"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
-    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
-    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version" // for now only compile configuration is supported
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_js_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
 
-    compile "org.jetbrains:kotlin-react:$kotlin_react_version"
-    compile "org.jetbrains:kotlin-react-dom:$kotlin_react_dom_version"
+    implementation "org.jetbrains:kotlin-react:$kotlin_react_version"
+    implementation "org.jetbrains:kotlin-react-dom:$kotlin_react_dom_version"
+    
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
 kotlinFrontend {
