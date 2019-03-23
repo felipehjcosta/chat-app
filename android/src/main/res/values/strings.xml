@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">chat-app</string>
+    <string name="username_input_hint">Username</string>
+    <string name="message_input_hint">Message</string>
+    <string name="send_button_text">Send</string>
 </resources>

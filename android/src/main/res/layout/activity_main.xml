@@ -24,7 +24,7 @@
             android:id="@+id/username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:hint="@string/username_input_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,13 +35,13 @@
             android:id="@+id/message_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Message" />
+            android:hint="@string/message_input_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/send_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send" />
+        android:text="@string/send_button_text" />
 
 </LinearLayout>
