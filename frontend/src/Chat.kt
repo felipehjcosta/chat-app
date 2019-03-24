@@ -31,48 +31,6 @@ class Chat : RComponent<RProps, Chat.State>() {
     private var messageInputElement: Element? = null
     private var sendButtonElement: Element? = null
 
-    private val userNameInputOnKeyUpHandler: (Event) -> Unit = {
-        if (it.asDynamic().key == "Enter") {
-            it.preventDefault()
-            messageInputElement.asDynamic().focus()
-        }
-    }
-
-    private val messageInputOnKeyUpHandler: (Event) -> Unit = {
-        if (it.asDynamic().key == "Enter") {
-            it.preventDefault()
-            sendButtonElement.asDynamic().click()
-            messageInputElement.asDynamic().blur()
-        }
-    }
-
-    private val userNameInputOnChangeHandler: (Event) -> Unit = {
-        it.target.unsafeCast<HTMLInputElement>().value.run {
-            setState {
-                username = this@run
-            }
-        }
-
-    }
-
-    private val messageInputOnChangeHandler: (Event) -> Unit = {
-        it.target.unsafeCast<HTMLInputElement>().value.run {
-            setState {
-                message = this@run
-            }
-        }
-    }
-
-    private val sendButtonOnClickHandler: (Event) -> Unit = {
-        it.preventDefault()
-        sendButtonElement.asDynamic().blur()
-        sendMessage()
-
-        setState {
-            username = ""
-            message = ""
-        }
-    }
     init {
         state = State()
     }
@@ -102,83 +60,118 @@ class Chat : RComponent<RProps, Chat.State>() {
         }
     }
 
-    override fun RBuilder.render() {
-        div(classes = "container") {
-            div(classes = "row") {
-                div(classes = "col-4") {
-                    div(classes = "card") {
-                        div(classes = "card-body") {
-                            div(classes = "card-title") { +"Global Chat" }
-                            hr {}
-                            div(classes = "messages") {
-                                state.messages.map {
-                                    div {
-                                        +"${it.author}: ${it.message}"
-                                    }
-                                }
-                            }
+    private fun userNameInputOnKeyUpHandler(event: Event) {
+        if (event.asDynamic().key == "Enter") {
+            event.preventDefault()
+            messageInputElement.asDynamic().focus()
+        }
+    }
 
-                            div(classes = "card-footer") {
-                                input(
-                                    type = InputType.text,
-                                    classes = "form-control"
-                                ) {
+    private fun messageInputOnKeyUpHandler(event: Event) {
+        if (event.asDynamic().key == "Enter") {
+            event.preventDefault()
+            sendButtonElement.asDynamic().click()
+            messageInputElement.asDynamic().blur()
+        }
+    }
 
-                                    ref {
-                                        userNameInputElement = findDOMNode(it)
-                                    }
-
-                                    attrs {
-                                        placeholder = "Username"
-                                        value = state.username
-                                        onChangeFunction = userNameInputOnChangeHandler
-                                        onKeyUpFunction = userNameInputOnKeyUpHandler
-                                    }
-                                }
-                                br {}
-                                input(
-                                    type = InputType.text,
-                                    name = "message",
-                                    classes = "form-control"
-                                ) {
-
-                                    ref {
-                                        messageInputElement = findDOMNode(it)
-                                    }
-
-                                    attrs {
-                                        placeholder = "Message"
-                                        value = state.message
-                                        onChangeFunction = messageInputOnChangeHandler
-                                        onKeyUpFunction = messageInputOnKeyUpHandler
-                                    }
-                                }
-                                br {}
-                                button(classes = "btn btn-primary form-control") {
-                                    +"Send"
-
-                                    ref {
-                                        sendButtonElement = findDOMNode(it)
-                                    }
-
-                                    attrs {
-                                        onClickFunction = sendButtonOnClickHandler
-                                        disabled = state.hasFailure
-                                    }
-
-                                }
-
-                            }
-                            if (state.hasFailure) {
-                                div(classes = "alert alert-danger") {
-                                    +"Connection with the server failed."
-                                }
-                            }
-                        }
-                    }
-                }
+    private fun userNameInputOnChangeHandler(event: Event) {
+        event.target.unsafeCast<HTMLInputElement>().value.run {
+            setState {
+                username = this@run
             }
         }
+    }
+
+    private fun messageInputOnChangeHandler(event: Event) {
+        event.target.unsafeCast<HTMLInputElement>().value.run {
+            setState {
+                message = this@run
+            }
+        }
+    }
+
+    private fun sendButtonOnClickHandler(event: Event) {
+        event.preventDefault()
+        sendButtonElement.asDynamic().blur()
+        sendMessage()
+
+        setState {
+            username = ""
+            message = ""
+        }
+    }
+
+    private fun RBuilder.renderTitle() = div(classes = "card-title") { +"Global Chat" }
+
+    private fun RBuilder.renderUserNameInput() {
+        input(
+            type = InputType.text,
+            classes = "form-control"
+        ) {
+
+            ref {
+                userNameInputElement = findDOMNode(it)
+            }
+
+            attrs {
+                placeholder = "Username"
+                value = state.username
+                onChangeFunction = ::userNameInputOnChangeHandler
+                onKeyUpFunction = ::userNameInputOnKeyUpHandler
+            }
+        }
+    }
+
+    private fun RBuilder.renderMessageInput() {
+        input(
+            type = InputType.text,
+            name = "message",
+            classes = "form-control"
+        ) {
+
+            ref {
+                messageInputElement = findDOMNode(it)
+            }
+
+            attrs {
+                placeholder = "Message"
+                value = state.message
+                onChangeFunction = ::messageInputOnChangeHandler
+                onKeyUpFunction = ::messageInputOnKeyUpHandler
+            }
+        }
+    }
+
+    private fun RBuilder.renderSendButton() {
+        button(classes = "btn btn-primary form-control") {
+            +"Send"
+
+            ref {
+                sendButtonElement = findDOMNode(it)
+            }
+
+            attrs {
+                onClickFunction = ::sendButtonOnClickHandler
+                disabled = state.hasFailure
+            }
+
+        }
+    }
+
+    override fun RBuilder.render() {
+        renderTitle()
+        hr {}
+        messages(state.messages)
+
+        div(classes = "card-footer") {
+            renderUserNameInput()
+            br {}
+            renderMessageInput()
+            br {}
+            renderSendButton()
+        }
+        connectionAlert(state.hasFailure)
     }
 
     class State(

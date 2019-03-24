@@ -1,15 +1,17 @@
 import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
 import react.dom.div
 
-class App : RComponent<RProps, RState>() {
-    override fun RBuilder.render() {
-        div("App") {
-            chat()
+fun RBuilder.app() = div("App") {
+    div(classes = "container") {
+        div(classes = "row") {
+            div(classes = "col-4") {
+                div(classes = "card") {
+                    div(classes = "card-body") {
+                        chat()
+                    }
+                }
+            }
         }
     }
 }
 
-fun RBuilder.app() = child(App::class) {}
