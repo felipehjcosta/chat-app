@@ -64,6 +64,7 @@ jobs:
     - run:
         name: Run Tests
         command: ./gradlew test -x testReleaseUnitTest --console=plain -Dorg.gradle.parallel=false
+        no_output_timeout: 15m
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
