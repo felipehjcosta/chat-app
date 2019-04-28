@@ -17,7 +17,7 @@ reference:
   generate_cache_key: &generate_cache_key
     run:
       name: Generate cache key
-      command: ./checksum.sh /tmp/checksum.txt
+      command: ./.circleci/checksum.sh /tmp/checksum.txt
 
   gradle_key: &gradle_key
                 gradle-{{ checksum "/tmp/checksum.txt" }}
