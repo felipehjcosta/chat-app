@@ -9,7 +9,7 @@ reference:
   android_config: &android_config
     working_directory: *workspace
     docker:
-    - image: circleci/android:api-28
+    - image: circleci/android:api-28-node
     environment:
       JVM_OPTS: -Xmx3200m
 
