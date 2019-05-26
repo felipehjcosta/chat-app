@@ -78,10 +78,5 @@ kotlin {
     }
 }
 
-// workaround for https://youtrack.jetbrains.com/issue/KT-27170
-configurations {
-    compileClasspath
-}
-
 apply from: file("$rootProject.projectDir/gradle/node_js.gradle")
 apply from: file("$rootProject.projectDir/gradle/test_mocha_js.gradle")

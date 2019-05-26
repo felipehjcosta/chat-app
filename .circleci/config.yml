@@ -82,7 +82,7 @@ jobs:
     - *save_gradle_cache
     - run:
         name: "Assemble"
-        command: ./gradlew assemble --console=plain -Dorg.gradle.parallel=false
+        command: ./gradlew assemble -x lint -x lintVitalRelease --console=plain -Dorg.gradle.parallel=false
 
 workflows:
   version: 2
