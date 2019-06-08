@@ -6,28 +6,30 @@ kotlin {
         compilations.main.kotlinOptions {
             jvmTarget = "1.8"
             allWarningsAsErrors = true
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
         compilations.test.kotlinOptions {
             jvmTarget = "1.8"
             allWarningsAsErrors = true
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
     }
     js {
         compilations.main.kotlinOptions {
             moduleKind = "commonjs"
             allWarningsAsErrors = true
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
         compilations.test.kotlinOptions {
             moduleKind = "commonjs"
             allWarningsAsErrors = true
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
     }
 
     sourceSets {
+        all {
+            languageSettings {
+                useExperimentalAnnotation 'kotlin.Experimental'
+                useExperimentalAnnotation 'kotlinx.serialization.UnstableDefault'
+            }
+        }
         commonMain {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'

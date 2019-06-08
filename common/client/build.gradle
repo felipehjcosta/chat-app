@@ -5,21 +5,24 @@ kotlin {
     jvm {
         compilations.main.kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
     }
     js {
         compilations.main.kotlinOptions {
             moduleKind = "commonjs"
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
         compilations.test.kotlinOptions {
             moduleKind = "commonjs"
-            freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
         }
     }
 
     sourceSets {
+        all {
+            languageSettings {
+                useExperimentalAnnotation 'kotlin.Experimental'
+                useExperimentalAnnotation 'kotlinx.serialization.UnstableDefault'
+            }
+        }
         commonMain {
             dependencies {
                 api project(":common:core")
