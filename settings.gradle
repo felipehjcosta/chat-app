@@ -19,6 +19,9 @@ pluginManagement {
         }
     }
 }
+
+enableFeaturePreview("GRADLE_METADATA")
+
 rootProject.name = 'chatapp'
 include ':common:core', ':common:client'
 include ':backend'
