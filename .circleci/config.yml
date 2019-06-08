@@ -53,7 +53,7 @@ jobs:
         name: Run Lint
         command: ./gradlew detekt --console=plain -Dorg.gradle.parallel=false
 
-  test:
+  test_android:
     <<: *android_config
     steps:
     - checkout
@@ -62,8 +62,8 @@ jobs:
     - *android_dependencies
     - *save_gradle_cache
     - run:
-        name: Run Tests
-        command: ./gradlew test -x testReleaseUnitTest --console=plain -Dorg.gradle.parallel=false
+        name:  "Run Android Unit Test"
+        command: ./gradlew testDebugUnitTest --console=plain -Dorg.gradle.parallel=false
         no_output_timeout: 15m
 
   build:
@@ -83,8 +83,8 @@ workflows:
   test_build:
     jobs:
     - lint
-    - test
+    - test_android
     - build:
         requires:
         - lint
-        - test
+        - test_android
