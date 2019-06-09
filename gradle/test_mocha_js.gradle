@@ -1,11 +1,11 @@
 
 task installMockSocket(type: NpmTask, dependsOn: [npmInstall]) {
-    args = ['install', "mocha@$mocha_version"]
+    args = ['install', "mock-socket"]
 }
 
 // -- Testing with Mocha under Node
 task installDependenciesMochaNode(type: NpmTask, dependsOn: [npmInstall]) {
-    args = ['install', "mocha"]
+    args = ['install', "mocha@$mocha_version"]
 }
 
 task testMochaNode(type: NodeTask, dependsOn: [installMockSocket, installDependenciesMochaNode]) {
