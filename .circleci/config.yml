@@ -66,6 +66,19 @@ jobs:
         command: ./gradlew testDebugUnitTest --console=plain -Dorg.gradle.parallel=false
         no_output_timeout: 15m
 
+  test_js:
+    <<: *android_config
+    steps:
+      - checkout
+      - *generate_cache_key
+      - *restore_gradle_cache
+      - *android_dependencies
+      - *save_gradle_cache
+      - run:
+          name:  "Run JS Unit Test"
+          command: ./gradlew jsTest --console=plain -Dorg.gradle.parallel=false
+          no_output_timeout: 15m
+
   build:
     <<: *android_config
     steps:
@@ -84,7 +97,9 @@ workflows:
     jobs:
     - lint
     - test_android
+    - test_js
     - build:
         requires:
         - lint
         - test_android
+        - test_js
