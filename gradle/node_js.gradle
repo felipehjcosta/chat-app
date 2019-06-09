@@ -1,4 +1,3 @@
-
 apply plugin: 'com.moowork.node'
 
 node {
@@ -6,6 +5,16 @@ node {
     npmVersion = "$npm_version"
     download = true
     nodeModulesDir = file(buildDir)
+}
+
+// Workaround the problem with Node downloading:
+// Kotlin plugin uses Gradle-metadata feature which is not compatible with node plugin download implementation
+repositories.whenObjectAdded {
+    if (it instanceof IvyArtifactRepository) {
+        metadataSources {
+            artifact()
+        }
+    }
 }
 
 // Configures testing for JS modules
