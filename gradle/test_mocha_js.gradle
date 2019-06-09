@@ -1,6 +1,6 @@
 
 task installMockSocket(type: NpmTask, dependsOn: [npmInstall]) {
-    args = ['install', "mock-socket"]
+    args = ['install', "mock-socket", "--save-dev"]
 }
 
 // -- Testing with Mocha under Node
