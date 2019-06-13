@@ -22,6 +22,15 @@ kotlin {
             allWarningsAsErrors = true
         }
     }
+    targets {
+        final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
+
+        fromPreset(iOSTarget, 'ios') {
+            binaries {
+                framework('client')
+            }
+        }
+    }
 
     sourceSets {
         all {
@@ -68,6 +77,16 @@ kotlin {
         jsTest {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-js'
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+            }
+        }
+
+        iosTest {
+            dependencies {
             }
         }
     }
