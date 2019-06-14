@@ -149,13 +149,16 @@ jobs:
           command: ./gradlew iosTest --console=plain -Dorg.gradle.parallel=false
 
   build:
-    <<: *android_config
+    <<: *ios_config
     steps:
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *macos_install_android
+      - *macos_prepare_environment_variables
+      - *macos_install_android_dependencies
+      - *macos_generate_cache_key
+      - *macos_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *macos_save_gradle_cache
       - run:
           name: "Assemble"
           command: ./gradlew assemble --console=plain -Dorg.gradle.parallel=false
