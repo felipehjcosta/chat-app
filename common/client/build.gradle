@@ -107,3 +107,13 @@ configurations {
 
 apply from: file("$rootProject.projectDir/gradle/node_js.gradle")
 apply from: file("$rootProject.projectDir/gradle/test_mocha_js.gradle")
+
+task iosTest(dependsOn: 'linkTestDebugExecutableIos') {
+    doLast {
+        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        exec {
+            commandLine 'xcrun', 'simctl', 'spawn', "iPhone Xʀ", binary.absolutePath
+        }
+    }
+}
+tasks.check.dependsOn iosTest
