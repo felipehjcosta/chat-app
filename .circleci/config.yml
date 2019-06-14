@@ -34,8 +34,61 @@ reference:
       - ~/.gradle/wrapper
       - ~/.android/build-cache
 
+  ## MacOS Configurations
+  ios_config: &ios_config
+    working_directory: *workspace
+    macos:
+      xcode: "10.2.0"
+    shell: /bin/bash --login -eo pipefail
+    environment:
+      TERM: dumb
+      JVM_OPTS: -Xmx3200m
+
+  ## MacOS Steps
+  macos_install_android: &macos_install_android
+    run:
+      name: Install Android sdk
+      command: |
+        HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask
+        HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk
+
+  macos_prepare_environment_variables: &macos_prepare_environment_variables
+    run:
+      name: Setup environment variables
+      command: |
+        echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+        echo 'export ANDROID_SDK_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+        echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
+        echo 'export JAVA_HOME=$(/usr/libexec/java_home -V)' >> $BASH_ENV
+
+  macos_install_android_dependencies: &macos_install_android_dependencies
+    run:
+      name: Install Android dependencies
+      command: (yes | sdkmanager "platform-tools" "platforms;android-28" --verbose) || true
+
+  ## MacOS Cache
+  macos_generate_cache_key: &macos_generate_cache_key
+    run:
+      name: Generate cache key
+      command: ./.circleci/checksum.sh /tmp/checksum.txt
+
+  macos_gradle_key: &macos_gradle_key
+                      macos-gradle-{{ checksum "/tmp/checksum.txt" }}
+
+  macos_restore_gradle_cache: &macos_restore_gradle_cache
+    restore_cache:
+      key: *macos_gradle_key
+
+  macos_save_gradle_cache: &macos_save_gradle_cache
+    save_cache:
+      key: *macos_gradle_key
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+        - ~/.android/build-cache
+
   ## Dependencies
-  android_dependencies: &android_dependencies
+  download_android_dependencies: &download_android_dependencies
     run:
       name: Download Android Dependencies
       command: ./gradlew androidDependencies
@@ -47,7 +100,7 @@ jobs:
     - checkout
     - *generate_cache_key
     - *restore_gradle_cache
-    - *android_dependencies
+    - *download_android_dependencies
     - *save_gradle_cache
     - run:
         name: Run Lint
@@ -59,7 +112,7 @@ jobs:
     - checkout
     - *generate_cache_key
     - *restore_gradle_cache
-    - *android_dependencies
+    - *download_android_dependencies
     - *save_gradle_cache
     - run:
         name:  "Run Android Unit Test"
@@ -72,12 +125,27 @@ jobs:
       - checkout
       - *generate_cache_key
       - *restore_gradle_cache
-      - *android_dependencies
+      - *download_android_dependencies
       - *save_gradle_cache
       - run:
           name:  "Run JS Unit Test"
           command: ./gradlew jsTest --console=plain -Dorg.gradle.parallel=false
           no_output_timeout: 15m
+
+  test_ios:
+    <<: *ios_config
+    steps:
+      - checkout
+      - *macos_install_android
+      - *macos_prepare_environment_variables
+      - *macos_install_android_dependencies
+      - *macos_generate_cache_key
+      - *macos_restore_gradle_cache
+      - *download_android_dependencies
+      - *macos_save_gradle_cache
+      - run:
+          name: "Test iOS target"
+          command: ./gradlew iosTest --console=plain -Dorg.gradle.parallel=false
 
   build:
     <<: *android_config
@@ -85,7 +153,7 @@ jobs:
     - checkout
     - *generate_cache_key
     - *restore_gradle_cache
-    - *android_dependencies
+    - *download_android_dependencies
     - *save_gradle_cache
     - run:
         name: "Assemble"
@@ -98,8 +166,10 @@ workflows:
     - lint
     - test_android
     - test_js
+    - test_ios
     - build:
         requires:
         - lint
         - test_android
         - test_js
+        - test_ios
