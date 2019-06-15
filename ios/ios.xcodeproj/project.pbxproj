@@ -14,6 +14,8 @@
 		D5AA2E8722B47D1100EDD654 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA2E8522B47D1100EDD654 /* LaunchScreen.storyboard */; };
 		D5AA2E9222B47D1100EDD654 /* iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA2E9122B47D1100EDD654 /* iosTests.swift */; };
 		D5AA2E9D22B47D1100EDD654 /* iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA2E9C22B47D1100EDD654 /* iosUITests.swift */; };
+		D5AA2EAC22B48D3200EDD654 /* client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5AA2EAB22B48D3200EDD654 /* client.framework */; };
+		D5AA2EAD22B48D3200EDD654 /* client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5AA2EAB22B48D3200EDD654 /* client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D5AA2EAE22B48D3200EDD654 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D5AA2EAD22B48D3200EDD654 /* client.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D5AA2E7922B47D1000EDD654 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AA2E7C22B47D1000EDD654 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +63,8 @@
 		D5AA2E9822B47D1100EDD654 /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AA2E9C22B47D1100EDD654 /* iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosUITests.swift; sourceTree = "<group>"; };
 		D5AA2E9E22B47D1100EDD654 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5AA2EAA22B48D1800EDD654 /* xcode-frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "xcode-frameworks"; path = "../common/client/build/xcode-frameworks"; sourceTree = "<group>"; };
+		D5AA2EAB22B48D3200EDD654 /* client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = client.framework; path = "../common/client/build/xcode-frameworks/client.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5AA2EAC22B48D3200EDD654 /* client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +96,8 @@
 		D5AA2E7022B47D1000EDD654 = {
 			isa = PBXGroup;
 			children = (
+				D5AA2EAB22B48D3200EDD654 /* client.framework */,
+				D5AA2EAA22B48D1800EDD654 /* xcode-frameworks */,
 				D5AA2E7B22B47D1000EDD654 /* ios */,
 				D5AA2E9022B47D1100EDD654 /* iosTests */,
 				D5AA2E9B22B47D1100EDD654 /* iosUITests */,
@@ -132,9 +153,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5AA2EA122B47D1100EDD654 /* Build configuration list for PBXNativeTarget "ios" */;
 			buildPhases = (
+				D5AA2EAF22B48D3E00EDD654 /* ShellScript */,
 				D5AA2E7522B47D1000EDD654 /* Sources */,
 				D5AA2E7622B47D1000EDD654 /* Frameworks */,
 				D5AA2E7722B47D1000EDD654 /* Resources */,
+				D5AA2EAE22B48D3200EDD654 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,6 +273,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D5AA2EAF22B48D3E00EDD654 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../common/client/build/xcode-frameworks\"\n./gradlew :common:client:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D5AA2E7522B47D1000EDD654 /* Sources */ = {
@@ -441,6 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -458,6 +502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
