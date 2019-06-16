@@ -1,5 +1,8 @@
 apply plugin: "kotlin-multiplatform"
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
+
+version = "0.1.0"
 
 kotlin {
     jvm {
@@ -23,6 +26,13 @@ kotlin {
                 framework('client')
             }
         }
+    }
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "chat-client"
+        homepage = "https://github.com/felipehjcosta"
+
+        pod("Starscream", "~> 3.0.2")
     }
 
     sourceSets {
