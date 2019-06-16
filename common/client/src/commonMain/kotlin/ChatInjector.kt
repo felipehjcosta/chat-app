@@ -1,8 +1,11 @@
 package com.github.felipehjcosta.chatapp.client
 
+import kotlin.native.concurrent.ThreadLocal
+
+@ThreadLocal
 object ChatInjector {
 
-    private var baseUrl: String = ""
+    var baseUrl: String = ""
 
     operator fun invoke(block: ChatInjectorConfiguration.() -> Unit) {
         this@ChatInjector.baseUrl = ChatInjectorConfiguration().apply(block).baseUrl
