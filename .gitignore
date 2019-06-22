@@ -179,6 +179,7 @@ xcuserdata
 
 # CocoaPods
 Pods/
+Podfile.lock
 
 # Carthage
 Carthage/Checkouts
