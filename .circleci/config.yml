@@ -146,7 +146,7 @@ jobs:
       - *macos_save_gradle_cache
       - run:
           name: "Test iOS target"
-          command: ./gradlew iosTest --console=plain -Dorg.gradle.parallel=false
+          command: ./run-native-ios-tests.sh
 
   build:
     <<: *ios_config
