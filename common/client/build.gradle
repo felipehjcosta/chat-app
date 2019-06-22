@@ -118,11 +118,16 @@ configurations {
 apply from: file("$rootProject.projectDir/gradle/node_js.gradle")
 apply from: file("$rootProject.projectDir/gradle/test_mocha_js.gradle")
 
-task iosTest(dependsOn: 'linkTestDebugExecutableIos') {
+task iosTest {
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone Xʀ"
+    dependsOn 'linkTestDebugExecutableIos'
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'ios' on an iOS simulator"
+
     doLast {
-        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        def binary = kotlin.targets.ios.binaries.getExecutable('test', 'DEBUG').outputFile
         exec {
-            commandLine 'xcrun', 'simctl', 'spawn', "iPhone Xʀ", binary.absolutePath
+            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
         }
     }
 }
