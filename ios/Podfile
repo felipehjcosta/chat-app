@@ -6,12 +6,12 @@ target 'ios' do
   use_frameworks!
 
   # Pods for ios
-  pod 'client', :path => '/Users/felipecosta/github/chat-app/common/client'
+  pod 'client', :path => '../common/client'
 
   target 'iosTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'clientTest', :path => '/Users/felipecosta/github/chat-app/common/client'
+    pod 'clientTest', :path => '../common/client'
   end
 
   target 'iosUITests' do
