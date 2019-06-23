@@ -145,6 +145,13 @@ jobs:
       - *download_android_dependencies
       - *macos_save_gradle_cache
       - run:
+          name: Fetch CocoaPods Specs
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - run:
+          name: Install CocoaPods
+          command: pod install --verbose
+      - run:
           name: "Test iOS target"
           command: ./run-native-ios-tests.sh
 
