@@ -151,6 +151,12 @@ typings/
 .next
 
 
+### Xcode ###
+build
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata
+
 ## Build generated
 build/
 DerivedData
