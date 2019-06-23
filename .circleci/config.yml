@@ -153,7 +153,7 @@ jobs:
           command: pod --project-directory="ios" install --verbose
       - run:
           name: "Test iOS target"
-          command: ./run-native-ios-tests.sh
+          command: xcodebuild -workspace "ios/ios.xcworkspace" -scheme ios -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone Xʀ,OS=12.2" test
 
   build:
     <<: *ios_config
