@@ -19,7 +19,7 @@ if [ "$EARLIER_VERSION" != "$REQUIRED_POD_VERSION" ]; then
 fi
 
 # Prepare Kotlin/Native project to be consumed by CocoaPods.
-"$KOTLIN_DIR/gradlew" -p "$KOTLIN_DIR" podspec
+#"$KOTLIN_DIR/gradlew" -p "$KOTLIN_DIR" podspec
 
 # Run CocoaPods to configure the Xcode project.
 pod --project-directory="$IOS_DIR" install
