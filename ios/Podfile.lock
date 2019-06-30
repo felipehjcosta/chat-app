@@ -1,0 +1,29 @@
+PODS:
+  - client (0.1.0):
+    - Starscream (~> 3.0.2)
+  - clientTest (0.1.0):
+    - Starscream (~> 3.0.2)
+  - Starscream (3.0.6)
+
+DEPENDENCIES:
+  - client (from `../common/client`)
+  - clientTest (from `../common/client`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Starscream
+
+EXTERNAL SOURCES:
+  client:
+    :path: "../common/client"
+  clientTest:
+    :path: "../common/client"
+
+SPEC CHECKSUMS:
+  client: d776acb40fa904a9851902ac339e108a3e58bc78
+  clientTest: d6026fe900d36b32f3ddfe2e0bc1e88dc0dcc18c
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+
+PODFILE CHECKSUM: 5eb2ef2007b5e03dd24be529fec37f689e9ecf91
+
+COCOAPODS: 1.6.1
