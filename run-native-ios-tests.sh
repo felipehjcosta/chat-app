@@ -18,8 +18,8 @@ if [ "$EARLIER_VERSION" != "$REQUIRED_POD_VERSION" ]; then
     exit 1
 fi
 
-# Prepare Kotlin/Native project to be consumed by CocoaPods.
-#"$KOTLIN_DIR/gradlew" -p "$KOTLIN_DIR" podspec
+# Generate dummy framework bo be consumed by Xcode.
+"$KOTLIN_DIR/gradlew" -p "$KOTLIN_DIR" generateDummyFramework
 
 # Run CocoaPods to configure the Xcode project.
 pod --project-directory="$IOS_DIR" install
