@@ -15,7 +15,7 @@ target 'ios' do
   end
 
   target 'iosUITests' do
-    inherit! :complete
+    inherit! :search_paths
     # Pods for testing
   end
 end
