@@ -152,7 +152,33 @@ jobs:
           name: "Test iOS target"
           command: ./run-native-ios-tests.sh
 
-  build:
+  build_android:
+    <<: *android_config
+    steps:
+      - checkout
+      - *docker_generate_cache_key
+      - *docker_restore_gradle_cache
+      - *download_android_dependencies
+      - *docker_save_gradle_cache
+      - run:
+          name:  "Build Android Project"
+          command: ./gradlew :android:assemble --console=plain -Dorg.gradle.parallel=false
+          no_output_timeout: 15m
+
+  build_js:
+    <<: *android_config
+    steps:
+      - checkout
+      - *docker_generate_cache_key
+      - *docker_restore_gradle_cache
+      - *download_android_dependencies
+      - *docker_save_gradle_cache
+      - run:
+          name:  "Build JS Project"
+          command: ./gradlew :frontend:assemble --console=plain -Dorg.gradle.parallel=false
+          no_output_timeout: 15m
+
+  build_ios:
     <<: *ios_config
     steps:
       - checkout
@@ -164,8 +190,12 @@ jobs:
       - *download_android_dependencies
       - *macos_save_gradle_cache
       - run:
-          name: "Assemble"
-          command: ./gradlew assemble --console=plain -Dorg.gradle.parallel=false
+          name: Fetch CocoaPods Specs
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - run:
+          name: "Build iOS Project"
+          command: ./build-native-ios.sh
 
 workflows:
   version: 2
@@ -175,9 +205,15 @@ workflows:
       - test_android
       - test_js
       - test_ios
-      - build:
+      - build_android:
           requires:
             - lint
             - test_android
+      - build_js:
+          requires:
+            - lint
             - test_js
+      - build_ios:
+          requires:
+            - lint
             - test_ios
