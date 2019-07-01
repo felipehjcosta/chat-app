@@ -32,7 +32,7 @@ kotlin {
         summary = "chat-client"
         homepage = "https://github.com/felipehjcosta"
 
-        pod("Starscream", "~> 3.0.2")
+        pod('SocketRocket', '0.5.1')
     }
 
     sourceSets {
