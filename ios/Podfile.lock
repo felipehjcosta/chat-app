@@ -2,9 +2,8 @@ PODS:
   - client (0.1.0):
     - SocketRocket (= 0.5.1)
   - clientTest (0.1.0):
-    - Starscream (~> 3.0.2)
+    - SocketRocket (= 0.5.1)
   - SocketRocket (0.5.1)
-  - Starscream (3.0.6)
 
 DEPENDENCIES:
   - client (from `../common/client`)
@@ -13,7 +12,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SocketRocket
-    - Starscream
 
 EXTERNAL SOURCES:
   client:
@@ -23,9 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   client: dfa76b9054243ca4cf06c506167db28bf0a966df
-  clientTest: d6026fe900d36b32f3ddfe2e0bc1e88dc0dcc18c
+  clientTest: 0ced31de04d697c648ccf101c7e825534997f898
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
-  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
 PODFILE CHECKSUM: 5eb2ef2007b5e03dd24be529fec37f689e9ecf91
 
