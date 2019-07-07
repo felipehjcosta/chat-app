@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import ios
+@testable import test
 
 class iosTests: XCTestCase {
 
@@ -29,6 +30,10 @@ class iosTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testKotlinNativeFramework() {
+        XCTAssertEqual(0, KotlinTestStarterKt.kickOffTest())
     }
 
 }
