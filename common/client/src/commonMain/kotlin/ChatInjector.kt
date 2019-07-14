@@ -15,8 +15,10 @@ object ChatInjector {
         var baseUrl: String = ""
     }
 
+    fun createViewModel(): ChatViewModel = ChatViewModel(ChatClient(ChatInjector.baseUrl))
+
     fun viewModel(): Lazy<ChatViewModel> = lazy {
-        ChatViewModel(ChatClient(ChatInjector.baseUrl))
+        createViewModel()
     }
 
 }
