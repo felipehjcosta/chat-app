@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,101 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="URf-m8-WoL">
+                                <rect key="frame" x="0.0" y="44" width="414" height="683"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="683" id="Lr1-hC-yI4"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5Y5-O0-vG5">
+                                    <size key="itemSize" width="414" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewCell" id="i59-1q-DJv" customClass="CollectionViewCell" customModule="ios" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ou-Ua-GZA">
+                                                    <rect key="frame" x="20" y="15" width="374" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="0ou-Ua-GZA" firstAttribute="top" secondItem="i59-1q-DJv" secondAttribute="topMargin" constant="-29" id="4WN-jL-tsA"/>
+                                            <constraint firstItem="0ou-Ua-GZA" firstAttribute="centerX" secondItem="i59-1q-DJv" secondAttribute="centerX" id="K0d-TZ-4IZ"/>
+                                            <constraint firstItem="0ou-Ua-GZA" firstAttribute="centerY" secondItem="i59-1q-DJv" secondAttribute="centerY" id="QSt-bH-lZH"/>
+                                            <constraint firstItem="0ou-Ua-GZA" firstAttribute="leading" secondItem="i59-1q-DJv" secondAttribute="leadingMargin" id="ZYe-dt-8aw"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="0ou-Ua-GZA" id="Ajk-2x-RtX"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="FIm-J3-cuN"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="oEJ-V6-szb"/>
+                                </connections>
+                            </collectionView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Ed-RT-SbA">
+                                <rect key="frame" x="0.0" y="735" width="414" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ek2-kK-0ao">
+                                <rect key="frame" x="0.0" y="773" width="414" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ma-Rp-ztc">
+                                <rect key="frame" x="0.0" y="811" width="414" height="30"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E8P-bJ-dZl"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="URf-m8-WoL" firstAttribute="leading" secondItem="3Ed-RT-SbA" secondAttribute="leading" id="70h-5x-1wJ"/>
+                            <constraint firstItem="URf-m8-WoL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GTb-gf-hWf"/>
+                            <constraint firstItem="URf-m8-WoL" firstAttribute="trailing" secondItem="3Ed-RT-SbA" secondAttribute="trailing" id="Oij-yB-Taa"/>
+                            <constraint firstItem="3Ed-RT-SbA" firstAttribute="leading" secondItem="Ek2-kK-0ao" secondAttribute="leading" id="Sde-cd-NIJ"/>
+                            <constraint firstAttribute="trailing" secondItem="URf-m8-WoL" secondAttribute="trailing" id="YWe-Ev-7Uv"/>
+                            <constraint firstItem="Ek2-kK-0ao" firstAttribute="top" secondItem="3Ed-RT-SbA" secondAttribute="bottom" constant="8" symbolic="YES" id="dri-jg-CyY"/>
+                            <constraint firstItem="3Ed-RT-SbA" firstAttribute="top" secondItem="URf-m8-WoL" secondAttribute="bottom" constant="8" symbolic="YES" id="knN-eu-9pv"/>
+                            <constraint firstItem="Ek2-kK-0ao" firstAttribute="leading" secondItem="9Ma-Rp-ztc" secondAttribute="leading" id="lIt-Ko-GtS"/>
+                            <constraint firstItem="URf-m8-WoL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="njD-el-5Fp"/>
+                            <constraint firstItem="9Ma-Rp-ztc" firstAttribute="top" secondItem="Ek2-kK-0ao" secondAttribute="bottom" constant="8" symbolic="YES" id="p9z-cA-yP4"/>
+                            <constraint firstItem="Ek2-kK-0ao" firstAttribute="trailing" secondItem="9Ma-Rp-ztc" secondAttribute="trailing" id="rjS-RP-gcg"/>
+                            <constraint firstItem="3Ed-RT-SbA" firstAttribute="trailing" secondItem="Ek2-kK-0ao" secondAttribute="trailing" id="vaY-zx-qOb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="URf-m8-WoL" id="xPV-np-GVz"/>
+                        <outlet property="messageTextField" destination="Ek2-kK-0ao" id="xRj-re-RUc"/>
+                        <outlet property="usernameTextField" destination="3Ed-RT-SbA" id="FiZ-rg-cuu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
     </scenes>
 </document>
