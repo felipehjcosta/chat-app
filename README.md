@@ -23,8 +23,24 @@ Use the command below.
 ### Android
 Use the command below (You need a connected device or a virtual device).
 ```
-./gradlew assembleDebug installDebug
+./gradlew installDebug
 ```
+
+You can use IntelliJ IDE to run
+
+### iOS
+Follow steps below in order to run iOS version:
+
+1. Install `Xcode 10.2`
+2. Install CocoaPods 1.6.1: 
+```
+gem install cocoapods -v 1.6.1
+```
+3. Run CocoaPods to configure the Xcode project:
+```
+pod --project-directory="ios" install
+```
+4. Open `ios/ios.xcworkspace` with Xcode
 
 License
 -------
