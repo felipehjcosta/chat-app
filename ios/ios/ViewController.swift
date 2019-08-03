@@ -25,17 +25,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         chatViewModel = ChatInjector.init().createViewModel()
         chatViewModel?.start()
 
-        chatViewModel?.onChat = { (message) -> KotlinUnit in
+        chatViewModel?.onChat = { (message) -> Void in
             print(">>> messge: \(message)")
             self.messages.append(message)
             let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
             self.collectionView.insertItems(at: [indexPath])
-            return KotlinUnit()
         }
         
-        chatViewModel?.showFailureMessage = { (showFailureMessage) -> KotlinUnit in
+        chatViewModel?.showFailureMessage = { (showFailureMessage) -> Void in
             print(">>> showFailureMessage: \(showFailureMessage)")
-            return KotlinUnit()
         }
     }
     
