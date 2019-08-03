@@ -1,86 +1,63 @@
 group 'com.github.felipehjcosta'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'kotlin2js'
+apply plugin: "org.jetbrains.kotlin.js"
 apply plugin: 'kotlin-dce-js'
-apply plugin: 'org.jetbrains.kotlin.frontend'
-apply plugin: 'kotlinx-serialization'
 
 repositories {
     maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
 }
 
-dependencies {
-    implementation project(":common:client")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_js_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
-
-    implementation "org.jetbrains:kotlin-react:$kotlin_react_version"
-    implementation "org.jetbrains:kotlin-react-dom:$kotlin_react_dom_version"
-    
-    testImplementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-}
-
-kotlinFrontend {
-    downloadNodeJsVersion = "$node_version"
-
-    sourceMaps = true
-
-    npm {
-
-        dependency("react")
-        dependency("react-dom")
-        dependency("react-router")
-        dependency("jquery")
-        dependency("react-markdown")
-        dependency("style-loader")
-
-        devDependency("css-loader")
-        devDependency("style-loader")
-        devDependency("babel-loader", "7.1.3")
-        devDependency("babel-core")
-        devDependency("karma")
-        devDependency("svg-react-loader")
+kotlin {
+    target {
+        browser {
+            configure([compilations.main, compilations.test]) {
+                kotlinOptions {
+                    metaInfo = true
+                    sourceMap = true
+                    moduleKind = 'commonjs'
+                    main = "call"
+                    allWarningsAsErrors = true
+                }
+            }
+            webpackTask {
+                runTask {
+                    //todo: use dsl after KT-32016 will be fixed
+                    devServer = new org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfigWriter.DevServer(
+                            true, false, true, true, false,
+                            8081,
+                            ["/api": "http://0.0.0.0:8082"],
+                            ["$projectDir/src/main/resources".toString()]
+                    )
+                }
+            }
+            testTask {
+                useKarma {
+                    usePhantomJS()
+                }
+            }
+        }
     }
+    sourceSets {
+        main {
+            dependencies {
+                implementation project(":common:client")
+                implementation kotlin("stdlib-js")
 
-    webpackBundle {
-        bundleName = "main"
-        sourceMapEnabled = true
-        contentPath = file('web')
-    }
-
-    karma {
-        port = 9876
-        runnerPort = 9100
-    }
-}
-
-compileKotlin2Js {
-    kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
-    kotlinOptions.sourceMap = true
-    kotlinOptions.moduleKind = 'commonjs'
-    kotlinOptions.main = "call"
-    kotlinOptions.allWarningsAsErrors = true
-}
-
-compileTestKotlin2Js {
-    kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
-    kotlinOptions.sourceMap = true
-    kotlinOptions.moduleKind = 'commonjs'
-    kotlinOptions.allWarningsAsErrors = true
-}
-
-sourceSets {
-    main {
-        kotlin.srcDirs += "src"
-        resources.srcDirs += "resources"
-        output.resourcesDir = "build/js/min/"
-    }
-    test {
-        kotlin.srcDirs += "test"
-        resources.srcDirs += "testResources"
+                implementation npm("kotlinx-coroutines-core", "1.2.2")
+                implementation npm("kotlinx-html", "0.6.12")
+                implementation npm("core-js", "^3.1.4")
+                implementation npm("@jetbrains/kotlin-react", "16.8.6-pre.80")
+                implementation npm("@jetbrains/kotlin-react-dom", "16.8.6-pre.80")
+                implementation npm("@jetbrains/kotlin-extensions", "1.0.1-pre.80")
+                implementation npm("react", "16.8.6")
+                implementation npm("react-dom", "16.8.6")
+            }
+        }
+        test {
+            dependencies {
+                implementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+            }
+        }
     }
 }
