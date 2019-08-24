@@ -1,6 +1,8 @@
 import react.RProps
 import react.ReactElement
 
-object empty : ReactElement {
+typealias empty = Empty
+
+object Empty : ReactElement {
     override val props = object : RProps {}
 }
