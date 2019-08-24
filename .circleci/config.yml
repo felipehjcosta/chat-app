@@ -204,7 +204,6 @@ workflows:
       - lint
       - test_android
       - test_js
-      - test_ios
       - build_android:
           requires:
             - lint
@@ -216,4 +215,3 @@ workflows:
       - build_ios:
           requires:
             - lint
-            - test_ios
