@@ -23,7 +23,7 @@ kotlin {
             webpackTask {
                 runTask {
                     //todo: use dsl after KT-32016 will be fixed
-                    devServer = new org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfigWriter.DevServer(
+                    devServer = new org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer(
                             true, false, true, true, false,
                             8081,
                             ["/api": "http://0.0.0.0:8082"],
