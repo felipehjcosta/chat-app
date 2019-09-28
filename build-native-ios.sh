@@ -25,4 +25,4 @@ fi
 pod --project-directory="$IOS_DIR" install
 
 # Run test with Xcode
-xcodebuild -workspace "$IOS_DIR/ios.xcworkspace" -scheme ios -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone Xʀ,OS=12.4"
+xcodebuild -workspace "$IOS_DIR/ios.xcworkspace" -scheme ios -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 11,OS=13.0"
