@@ -21,6 +21,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupKeyboardToHideWhenTappedAround()
         
         chatViewModel = ChatInjector.init().createViewModel()
         chatViewModel?.start()
@@ -56,5 +57,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         chatViewModel?.sendMessage(message: CoreMessage(author: author, message: message))
         usernameTextField.text = nil
         messageTextField.text = nil
+    }
+}
+
+extension ViewController {
+    func setupKeyboardToHideWhenTappedAround() {
+        view.addGestureRecognizer(createKeyboardTapGestureRecognizer())
+    }
+    
+    private func createKeyboardTapGestureRecognizer() -> UITapGestureRecognizer {
+        let keyboardTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        keyboardTapGestureRecognizer.cancelsTouchesInView = false
+        return keyboardTapGestureRecognizer
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
