@@ -27,7 +27,7 @@ struct ChatList: View {
         VStack {
                 List(chatController.messages, id: \.self) {msg in
                         ChatRow(chatMessage: msg)
-                }.background(Color.red)
+                }
             HStack {
                 VStack {
                     TextField("Author...", text: $composedAuthor)
@@ -57,7 +57,7 @@ struct ChatRow: View {
                 Text(":")
                 Text(chatMessage.message)
             }
-        }.background(Color.yellow)
+        }
     }
 }
 
