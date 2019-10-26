@@ -11,7 +11,6 @@ target 'ios' do
   target 'iosTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'clientTest', :path => '../common/client'
   end
 
   target 'iosUITests' do
