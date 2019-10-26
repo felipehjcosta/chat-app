@@ -15,34 +15,35 @@ struct ChatMessage: Hashable{
 
 struct ChatList: View {
     
-    @State var composedAuthor: String = ""
+    var username: String
+    
     @State var composedMessage: String = ""
+    
     @EnvironmentObject var chatController: ChatController
     
-    init() {
+    init(username: String) {
+        self.username = username
         UITableView.appearance().separatorStyle = .none
     }
     
     var body: some View {
-        VStack {
-                List(chatController.messages, id: \.self) {msg in
-                        ChatRow(chatMessage: msg)
-                }
-            HStack {
-                VStack {
-                    TextField("Author...", text: $composedAuthor)
+        NavigationView {
+            VStack {
+                    List(chatController.messages, id: \.self) {msg in
+                            ChatRow(chatMessage: msg)
+                    }
+                HStack {
                     TextField("Message...", text: $composedMessage)
-                }
-                Button(action: sendMessage) {
-                    Text("Send")
-                }
-            }.frame(minHeight: CGFloat(50)).padding()
-        }
+                    Button(action: sendMessage) {
+                        Text("Send")
+                    }
+                }.frame(minHeight: CGFloat(50)).padding()
+            }
+        }.navigationBarTitle(Text("Chat Room"), displayMode: .inline)
     }
     
     func sendMessage() {
-        chatController.sendMessage(ChatMessage(author: composedAuthor, message: composedMessage))
-        composedAuthor = ""
+        chatController.sendMessage(ChatMessage(author: username, message: composedMessage))
         composedMessage = ""
       }
 }
@@ -64,6 +65,6 @@ struct ChatRow: View {
 
 struct ChatList_Previews: PreviewProvider {
     static var previews: some View {
-        ChatList()
+        ChatList(username: "username")
     }
 }
