@@ -34,6 +34,7 @@ struct ChatList: View {
                     }
                 HStack {
                     TextField("Message...", text: $composedMessage)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: sendMessage) {
                         Text("Send")
                     }
