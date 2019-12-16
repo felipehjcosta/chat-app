@@ -21,7 +21,7 @@ reference:
       command: ./.circleci/checksum.sh /tmp/checksum.txt
 
   docker_gradle_key: &docker_gradle_key
-                       docker-gradle-{{ checksum "/tmp/checksum.txt" }}
+                       docker-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
 
   docker_restore_gradle_cache: &docker_restore_gradle_cache
     restore_cache:
@@ -74,7 +74,7 @@ reference:
       command: ./.circleci/checksum.sh /tmp/checksum.txt
 
   macos_gradle_key: &macos_gradle_key
-                      macos-gradle-{{ checksum "/tmp/checksum.txt" }}
+                      macos-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
 
   macos_restore_gradle_cache: &macos_restore_gradle_cache
     restore_cache:
