@@ -124,6 +124,10 @@ jobs:
   test_js:
     <<: *android_config
     steps:
+      - run:
+          type: shell
+          command: |
+            sudo apt-get install libfontconfig
       - checkout
       - *docker_generate_cache_key
       - *docker_restore_gradle_cache
