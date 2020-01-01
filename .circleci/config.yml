@@ -127,7 +127,8 @@ jobs:
       - run:
           type: shell
           command: |
-            sudo apt-get install libfontconfig
+            sudo apt-get update
+            sudo apt-get install libfontconfig1
       - checkout
       - *docker_generate_cache_key
       - *docker_restore_gradle_cache
