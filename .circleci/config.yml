@@ -1,11 +1,17 @@
 version: 2
 reference:
 
-  ## Workspaces
+  ################
+  # Workspace
+  ################
+
   workspace: &workspace
                ~/code
 
-  ## Docker Configurations
+  ###########################
+  # Android Configurations #
+  ##########################
+
   android_config: &android_config
     working_directory: *workspace
     docker:
@@ -13,30 +19,32 @@ reference:
     environment:
       TERM: dumb
       JVM_OPTS: -Xmx3200m
-      CHROME_BIN: /usr/bin/google-chrome
 
-  ## Docker Cache
-  docker_generate_cache_key: &docker_generate_cache_key
+  android_generate_cache_key: &android_generate_cache_key
     run:
       name: Generate cache key
       command: ./.circleci/checksum.sh /tmp/checksum.txt
 
-  docker_gradle_key: &docker_gradle_key
-                       docker-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
+  android_gradle_key: &android_gradle_key
+                        android-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
 
-  docker_restore_gradle_cache: &docker_restore_gradle_cache
+  android_restore_gradle_cache: &android_restore_gradle_cache
     restore_cache:
-      key: *docker_gradle_key
+      key: *android_gradle_key
 
-  docker_save_gradle_cache: &docker_save_gradle_cache
+  android_save_gradle_cache: &android_save_gradle_cache
     save_cache:
-      key: *docker_gradle_key
+      key: *android_gradle_key
       paths:
         - ~/.gradle/caches
         - ~/.gradle/wrapper
         - ~/.android/build-cache
 
-  ## MacOS Configurations
+
+  ######################
+  # iOS Configurations #
+  ######################
+
   ios_config: &ios_config
     working_directory: *workspace
     macos:
@@ -46,15 +54,14 @@ reference:
       TERM: dumb
       JVM_OPTS: -Xmx3200m
 
-  ## MacOS Steps
-  macos_install_android: &macos_install_android
+  ios_install_android: &ios_install_android
     run:
       name: Install Android sdk
       command: |
         HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask
         HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk
 
-  macos_prepare_environment_variables: &macos_prepare_environment_variables
+  ios_prepare_environment_variables: &ios_prepare_environment_variables
     run:
       name: Setup environment variables
       command: |
@@ -63,47 +70,119 @@ reference:
         echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
         echo 'export JAVA_HOME=$(/usr/libexec/java_home -V)' >> $BASH_ENV
 
-  macos_install_android_dependencies: &macos_install_android_dependencies
+  ios_install_android_dependencies: &ios_install_android_dependencies
     run:
       name: Install Android dependencies
       command: (yes | sdkmanager "platform-tools" "platforms;android-28" --verbose) || true
 
-  ## MacOS Cache
-  macos_generate_cache_key: &macos_generate_cache_key
+  ios_generate_cache_key: &ios_generate_cache_key
     run:
       name: Generate cache key
       command: ./.circleci/checksum.sh /tmp/checksum.txt
 
-  macos_gradle_key: &macos_gradle_key
-                      macos-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
+  ios_gradle_key: &ios_gradle_key
+                    ios-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
 
-  macos_restore_gradle_cache: &macos_restore_gradle_cache
+  ios_restore_gradle_cache: &ios_restore_gradle_cache
     restore_cache:
-      key: *macos_gradle_key
+      key: *ios_gradle_key
 
-  macos_save_gradle_cache: &macos_save_gradle_cache
+  ios_save_gradle_cache: &ios_save_gradle_cache
     save_cache:
-      key: *macos_gradle_key
+      key: *ios_gradle_key
       paths:
         - ~/.gradle/caches
         - ~/.gradle/wrapper
         - ~/.android/build-cache
 
-  ## Dependencies
+
+  ######################
+  # web Configurations #
+  ######################
+
+  web_config: &web_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/openjdk:8u232-jdk-browsers
+    environment:
+      TERM: dumb
+      JVM_OPTS: -Xmx3200m
+
+  web_generate_cache_key: &web_generate_cache_key
+    run:
+      name: Generate cache key
+      command: ./.circleci/checksum.sh /tmp/checksum.txt
+
+  web_gradle_key: &web_gradle_key
+                    web-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
+
+  web_restore_gradle_cache: &web_restore_gradle_cache
+    restore_cache:
+      key: *web_gradle_key
+
+  web_save_gradle_cache: &web_save_gradle_cache
+    save_cache:
+      key: *web_gradle_key
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+        - ~/.android/build-cache
+
+  #######################
+  # Lint Configurations #
+  #######################
+
+  lint_config: &lint_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/openjdk:8u232-jdk
+    environment:
+      TERM: dumb
+      JVM_OPTS: -Xmx3200m
+
+  lint_generate_cache_key: &lint_generate_cache_key
+    run:
+      name: Generate cache key
+      command: ./.circleci/checksum.sh /tmp/checksum.txt
+
+  lint_gradle_key: &lint_gradle_key
+                     lint-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
+
+  lint_restore_gradle_cache: &lint_restore_gradle_cache
+    restore_cache:
+      key: *lint_gradle_key
+
+  lint_save_gradle_cache: &lint_save_gradle_cache
+    save_cache:
+      key: *lint_gradle_key
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+        - ~/.android/build-cache
+
+  #########################
+  # Download dependencies #
+  #########################
+
   download_android_dependencies: &download_android_dependencies
     run:
       name: Download Android Dependencies
       command: ./gradlew androidDependencies
 
+
+  ########
+  # Jobs #
+  ########
+
 jobs:
   lint:
-    <<: *android_config
+    <<: *lint_config
     steps:
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *lint_generate_cache_key
+      - *lint_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *lint_save_gradle_cache
       - run:
           name: Run Lint
           command: ./gradlew detekt --console=plain -Dorg.gradle.parallel=false
@@ -112,28 +191,23 @@ jobs:
     <<: *android_config
     steps:
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *android_generate_cache_key
+      - *android_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *android_save_gradle_cache
       - run:
           name:  "Run Android Unit Test"
           command: ./gradlew testDebugUnitTest --console=plain -Dorg.gradle.parallel=false
           no_output_timeout: 15m
 
-  test_js:
-    <<: *android_config
+  test_web:
+    <<: *web_config
     steps:
-      - run:
-          type: shell
-          command: |
-            sudo apt-get update
-            sudo apt-get install libfontconfig1
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *web_generate_cache_key
+      - *web_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *web_save_gradle_cache
       - run:
           name:  "Run JS Unit Test"
           command: ./gradlew jsTest --console=plain -Dorg.gradle.parallel=false
@@ -143,13 +217,13 @@ jobs:
     <<: *ios_config
     steps:
       - checkout
-      - *macos_install_android
-      - *macos_prepare_environment_variables
-      - *macos_install_android_dependencies
-      - *macos_generate_cache_key
-      - *macos_restore_gradle_cache
+      - *ios_install_android
+      - *ios_prepare_environment_variables
+      - *ios_install_android_dependencies
+      - *ios_generate_cache_key
+      - *ios_restore_gradle_cache
       - *download_android_dependencies
-      - *macos_save_gradle_cache
+      - *ios_save_gradle_cache
       - run:
           name: Fetch CocoaPods Specs
           command: |
@@ -162,23 +236,23 @@ jobs:
     <<: *android_config
     steps:
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *android_generate_cache_key
+      - *android_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *android_save_gradle_cache
       - run:
           name:  "Build Android Project"
           command: ./gradlew :android:assemble --console=plain -Dorg.gradle.parallel=false
           no_output_timeout: 15m
 
-  build_js:
+  build_web:
     <<: *android_config
     steps:
       - checkout
-      - *docker_generate_cache_key
-      - *docker_restore_gradle_cache
+      - *web_generate_cache_key
+      - *web_restore_gradle_cache
       - *download_android_dependencies
-      - *docker_save_gradle_cache
+      - *web_save_gradle_cache
       - run:
           name:  "Build JS Project"
           command: ./gradlew :frontend:assemble --console=plain -Dorg.gradle.parallel=false
@@ -188,13 +262,13 @@ jobs:
     <<: *ios_config
     steps:
       - checkout
-      - *macos_install_android
-      - *macos_prepare_environment_variables
-      - *macos_install_android_dependencies
-      - *macos_generate_cache_key
-      - *macos_restore_gradle_cache
+      - *ios_install_android
+      - *ios_prepare_environment_variables
+      - *ios_install_android_dependencies
+      - *ios_generate_cache_key
+      - *ios_restore_gradle_cache
       - *download_android_dependencies
-      - *macos_save_gradle_cache
+      - *ios_save_gradle_cache
       - run:
           name: Fetch CocoaPods Specs
           command: |
@@ -203,21 +277,26 @@ jobs:
           name: "Build iOS Project"
           command: ./build-native-ios.sh
 
+
+  #############
+  # Workflows #
+  #############
+
 workflows:
   version: 2
   test_build:
     jobs:
       - lint
       - test_android
-      - test_js
+      - test_web
       - build_android:
           requires:
             - lint
             - test_android
-      - build_js:
+      - build_web:
           requires:
             - lint
-            - test_js
+            - test_web
       - build_ios:
           requires:
             - lint
