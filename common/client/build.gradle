@@ -70,7 +70,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
-                implementation "junit:junit:4.12"
+                implementation "junit:junit:4.13"
                 implementation "io.mockk:mockk:1.8.13.kotlin13"
                 implementation 'com.squareup.okhttp3:mockwebserver:4.4.0'
             }
