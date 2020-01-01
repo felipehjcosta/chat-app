@@ -21,13 +21,7 @@ kotlin {
             moduleKind = "commonjs"
             allWarningsAsErrors = true
         }
-        browser {
-            testTask {
-                useKarma {
-                    usePhantomJS()
-                }
-            }
-        }
+        browser()
     }
     targets {
         final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
