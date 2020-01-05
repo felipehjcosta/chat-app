@@ -12,11 +12,15 @@ Pod::Spec.new do |spec|
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-    spec.dependency 'SocketRocket', '0.5.1'
+            
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
         'KOTLIN_TARGET[sdk=iphoneos*]' => 'ios_arm',
+        'KOTLIN_TARGET[sdk=watchsimulator*]' => 'watchos_x86',
+        'KOTLIN_TARGET[sdk=watchos*]' => 'watchos_arm',
+        'KOTLIN_TARGET[sdk=appletvsimulator*]' => 'tvos_x64',
+        'KOTLIN_TARGET[sdk=appletvos*]' => 'tvos_arm64',
         'KOTLIN_TARGET[sdk=macosx*]' => 'macos_x64'
     }
 

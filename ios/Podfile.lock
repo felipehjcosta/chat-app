@@ -1,22 +1,15 @@
 PODS:
-  - client (0.1.0):
-    - SocketRocket (= 0.5.1)
-  - SocketRocket (0.5.1)
+  - client (0.1.0)
 
 DEPENDENCIES:
   - client (from `../common/client`)
-
-SPEC REPOS:
-  trunk:
-    - SocketRocket
 
 EXTERNAL SOURCES:
   client:
     :path: "../common/client"
 
 SPEC CHECKSUMS:
-  client: dfa76b9054243ca4cf06c506167db28bf0a966df
-  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  client: 414b6a2d5f71097d06b9ae09c0a2c6345ff3d0f5
 
 PODFILE CHECKSUM: 730cd556848081c52a86903b9768e64198457db2
 
