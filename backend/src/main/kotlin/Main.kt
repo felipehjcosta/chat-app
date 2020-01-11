@@ -3,6 +3,7 @@ import com.github.felipehjcosta.chatapp.logging.Logger
 import com.github.felipehjcosta.chatapp.logging.LoggerAdapter
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.features.CallLogging
 import io.ktor.http.ContentType
 import io.ktor.http.cio.websocket.DefaultWebSocketSession
 import io.ktor.http.cio.websocket.Frame
@@ -17,7 +18,7 @@ import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
-import org.slf4j.LoggerFactory
+import org.slf4j.event.Level
 import java.util.*
 import java.util.Collections.synchronizedSet
 
@@ -42,6 +43,9 @@ fun setupLogger() {
 fun setupServer() {
     embeddedServer(Netty, port = 8080) {
         install(WebSockets)
+        install(CallLogging) {
+            level = Level.INFO
+        }
         routing {
             get("/") { call.respondText("Hello World server!", ContentType.Text.Plain) }
             chat()
