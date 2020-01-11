@@ -1,6 +1,5 @@
 import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.logging.Logger
-import com.github.felipehjcosta.chatapp.logging.LoggerAdapter
+import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CallLogging
@@ -16,6 +15,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
+import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
 import org.slf4j.LoggerFactory
@@ -25,7 +25,7 @@ import java.util.Collections.synchronizedSet
 
 private val LOGGER = LoggerFactory.getLogger("ChatBackend")
 
-fun main() {
+fun Application.main() {
     setupServer()
 }
 
@@ -59,7 +59,7 @@ fun Routing.chat() {
     }
 }
 
-@UseExperimental(kotlinx.serialization.ImplicitReflectionSerializer::class)
+@UseExperimental(ImplicitReflectionSerializer::class)
 suspend fun handleTextMessage(frame: Frame.Text, wsConnections: Set<DefaultWebSocketSession>) {
     val text = frame.readText()
     val message = Json.parse<Message>(text)
