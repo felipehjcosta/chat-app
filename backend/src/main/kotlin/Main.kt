@@ -18,26 +18,15 @@ import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parse
+import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 import java.util.*
 import java.util.Collections.synchronizedSet
 
+private val LOGGER = LoggerFactory.getLogger("ChatBackend")
+
 fun main() {
-    setupLogger()
     setupServer()
-}
-
-fun setupLogger() {
-    Logger {
-        loggerAdapter = object : LoggerAdapter {
-
-            val loggerFactory = LoggerFactory.getLogger("Logger")
-
-            override fun info(message: String) {
-                loggerFactory.info(message)
-            }
-        }
-    }
 }
 
 fun setupServer() {
@@ -74,6 +63,6 @@ fun Routing.chat() {
 suspend fun handleTextMessage(frame: Frame.Text, wsConnections: Set<DefaultWebSocketSession>) {
     val text = frame.readText()
     val message = Json.parse<Message>(text)
-    Logger.info("Send message \"${message.message}\" from author \"${message.author}\"")
+    LOGGER.info("Send message \"${message.message}\" from author \"${message.author}\"")
     wsConnections.forEach { it.outgoing.send(Frame.Text(text)) }
 }
