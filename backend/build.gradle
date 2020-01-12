@@ -33,5 +33,7 @@ dependencies {
     implementation "io.ktor:ktor-websockets:$ktor_version"
     implementation project(":common:core")
     implementation "ch.qos.logback:logback-classic:$logback_version"
+
     testImplementation "junit:junit:4.12"
+    testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
 }
