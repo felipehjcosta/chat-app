@@ -11,8 +11,6 @@ import io.ktor.response.respondText
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import kotlinx.serialization.ImplicitReflectionSerializer
@@ -26,20 +24,14 @@ import java.util.Collections.synchronizedSet
 private val LOGGER = LoggerFactory.getLogger("ChatBackend")
 
 fun Application.main() {
-    setupServer()
-}
-
-fun setupServer() {
-    embeddedServer(Netty, port = 8080) {
-        install(WebSockets)
-        install(CallLogging) {
-            level = Level.INFO
-        }
-        routing {
-            get("/") { call.respondText("Hello World server!", ContentType.Text.Plain) }
-            chat()
-        }
-    }.start(wait = true)
+    install(WebSockets)
+    install(CallLogging) {
+        level = Level.INFO
+    }
+    routing {
+        get("/") { call.respondText("Hello World server!", ContentType.Text.Plain) }
+        chat()
+    }
 }
 
 
