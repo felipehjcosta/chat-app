@@ -34,6 +34,6 @@ dependencies {
     implementation project(":common:core")
     implementation "ch.qos.logback:logback-classic:$logback_version"
 
-    testImplementation "junit:junit:4.12"
+    testImplementation "junit:junit:$junit_version"
     testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
 }
