@@ -160,6 +160,38 @@ reference:
         - ~/.gradle/wrapper
         - ~/.android/build-cache
 
+  #######################
+  # Backend Configurations #
+  #######################
+
+  backend_config: &backend_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/openjdk:8u232-jdk
+    environment:
+      TERM: dumb
+      JVM_OPTS: -Xmx3200m
+
+  backend_generate_cache_key: &backend_generate_cache_key
+    run:
+      name: Generate cache key
+      command: ./.circleci/checksum.sh /tmp/checksum.txt
+
+  backend_gradle_key: &backend_gradle_key
+                     lint-gradle-v1-{{ checksum "/tmp/checksum.txt" }}
+
+  backend_restore_gradle_cache: &backend_restore_gradle_cache
+    restore_cache:
+      key: *backend_gradle_key
+
+  backend_save_gradle_cache: &backend_save_gradle_cache
+    save_cache:
+      key: *backend_gradle_key
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+        - ~/.android/build-cache
+
   #########################
   # Download dependencies #
   #########################
@@ -186,6 +218,18 @@ jobs:
       - run:
           name: Run Lint
           command: ./gradlew detekt --console=plain -Dorg.gradle.parallel=false
+
+  test_backend:
+    <<: *backend_config
+    steps:
+      - checkout
+      - *backend_generate_cache_key
+      - *backend_restore_gradle_cache
+      - *download_android_dependencies
+      - *backend_save_gradle_cache
+      - run:
+          name: Run Lint
+          command: ./gradlew :backend:test --console=plain -Dorg.gradle.parallel=false
 
   test_android:
     <<: *android_config
@@ -287,6 +331,7 @@ workflows:
   test_build:
     jobs:
       - lint
+      - test_backend
       - test_android
       - test_web
       - build_android:
