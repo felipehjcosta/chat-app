@@ -331,9 +331,15 @@ workflows:
   test_build:
     jobs:
       - lint
-      - test_backend
-      - test_android
-      - test_web
+      - test_backend:
+          requires:
+            - lint
+      - test_android:
+          requires:
+            - lint
+      - test_web:
+          requires:
+            - lint
       - build_android:
           requires:
             - lint
