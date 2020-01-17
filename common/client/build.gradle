@@ -69,7 +69,7 @@ kotlin {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
                 implementation "junit:junit:$junit_version"
-                implementation "io.mockk:mockk:1.8.13.kotlin13"
+                implementation "io.mockk:mockk:1.9"
                 implementation 'com.squareup.okhttp3:mockwebserver:4.4.0'
             }
         }
