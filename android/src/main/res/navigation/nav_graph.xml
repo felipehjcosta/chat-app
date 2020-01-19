@@ -12,7 +12,12 @@
             tools:layout="@layout/chat_login_fragment">
         <action
                 android:id="@+id/action_go_to_chat"
-                app:destination="@id/chatListFragment"/>
+                app:destination="@id/chatListFragment"
+                app:enterAnim="@anim/nav_default_pop_enter_anim"
+                app:exitAnim="@anim/nav_default_pop_exit_anim"
+                app:popUpTo="@id/chatLoginFragment"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
