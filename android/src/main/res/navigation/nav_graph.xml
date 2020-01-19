@@ -8,7 +8,7 @@
     <fragment
             android:id="@+id/chatLoginFragment"
             android:name="com.example.android.ChatLoginFragment"
-            android:label="Chat Login Fragment"
+            android:label="Login Screen"
             tools:layout="@layout/chat_login_fragment">
         <action
                 android:id="@+id/action_go_to_chat"
@@ -18,7 +18,7 @@
     <fragment
             android:id="@+id/chatListFragment"
             android:name="com.example.android.ChatListFragment"
-            android:label="Chat List Fragment"
+            android:label="Chat Room"
             tools:layout="@layout/chat_list_fragment">
     </fragment>
 
