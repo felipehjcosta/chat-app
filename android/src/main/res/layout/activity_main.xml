@@ -1,53 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context=".MainActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messages_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@android:layout/simple_list_item_2"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username_input"
-                android:inputType="textAutoCorrect"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/username_input_hint"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/message_input"
-                android:inputType="textAutoCorrect"
-                android:imeOptions="actionSend"
-                android:singleLine="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/message_input_hint"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-            android:id="@+id/send_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/send_button_text"/>
-
-</LinearLayout>
+<fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/chatListFragment"
+        android:name="com.example.android.ChatListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+/>
