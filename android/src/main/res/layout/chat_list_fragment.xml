@@ -14,26 +14,37 @@
             android:layout_weight="1"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@android:layout/simple_list_item_2"/>
+            tools:listitem="@android:layout/simple_list_item_1"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/message_input"
-                android:inputType="textAutoCorrect"
-                android:imeOptions="actionSend"
-                android:singleLine="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/message_input_hint"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-            android:id="@+id/send_button"
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/send_button_text"/>
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/message_input"
+                    android:inputType="textAutoCorrect"
+                    android:imeOptions="actionSend"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/message_input_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+                android:id="@+id/send_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/send_button_text"/>
+
+    </LinearLayout>
 
 </LinearLayout>

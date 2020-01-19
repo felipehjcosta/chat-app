@@ -15,6 +15,7 @@
     <EditText android:id="@+id/username_input"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:singleLine="true"
               android:hint="Username..."/>
 
     <Button android:id="@+id/go_to_chat"
