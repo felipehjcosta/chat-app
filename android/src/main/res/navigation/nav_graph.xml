@@ -3,7 +3,14 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/chatListFragment">
+            app:startDestination="@id/chatLoginFragment">
+
+    <fragment
+            android:id="@+id/chatLoginFragment"
+            android:name="com.example.android.ChatLoginFragment"
+            android:label="Chat Login Fragment"
+            tools:layout="@layout/chat_login_fragment">
+    </fragment>
 
     <fragment
             android:id="@+id/chatListFragment"
