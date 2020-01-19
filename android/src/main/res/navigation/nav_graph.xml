@@ -25,6 +25,9 @@
             android:name="com.example.android.ChatListFragment"
             android:label="Chat Room"
             tools:layout="@layout/chat_list_fragment">
+        <argument
+                android:name="username"
+                app:argType="string"/>
     </fragment>
 
 </navigation>

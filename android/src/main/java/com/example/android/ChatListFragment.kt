@@ -16,10 +16,10 @@ import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
 import kotlinx.android.synthetic.main.chat_list_fragment.message_input as messageInput
 import kotlinx.android.synthetic.main.chat_list_fragment.messages_recycler_view as messagesRecyclerView
 import kotlinx.android.synthetic.main.chat_list_fragment.send_button as sendButton
-import kotlinx.android.synthetic.main.chat_list_fragment.username_input as usernameInput
 
 class ChatListFragment : Fragment() {
 
+    private lateinit var userName: String
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +30,11 @@ class ChatListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            val passedArguments = ChatListFragmentArgs.fromBundle(it)
+            userName = passedArguments.username
+        }
 
         setupRecyclerView()
 
@@ -64,10 +69,8 @@ class ChatListFragment : Fragment() {
 
     private fun sendMessage() {
         hideKeyboard()
-        val author = usernameInput.text.toString()
         val message = messageInput.text.toString()
-        chatViewModel.sendMessage(Message(author, message))
-        usernameInput.text?.clear()
+        chatViewModel.sendMessage(Message(userName, message))
         messageInput.text?.clear()
     }
 

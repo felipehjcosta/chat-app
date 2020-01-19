@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.chat_login_fragment.go_to_chat as goToChat
+import kotlinx.android.synthetic.main.chat_login_fragment.username_input as usernameInput
 
 class ChatLoginFragment : Fragment() {
 
@@ -19,6 +20,10 @@ class ChatLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        goToChat.setOnClickListener { findNavController().navigate(R.id.action_go_to_chat) }
+        goToChat.setOnClickListener {
+            val userName = usernameInput.text.toString()
+            val action = ChatLoginFragmentDirections.actionGoToChat(userName)
+            findNavController().navigate(action)
+        }
     }
 }
