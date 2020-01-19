@@ -16,7 +16,8 @@
               android:layout_height="wrap_content"
               android:hint="Username..."/>
 
-    <Button android:layout_width="match_parent"
+    <Button android:id="@+id/go_to_chat"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Go to Chat"/>
 

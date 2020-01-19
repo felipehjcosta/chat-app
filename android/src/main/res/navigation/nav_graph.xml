@@ -10,6 +10,9 @@
             android:name="com.example.android.ChatLoginFragment"
             android:label="Chat Login Fragment"
             tools:layout="@layout/chat_login_fragment">
+        <action
+                android:id="@+id/action_go_to_chat"
+                app:destination="@id/chatListFragment"/>
     </fragment>
 
     <fragment
