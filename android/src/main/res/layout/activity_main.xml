@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/chatListFragment"
-        android:name="com.example.android.ChatListFragment"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-/>
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"/>
