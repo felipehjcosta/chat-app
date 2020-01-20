@@ -22,6 +22,6 @@ fun main(args: Array<String>) {
     }
 
     render(document.getElementById("root")) {
-        app()
+        welcome()
     }
 }
