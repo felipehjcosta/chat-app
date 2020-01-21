@@ -299,7 +299,7 @@ jobs:
       - *web_save_gradle_cache
       - run:
           name:  "Build JS Project"
-          command: ./gradlew :frontend:assemble --console=plain -Dorg.gradle.parallel=false
+          command: ./gradlew clean :frontend:assemble --console=plain -Dorg.gradle.parallel=false
           no_output_timeout: 15m
 
   build_ios:
