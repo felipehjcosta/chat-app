@@ -107,9 +107,9 @@ class Chat : RComponent<Chat.ChatProps, Chat.State>() {
 
     private fun RBuilder.renderMessageInput() {
         input(
-            type = InputType.text,
-            name = "message",
-            classes = "form-control"
+                type = InputType.text,
+                name = "message",
+                classes = "form-control"
         ) {
 
             ref {
@@ -159,13 +159,26 @@ class Chat : RComponent<Chat.ChatProps, Chat.State>() {
     }
 
     class State(
-        var username: String = "",
-        var message: String = "",
-        var messages: List<Message> = emptyList(),
-        var hasFailure: Boolean = false
+            var username: String = "",
+            var message: String = "",
+            var messages: List<Message> = emptyList(),
+            var hasFailure: Boolean = false
     ) : RState
 }
 
-fun RBuilder.chat(username: String) = child(Chat::class) {
-    attrs.username = username
-}
+fun RBuilder.chat(username: String) =
+        div("App") {
+            div(classes = "container") {
+                div(classes = "row") {
+                    div(classes = "col-auto") {
+                        div(classes = "card") {
+                            div(classes = "card-body") {
+                                child(Chat::class) {
+                                    attrs.username = username
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
