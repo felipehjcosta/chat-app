@@ -23,11 +23,10 @@ import react.setState
 
 external fun require(module: String): dynamic
 
-class Chat : RComponent<RProps, Chat.State>() {
+class Chat : RComponent<Chat.ChatProps, Chat.State>() {
 
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
 
-    private var userNameInputElement: Element? = null
     private var messageInputElement: Element? = null
     private var sendButtonElement: Element? = null
 
@@ -36,6 +35,9 @@ class Chat : RComponent<RProps, Chat.State>() {
     }
 
     override fun componentDidMount() {
+        setState {
+            username = props.username
+        }
         chatViewModel.run {
             onChat = this@Chat::receiveMessage
             showFailureMessage = { receiveFailure() }
@@ -97,31 +99,11 @@ class Chat : RComponent<RProps, Chat.State>() {
         sendMessage()
 
         setState {
-            username = ""
             message = ""
         }
     }
 
     private fun RBuilder.renderTitle() = div(classes = "card-title") { +"Global Chat" }
-
-    private fun RBuilder.renderUserNameInput() {
-        input(
-            type = InputType.text,
-            classes = "form-control"
-        ) {
-
-            ref {
-                userNameInputElement = findDOMNode(it)
-            }
-
-            attrs {
-                placeholder = "Username"
-                value = state.username
-                onChangeFunction = ::userNameInputOnChangeHandler
-                onKeyUpFunction = ::userNameInputOnKeyUpHandler
-            }
-        }
-    }
 
     private fun RBuilder.renderMessageInput() {
         input(
@@ -165,13 +147,15 @@ class Chat : RComponent<RProps, Chat.State>() {
         messages(state.messages)
 
         div(classes = "card-footer") {
-            renderUserNameInput()
-            br {}
             renderMessageInput()
             br {}
             renderSendButton()
         }
         connectionAlert(state.hasFailure)
+    }
+
+    interface ChatProps : RProps {
+        var username: String
     }
 
     class State(
@@ -182,4 +166,6 @@ class Chat : RComponent<RProps, Chat.State>() {
     ) : RState
 }
 
-fun RBuilder.chat() = child(Chat::class) {}
+fun RBuilder.chat(username: String) = child(Chat::class) {
+    attrs.username = username
+}

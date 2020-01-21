@@ -1,17 +1,18 @@
 import kotlinext.js.js
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
-import react.dom.button
-import react.dom.div
-import react.dom.h3
-import react.dom.input
-import react.dom.span
+import kotlinx.html.js.onChangeFunction
+import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.events.Event
+import react.*
+import react.dom.*
+import react.router.dom.navLink
 
-class Welcome : RComponent<RProps, RState>() {
+class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
+
+    init {
+        state = WelcomeState()
+    }
 
     private fun RBuilder.renderTitle() {
         div(classes = "row justify-content-md-center p-4") {
@@ -26,12 +27,27 @@ class Welcome : RComponent<RProps, RState>() {
 
                 input(classes = "form-control text-center", type = InputType.search) {
                     attrs.placeholder = "Enter your nickname"
-                }
-                span(classes = "input-group-append") {
-                    button(classes = "btn btn-outline-secondary", type = ButtonType.button) {
-                        +"Login"
+
+                    attrs {
+                        value = state.username
+                        onChangeFunction = ::usernameInputOnChangeHandler
                     }
                 }
+                span(classes = "input-group-append") {
+                    navLink("/chat/${state.username}") {
+                        button(classes = "btn btn-outline-secondary", type = ButtonType.button) {
+                            +"Login"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun usernameInputOnChangeHandler(event: Event) {
+        event.target.unsafeCast<HTMLInputElement>().value.run {
+            setState {
+                username = this@run
             }
         }
     }
@@ -42,6 +58,8 @@ class Welcome : RComponent<RProps, RState>() {
             renderNicknameInput()
         }
     }
+
+    class WelcomeState(var username: String = "") : RState
 }
 
 fun RBuilder.welcome() = child(Welcome::class) {}
