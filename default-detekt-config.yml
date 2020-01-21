@@ -323,7 +323,7 @@ naming:
     excludeClassPattern: '$^'
     ignoreOverriddenFunctions: true
   MatchingDeclarationName:
-    active: true
+    active: false
   MemberNameEqualsClassName:
     active: false
     ignoreOverriddenFunction: true
