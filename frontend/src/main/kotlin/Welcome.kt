@@ -24,7 +24,7 @@ class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
 
     private fun RBuilder.renderTitle() {
         div(classes = "row justify-content-md-center p-4") {
-            h3(classes = "title") { +"Welcome to Awesome Chat App" }
+            h3(classes = "title") { +"Welcome to Global Chat" }
         }
     }
 
@@ -41,7 +41,7 @@ class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
 
     private fun RBuilder.renderUsernameInput() {
         input(classes = "form-control text-center", type = InputType.search) {
-            attrs.placeholder = "Enter your nickname"
+            attrs.placeholder = "Nickname..."
 
             attrs {
                 value = state.username
@@ -63,7 +63,7 @@ class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
         span(classes = "input-group-append") {
             navLink("/chat/${state.username}") {
                 button(classes = "btn btn-outline-secondary", type = ButtonType.button) {
-                    +"Login"
+                    +"Enter"
                 }
             }
         }

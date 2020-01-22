@@ -8,22 +8,22 @@
 
 import SwiftUI
 
-struct ChatLogin: View {
+struct WelcomeScreen: View {
     @State var composedUsername: String = ""
     
     var body: some View {
         NavigationView {
             VStack(spacing: CGFloat(8)) {
-                Text("Enter your username")
-                TextField("Username...", text: $composedUsername)
+                Text("Enter your nickname")
+                TextField("Nickname...", text: $composedUsername)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: CGFloat(160)).padding()
                 
-                NavigationLink(destination: ChatList(username: composedUsername)) {
-                    Text("Go to chat")
+                NavigationLink(destination: ChatScreen(username: composedUsername)) {
+                    Text("Enter")
                 }
                 
-            }.navigationBarTitle(Text("Login Screen"))
+            }.navigationBarTitle(Text("Welcome to Global Chat"))
         }
     }
     
@@ -34,6 +34,6 @@ struct ChatLogin: View {
 
 struct ChatLogin_Previews: PreviewProvider {
     static var previews: some View {
-        ChatLogin()
+        WelcomeScreen()
     }
 }

@@ -13,11 +13,11 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
-import kotlinx.android.synthetic.main.chat_list_fragment.message_input as messageInput
-import kotlinx.android.synthetic.main.chat_list_fragment.messages_recycler_view as messagesRecyclerView
-import kotlinx.android.synthetic.main.chat_list_fragment.send_button as sendButton
+import kotlinx.android.synthetic.main.chat_screen.message_input as messageInput
+import kotlinx.android.synthetic.main.chat_screen.messages_recycler_view as messagesRecyclerView
+import kotlinx.android.synthetic.main.chat_screen.send_button as sendButton
 
-class ChatListFragment : Fragment() {
+class ChatScreen : Fragment() {
 
     private lateinit var userName: String
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
@@ -25,14 +25,14 @@ class ChatListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.chat_list_fragment, container, false)
+        return inflater.inflate(R.layout.chat_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val passedArguments = ChatListFragmentArgs.fromBundle(it)
+            val passedArguments = ChatScreenArgs.fromBundle(it)
             userName = passedArguments.username
         }
 

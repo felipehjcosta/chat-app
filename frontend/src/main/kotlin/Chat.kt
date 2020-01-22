@@ -103,7 +103,7 @@ class Chat : RComponent<Chat.ChatProps, Chat.State>() {
         }
     }
 
-    private fun RBuilder.renderTitle() = div(classes = "card-title") { +"Global Chat" }
+    private fun RBuilder.renderTitle() = div(classes = "card-title") { +"Chat Room" }
 
     private fun RBuilder.renderMessageInput() {
         input(

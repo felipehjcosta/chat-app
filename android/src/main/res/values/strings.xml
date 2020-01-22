@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">chat-app</string>
+
+
+    <string name="welcome_screen_title">Welcome to Global Chat</string>
+    <string name="welcome_screen_username_title">Enter your nickname</string>
+    <string name="welcome_screen_username_hint">Nickname...</string>
+    <string name="welcome_screen_go_to_chat_room_title">Enter</string>
+
+    <string name="chat_screen_title">Chat Room</string>
     <string name="username_input_hint">Username</string>
     <string name="message_input_hint">Message</string>
     <string name="send_button_text">Send</string>

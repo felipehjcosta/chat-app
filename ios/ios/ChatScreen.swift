@@ -13,7 +13,7 @@ struct ChatMessage: Hashable{
     var message: String
 }
 
-struct ChatList: View {
+struct ChatScreen: View {
     
     var username: String
     
@@ -66,6 +66,6 @@ struct ChatRow: View {
 
 struct ChatList_Previews: PreviewProvider {
     static var previews: some View {
-        ChatList(username: "username")
+        ChatScreen(username: "username")
     }
 }

@@ -3,28 +3,28 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/chatLoginFragment">
+            app:startDestination="@id/welcomeScreen">
 
     <fragment
-            android:id="@+id/chatLoginFragment"
-            android:name="com.example.android.ChatLoginFragment"
-            android:label="Login Screen"
-            tools:layout="@layout/chat_login_fragment">
+            android:id="@+id/welcomeScreen"
+            android:name="com.example.android.WelcomeScreen"
+            android:label="@string/welcome_screen_title"
+            tools:layout="@layout/welcome_screen">
         <action
                 android:id="@+id/action_go_to_chat"
-                app:destination="@id/chatListFragment"
+                app:destination="@id/chatScreen"
                 app:enterAnim="@anim/nav_default_pop_enter_anim"
                 app:exitAnim="@anim/nav_default_pop_exit_anim"
-                app:popUpTo="@id/chatLoginFragment"
+                app:popUpTo="@id/welcomeScreen"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim"
                 app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
 
     <fragment
-            android:id="@+id/chatListFragment"
-            android:name="com.example.android.ChatListFragment"
-            android:label="Chat Room"
-            tools:layout="@layout/chat_list_fragment">
+            android:id="@+id/chatScreen"
+            android:name="com.example.android.ChatScreen"
+            android:label="@string/chat_screen_title"
+            tools:layout="@layout/chat_screen">
         <argument
                 android:name="username"
                 app:argType="string"/>

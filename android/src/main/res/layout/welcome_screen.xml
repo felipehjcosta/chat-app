@@ -5,22 +5,22 @@
               android:layout_width="wrap_content"
               android:layout_gravity="center"
               android:orientation="vertical"
-              tools:context=".ChatLoginFragment">
+              tools:context=".WelcomeScreen">
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="Enter your username"
+              android:text="@string/welcome_screen_username_title"
               android:clickable="false"
     />
     <EditText android:id="@+id/username_input"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:singleLine="true"
-              android:hint="Username..."/>
+              android:hint="@string/welcome_screen_username_hint"/>
 
     <Button android:id="@+id/go_to_chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go to Chat"/>
+            android:text="@string/welcome_screen_go_to_chat_room_title"/>
 
 </LinearLayout>

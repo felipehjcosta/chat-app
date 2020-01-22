@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.chat_login_fragment.go_to_chat as goToChat
-import kotlinx.android.synthetic.main.chat_login_fragment.username_input as usernameInput
+import kotlinx.android.synthetic.main.welcome_screen.go_to_chat as goToChat
+import kotlinx.android.synthetic.main.welcome_screen.username_input as usernameInput
 
-class ChatLoginFragment : Fragment() {
+class WelcomeScreen : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.chat_login_fragment, container, false)
+        return inflater.inflate(R.layout.welcome_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class ChatLoginFragment : Fragment() {
 
         goToChat.setOnClickListener {
             val userName = usernameInput.text.toString()
-            val action = ChatLoginFragmentDirections.actionGoToChat(userName)
+            val action = WelcomeScreenDirections.actionGoToChat(userName)
             findNavController().navigate(action)
         }
     }
