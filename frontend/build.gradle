@@ -2,7 +2,6 @@ group 'com.github.felipehjcosta'
 version '1.0-SNAPSHOT'
 
 apply plugin: "org.jetbrains.kotlin.js"
-apply plugin: 'kotlin-dce-js'
 
 repositories {
     maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
