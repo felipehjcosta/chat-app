@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-import client
+import Client
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

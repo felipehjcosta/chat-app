@@ -1,8 +1,8 @@
 apply plugin: "kotlin-multiplatform"
 apply plugin: 'kotlinx-serialization'
-apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
 version = "0.1.0"
+def ios_framework_name = "Client"
 
 kotlin {
     jvm {
@@ -24,14 +24,9 @@ kotlin {
 
         fromPreset(iOSTarget, 'ios') {
             binaries {
-                framework('client')
+                framework("$ios_framework_name")
             }
         }
-    }
-    cocoapods {
-        // Configure fields required by CocoaPods.
-        summary = "chat-client"
-        homepage = "https://github.com/felipehjcosta"
     }
 
     sourceSets {
@@ -114,17 +109,36 @@ configurations {
     compileClasspath
 }
 
+task packForXcode {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+    final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+    def keyFrameworkPrefix = "$ios_framework_name${buildType.toLowerCase().capitalize()}"
+    dependsOn "link${keyFrameworkPrefix}FrameworkIos"
+    doLast {
+        def srcFile = kotlin.targets.ios.binaries.getFramework("$ios_framework_name", buildType).outputFile
+        copy {
+            from srcFile.parent
+            into frameworkDir
+        }
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+tasks.build.dependsOn packForXcode
+
 task iosTest {
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone Xʀ"
-    dependsOn 'linkTestDebugExecutableIos'
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 11"
+    dependsOn 'linkDebugTestIos'
     group = JavaBasePlugin.VERIFICATION_GROUP
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        def binary = kotlin.targets.ios.binaries.getExecutable('test', 'DEBUG').outputFile
+        def binary = kotlin.targets.ios.binaries.getTest("DEBUG").outputFile
         exec {
-            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
+            commandLine 'xcrun', 'simctl', 'spawn', '--standalone', device, binary.absolutePath
         }
     }
 }
-//tasks.check.dependsOn iosTest
+tasks.check.dependsOn iosTest

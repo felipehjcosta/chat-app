@@ -8,7 +8,7 @@
 
 import Combine
 import SwiftUI
-import client
+import Client
 
 class ChatController: ObservableObject {
     var chatViewModel: ChatViewModel
