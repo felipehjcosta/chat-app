@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		827E2AC823DBA21400292F26 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; };
+		827E2AC923DBA21400292F26 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D54051E22363D7AF00A0B56A /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54051E12363D7AF00A0B56A /* WelcomeScreen.swift */; };
-		D5971C3523DA9AB9009BEEBC /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; };
-		D5971C3623DA9AB9009BEEBC /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5A5E0B0235DFDDE0035F58C /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0AF235DFDDE0035F58C /* ChatScreen.swift */; };
 		D5A5E0B2235E16C10035F58C /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0B1235E16C10035F58C /* ChatController.swift */; };
 		D5A5E0B4235E20BA0035F58C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0B3235E20BA0035F58C /* SceneDelegate.swift */; };
@@ -38,13 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D5971C3723DA9AB9009BEEBC /* Embed Frameworks */ = {
+		827E2ACA23DBA21400292F26 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D5971C3623DA9AB9009BEEBC /* Client.framework in Embed Frameworks */,
+				827E2AC923DBA21400292F26 /* Client.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5971C3523DA9AB9009BEEBC /* Client.framework in Frameworks */,
+				827E2AC823DBA21400292F26 /* Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +169,7 @@
 				D5AA2E7522B47D1000EDD654 /* Sources */,
 				D5AA2E7622B47D1000EDD654 /* Frameworks */,
 				D5AA2E7722B47D1000EDD654 /* Resources */,
-				D5971C3723DA9AB9009BEEBC /* Embed Frameworks */,
+				827E2ACA23DBA21400292F26 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -483,7 +483,6 @@
 		D5AA2EA222B47D1100EDD654 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/**";
@@ -503,7 +502,6 @@
 		D5AA2EA322B47D1100EDD654 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/**";
