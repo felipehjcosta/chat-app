@@ -3,7 +3,6 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
 version = "0.1.0"
-rootProject.kotlinNodeJs.versions.dukat.version = '0.0.25'
 
 kotlin {
     jvm {
