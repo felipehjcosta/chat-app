@@ -1,9 +1,9 @@
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.stringify
+import com.github.felipehjcosta.chatapp.toMessage
 import kotlinx.io.IOException
 import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import org.w3c.dom.WebSocket
 import kotlin.js.Promise
 import kotlin.test.BeforeTest
@@ -38,7 +38,7 @@ class ChatClientTest {
         val messageSent = Message("Test", "Hello, WebSockets!")
         mockServer.on("connection") { socket ->
             socket.on("message") { data ->
-                assertEquals(messageSent, Json.parse(Message::class.serializer(), data.toString()))
+                assertEquals(messageSent, data.toString().toMessage())
                 mockServer.stop()
                 resolve(Unit)
             }
@@ -50,12 +50,11 @@ class ChatClientTest {
         }
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
     fun ensureMessageSendByServerIsReceivedByClient() = Promise<Unit> { resolve, _ ->
         val messageSent = Message("Test", "Hello, WebSockets!")
         mockServer.on("connection") { socket ->
-            socket.send(Json.stringify(Message::class.serializer(), messageSent))
+            socket.send(messageSent.stringify())
         }
 
         ChatClient(fakeURL).apply {
@@ -68,7 +67,6 @@ class ChatClientTest {
         }
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
     fun ensureFailureEventIsReceivedByClient() = Promise<Unit> { resolve, _ ->
         mockServer.on("connection") {

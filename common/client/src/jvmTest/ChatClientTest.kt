@@ -27,7 +27,6 @@ class ChatClientTest {
         mockWebServer.shutdown()
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test(timeout = 5000L)
     fun ensureAStartedConnectionIsOpenedByClient() {
 
@@ -41,7 +40,6 @@ class ChatClientTest {
         assertEquals(101, responseSlot.captured.code())
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test(timeout = 5000L)
     fun ensureMessageSendByServerIsReceivedByClient() {
 
@@ -57,7 +55,7 @@ class ChatClientTest {
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
 
         val message = Message("Test", "Hello, WebSockets!")
-        webSocketSlot.captured.send(Json.stringify(Message::class.serializer(), message))
+        webSocketSlot.captured.send(message.stringify())
 
         Thread.sleep(500L)
 
@@ -66,7 +64,6 @@ class ChatClientTest {
         assertEquals(message, receivedMessageSlot.captured)
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test(timeout = 5000L)
     fun ensureSendMessageIsReceivedByServer() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -81,7 +78,7 @@ class ChatClientTest {
 
         Thread.sleep(500L)
 
-        verify { mockServerWebSocketListener.onMessage(any(), Json.stringify(Message::class.serializer(), message)) }
+        verify { mockServerWebSocketListener.onMessage(any(), message.stringify()) }
     }
 
     @Test(timeout = 5000L)

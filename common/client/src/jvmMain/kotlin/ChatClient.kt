@@ -2,9 +2,8 @@ package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
+import com.github.felipehjcosta.chatapp.stringify
+import com.github.felipehjcosta.chatapp.toMessage
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -26,19 +25,17 @@ internal actual open class ChatClient actual constructor(private val url: String
         websocketClient = okHttpClient.newWebSocket(request, this)
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     actual open fun send(message: Message) {
-        websocketClient?.send(Json.stringify(Message::class.serializer(), message))
+        websocketClient?.send(message.stringify())
     }
 
     actual open fun receive(receiveBlock: (Message) -> Unit) {
         receiveMessage = receiveBlock
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     override fun onMessage(webSocket: WebSocket, text: String) {
         Logger.info("Message Received: $text")
-        receiveMessage?.invoke(Json.parse(Message::class.serializer(), text))
+        receiveMessage?.invoke(text.toMessage())
     }
 
     actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
