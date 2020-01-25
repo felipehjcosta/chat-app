@@ -1,9 +1,10 @@
 package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
+import com.github.felipehjcosta.chatapp.stringify
+import com.github.felipehjcosta.chatapp.toMessage
 import kotlinx.cinterop.StableRef
 import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
 import kotlin.native.concurrent.ensureNeverFrozen
 import kotlin.native.concurrent.freeze
 
@@ -21,14 +22,14 @@ internal actual open class ChatClient actual constructor(private val url: String
     actual open fun start() {
         val chatClientReference = StableRef.create(this)
         val receiveMessageBlock = { webSocketMessage: String ->
-            chatClientReference.get().receiveMessage?.invoke(webSocketMessage.convertToMessage()) ?: Unit
+            chatClientReference.get().receiveMessage?.invoke(webSocketMessage.toMessage()) ?: Unit
         }.freeze()
 
         urlSessionWebSocketTaskWrapper.start(url, receiveMessageBlock)
     }
 
     actual open fun send(message: Message) {
-        urlSessionWebSocketTaskWrapper.sendMessage(message.convertToString())
+        urlSessionWebSocketTaskWrapper.sendMessage(message.stringify())
     }
 
     actual open fun receive(receiveBlock: (Message) -> Unit) {
@@ -40,7 +41,3 @@ internal actual open class ChatClient actual constructor(private val url: String
     }
 
 }
-
-private fun String.convertToMessage() = Json.parse(Message.serializer(), this)
-
-private fun Message.convertToString() = Json.stringify(Message.serializer(), this)
