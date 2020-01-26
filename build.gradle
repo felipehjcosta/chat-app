@@ -34,7 +34,7 @@ subprojects {
 
     detekt {
         toolVersion = "$detekt_gradle_plugin"
-        input = files("src/main/kotlin")
+        input = files("${project.rootDir}")
         filters = ".*/resources/.*,.*/build/.*"
         config = files("${project.rootDir}/default-detekt-config.yml")
     }
