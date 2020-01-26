@@ -14,11 +14,9 @@ kotlin {
     }
     js {
         compilations.main.kotlinOptions {
-            moduleKind = "commonjs"
             allWarningsAsErrors = true
         }
         compilations.test.kotlinOptions {
-            moduleKind = "commonjs"
             allWarningsAsErrors = true
         }
         browser()

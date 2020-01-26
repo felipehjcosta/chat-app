@@ -1,4 +1,5 @@
 @file:JsModule("mock-socket")
+@file:JsNonModule
 
 external class Server(fakeUrl: String) {
     fun on(type: String, callback: ((dynamic) -> dynamic)?)

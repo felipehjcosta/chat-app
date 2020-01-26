@@ -9,12 +9,12 @@ repositories {
 
 kotlin {
     target {
+        useCommonJs()
         browser {
             configure([compilations.main, compilations.test]) {
                 kotlinOptions {
                     metaInfo = true
                     sourceMap = true
-                    moduleKind = 'commonjs'
                     main = "call"
                     allWarningsAsErrors = true
                 }

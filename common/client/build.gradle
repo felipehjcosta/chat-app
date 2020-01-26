@@ -10,12 +10,6 @@ kotlin {
         }
     }
     js {
-        compilations.main.kotlinOptions {
-            moduleKind = "commonjs"
-        }
-        compilations.test.kotlinOptions {
-            moduleKind = "commonjs"
-        }
         browser()
     }
     targets {
