@@ -103,11 +103,6 @@ kotlin {
     }
 }
 
-// workaround for https://youtrack.jetbrains.com/issue/KT-27170
-configurations {
-    compileClasspath
-}
-
 task packForXcode {
     final File frameworkDir = new File(buildDir, "xcode-frameworks")
     final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
