@@ -1,5 +1,4 @@
 apply plugin: "kotlin-multiplatform"
-apply plugin: 'kotlinx-serialization'
 
 version = "0.1.0"
 def ios_framework_name = "Client"

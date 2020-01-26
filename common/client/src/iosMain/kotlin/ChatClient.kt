@@ -4,11 +4,9 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 import kotlinx.cinterop.StableRef
-import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlin.native.concurrent.ensureNeverFrozen
 import kotlin.native.concurrent.freeze
 
-@UseExperimental(ImplicitReflectionSerializer::class)
 internal actual open class ChatClient actual constructor(private val url: String) {
 
     private var receiveMessage: ((Message) -> Unit)? = null

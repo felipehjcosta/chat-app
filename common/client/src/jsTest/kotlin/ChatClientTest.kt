@@ -20,7 +20,6 @@ class ChatClientTest {
     fun setUp() {
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
     fun ensureAStartedConnectionIsOpenedByClient() = Promise<Unit> { resolve, _ ->
         mockServer.on("connection") { socket ->
@@ -32,7 +31,6 @@ class ChatClientTest {
         ChatClient(fakeURL).apply { start() }
     }
 
-    @UseExperimental(ImplicitReflectionSerializer::class)
     @Test
     fun ensureSendMessageIsReceivedByServer() = Promise<Unit> { resolve, _ ->
         val messageSent = Message("Test", "Hello, WebSockets!")
