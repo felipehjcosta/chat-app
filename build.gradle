@@ -34,9 +34,15 @@ subprojects {
 
     detekt {
         toolVersion = "$detekt_gradle_plugin"
-        input = files("${project.rootDir}")
+        input = files("src")
         filters = ".*/resources/.*,.*/build/.*"
         config = files("${project.rootDir}/default-detekt-config.yml")
+    }
+
+    tasks.withType(io.gitlab.arturbosch.detekt.Detekt) {
+        exclude("**/index.module_hoist-non-react-statics.kt")
+        exclude("**/index.module_tiny-invariant.kt")
+        exclude("**/index.module_tiny-warning.kt")
     }
 }
 
