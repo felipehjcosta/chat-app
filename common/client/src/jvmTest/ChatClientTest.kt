@@ -4,9 +4,6 @@ import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
@@ -15,6 +12,10 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Test
 import kotlin.test.assertEquals
+
+private const val TEST_TIMEOUT = 5000L
+private const val WAIT_THREAD = 500L
+private const val WEBSOCKET_CONNECTION_CODE = 11
 
 class ChatClientTest {
 
@@ -27,7 +28,7 @@ class ChatClientTest {
         mockWebServer.shutdown()
     }
 
-    @Test(timeout = 5000L)
+    @Test(timeout = TEST_TIMEOUT)
     fun ensureAStartedConnectionIsOpenedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -37,10 +38,10 @@ class ChatClientTest {
         val webSocketSlot = slot<WebSocket>()
         val responseSlot = slot<Response>()
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), capture(responseSlot)) }
-        assertEquals(101, responseSlot.captured.code())
+        assertEquals(WEBSOCKET_CONNECTION_CODE, responseSlot.captured.code())
     }
 
-    @Test(timeout = 5000L)
+    @Test(timeout = TEST_TIMEOUT)
     fun ensureMessageSendByServerIsReceivedByClient() {
 
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
@@ -49,7 +50,7 @@ class ChatClientTest {
         val mockOnReceive = mockk<(Message) -> Unit>()
         chatClient.receive(mockOnReceive)
 
-        Thread.sleep(500L)
+        Thread.sleep(WAIT_THREAD)
 
         val webSocketSlot = slot<WebSocket>()
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
@@ -57,36 +58,36 @@ class ChatClientTest {
         val message = Message("Test", "Hello, WebSockets!")
         webSocketSlot.captured.send(message.stringify())
 
-        Thread.sleep(500L)
+        Thread.sleep(WAIT_THREAD)
 
         val receivedMessageSlot = slot<Message>()
         verify { mockOnReceive(capture(receivedMessageSlot)) }
         assertEquals(message, receivedMessageSlot.captured)
     }
 
-    @Test(timeout = 5000L)
+    @Test(timeout = TEST_TIMEOUT)
     fun ensureSendMessageIsReceivedByServer() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
 
-        Thread.sleep(500L)
+        Thread.sleep(WAIT_THREAD)
 
         verify { mockServerWebSocketListener.onOpen(any(), any()) }
 
         val message = Message("Test", "Hello, WebSockets!")
         chatClient.send(message)
 
-        Thread.sleep(500L)
+        Thread.sleep(WAIT_THREAD)
 
         verify { mockServerWebSocketListener.onMessage(any(), message.stringify()) }
     }
 
-    @Test(timeout = 5000L)
+    @Test(timeout = TEST_TIMEOUT)
     fun ensureFailureEventIsReceivedByClient() {
         mockWebServer.enqueue(MockResponse().withWebSocketUpgrade(mockServerWebSocketListener))
         val chatClient = ChatClient("http://${mockWebServer.hostName}:${mockWebServer.port}").apply { start() }
 
-        Thread.sleep(500L)
+        Thread.sleep(WAIT_THREAD)
 
         val mockOnFailure = mockk<(Throwable) -> Unit>()
         chatClient.onFailure(mockOnFailure)

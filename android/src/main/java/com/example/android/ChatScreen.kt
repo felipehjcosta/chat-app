@@ -31,10 +31,7 @@ class ChatScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            val passedArguments = ChatScreenArgs.fromBundle(it)
-            userName = passedArguments.username
-        }
+        readArguments()
 
         setupRecyclerView()
 
@@ -52,6 +49,11 @@ class ChatScreen : Fragment() {
         }
 
         chatViewModel.start()
+    }
+
+    private fun readArguments() = arguments?.let {
+        val passedArguments = ChatScreenArgs.fromBundle(it)
+        userName = passedArguments.username
     }
 
     private fun setupRecyclerView() {

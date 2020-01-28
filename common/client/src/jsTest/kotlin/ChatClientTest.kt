@@ -3,10 +3,8 @@ import com.github.felipehjcosta.chatapp.client.ChatClient
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 import kotlinx.io.IOException
-import kotlinx.serialization.ImplicitReflectionSerializer
 import org.w3c.dom.WebSocket
 import kotlin.js.Promise
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -15,10 +13,6 @@ class ChatClientTest {
     private val fakeURL = "ws://localhost:8080"
 
     private val mockServer = Server(fakeURL)
-
-    @BeforeTest
-    fun setUp() {
-    }
 
     @Test
     fun ensureAStartedConnectionIsOpenedByClient() = Promise<Unit> { resolve, _ ->

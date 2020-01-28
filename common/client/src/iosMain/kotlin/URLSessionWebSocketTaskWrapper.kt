@@ -1,6 +1,10 @@
 package com.github.felipehjcosta.chatapp.client
 
-import platform.Foundation.*
+import platform.Foundation.NSError
+import platform.Foundation.NSURL
+import platform.Foundation.NSURLSession
+import platform.Foundation.NSURLSessionWebSocketMessage
+import platform.Foundation.NSURLSessionWebSocketTask
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.freeze
@@ -21,18 +25,19 @@ class URLSessionWebSocketTaskWrapper {
     private fun createWebSocketTask(url: String) = NSURLSession.sharedSession.webSocketTaskWithURL(NSURL(string = url))
 
     private fun prepareToReceiveIncomingMessage(receiveMessageBlock: (String) -> Unit) {
-        val receiveIncomingMessageCompletionHandler = { webSocketMessage: NSURLSessionWebSocketMessage?, error: NSError? ->
-            if (error != null) {
-                println("WebSocket couldn’t receive message because: $error")
-            }
+        val receiveIncomingMessageCompletionHandler =
+                { webSocketMessage: NSURLSessionWebSocketMessage?, error: NSError? ->
+                    if (error != null) {
+                        println("WebSocket couldn’t receive message because: $error")
+                    }
 
-            val dispatchAsyncOnMainThread: platform.darwin.dispatch_block_t = {
-                receiveMessageBlock(webSocketMessage?.string ?: "")
-            }.freeze()
+                    val dispatchAsyncOnMainThread: platform.darwin.dispatch_block_t = {
+                        receiveMessageBlock(webSocketMessage?.string ?: "")
+                    }.freeze()
 
-            dispatch_async(dispatch_get_main_queue(), dispatchAsyncOnMainThread)
-            prepareToReceiveIncomingMessage(receiveMessageBlock)
-        }.freeze()
+                    dispatch_async(dispatch_get_main_queue(), dispatchAsyncOnMainThread)
+                    prepareToReceiveIncomingMessage(receiveMessageBlock)
+                }.freeze()
 
         webSocketTask.receiveMessageWithCompletionHandler(receiveIncomingMessageCompletionHandler)
     }
