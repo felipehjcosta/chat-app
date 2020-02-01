@@ -269,12 +269,8 @@ jobs:
       - *download_android_dependencies
       - *ios_save_gradle_cache
       - run:
-          name: Fetch CocoaPods Specs
-          command: |
-            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
-      - run:
           name: "Test iOS target"
-          command: ./run-native-ios-tests.sh
+          command: ./gradlew iosTest
 
   build_android:
     <<: *android_config
@@ -340,6 +336,9 @@ workflows:
       - test_web:
           requires:
             - lint
+      - test_ios:
+          requires:
+            - lint
       - build_android:
           requires:
             - lint
@@ -351,3 +350,4 @@ workflows:
       - build_ios:
           requires:
             - lint
+            - test_ios
