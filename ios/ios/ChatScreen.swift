@@ -41,6 +41,9 @@ struct ChatScreen: View {
                 }.frame(minHeight: CGFloat(50)).padding()
             }
         }.navigationBarTitle(Text("Chat Room"), displayMode: .inline)
+            .onAppear {
+                self.chatController.onViewAppear()
+        }
     }
     
     func sendMessage() {

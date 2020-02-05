@@ -19,6 +19,13 @@ class ChatController: ObservableObject {
     
     init(_ chatViewModel: ChatViewModel) {
         self.chatViewModel = chatViewModel
+    }
+    
+    func onViewAppear() {
+        setupChatViewModel()
+    }
+    
+    private func setupChatViewModel() {
         self.chatViewModel.start()
         
         self.chatViewModel.onChat = { (message) -> Void in
