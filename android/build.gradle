@@ -13,7 +13,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.example.android"
+        applicationId "com.github.felipehjcosta.chatapp"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -41,6 +41,13 @@ android {
 
     packagingOptions {
         exclude 'META-INF/kotlinx-serialization-runtime.kotlin_module'
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += "src/androidTest/kotlin"
+        debug.java.srcDirs += "src/debug/kotlin"
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
     }
 
 }

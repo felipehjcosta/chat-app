@@ -1,4 +1,4 @@
-package com.example.android
+package com.github.felipehjcosta.chatapp
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView

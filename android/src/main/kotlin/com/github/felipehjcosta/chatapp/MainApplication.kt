@@ -1,4 +1,4 @@
-package com.example.android
+package com.github.felipehjcosta.chatapp
 
 import android.app.Application
 import com.github.felipehjcosta.chatapp.client.ChatInjector

@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/welcomeScreen"
-            android:name="com.example.android.WelcomeScreen"
+            android:name="com.github.felipehjcosta.chatapp.WelcomeScreen"
             android:label="@string/welcome_screen_title"
             tools:layout="@layout/welcome_screen">
         <action
@@ -22,7 +22,7 @@
 
     <fragment
             android:id="@+id/chatScreen"
-            android:name="com.example.android.ChatScreen"
+            android:name="com.github.felipehjcosta.chatapp.ChatScreen"
             android:label="@string/chat_screen_title"
             tools:layout="@layout/chat_screen">
         <argument

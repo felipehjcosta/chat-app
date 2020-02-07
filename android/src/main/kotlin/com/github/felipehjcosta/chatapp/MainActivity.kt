@@ -1,4 +1,4 @@
-package com.example.android
+package com.github.felipehjcosta.chatapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
