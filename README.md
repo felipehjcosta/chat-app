@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/felipehjcosta/chat-app.svg?style=svg)](https://circleci.com/gh/felipehjcosta/chat-app)
 
-A chat web app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
+A chat app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
 
 ![kotlin-mpp-demo](kotlin-mpp-demo.gif)
 
@@ -33,16 +33,8 @@ You can use IntelliJ IDE to run
 ### iOS
 Follow steps below in order to run iOS version:
 
-1. Install `Xcode 10.2`
-2. Install CocoaPods 1.6.1: 
-```
-gem install cocoapods -v 1.6.1
-```
-3. Run CocoaPods to configure the Xcode project:
-```
-pod --project-directory="ios" install
-```
-4. Open `ios/ios.xcworkspace` with Xcode
+1. Install `Xcode 11.3`
+2. Open `ios/ios.xcodeproj` with Xcode
 
 License
 -------
