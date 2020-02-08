@@ -83,26 +83,23 @@ kotlin {
                 implementation npm("mock-socket", "^9.0.0")
             }
         }
-        iosMain {
+
+        appleMain {
+            dependsOn commonMain
             dependencies {
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
             }
         }
 
-        iosTest {
-            dependencies {
-            }
+        appleTest {
+            dependsOn commonTest
         }
 
-        watchMain {
-            dependencies {
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
-            }
-        }
-
-        watchTest {
-            dependencies {
-            }
+        configure([targets['ios'],
+                   targets['watch']
+        ]){
+            compilations.main.source(sourceSets.appleMain)
+            compilations.test.source(sourceSets.appleTest)
         }
     }
 
