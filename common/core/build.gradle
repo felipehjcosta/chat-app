@@ -24,11 +24,11 @@ kotlin {
     targets {
         final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
 
-        fromPreset(iOSTarget, 'ios') {
-            binaries {
-                framework('client')
-            }
-        }
+        fromPreset(iOSTarget, 'ios')
+
+        final def watchTarget = System.getenv('SDK_NAME')?.startsWith("watchos") ? presets.watchosArm64 : presets.watchosX86
+
+        fromPreset(watchTarget, 'watch')
     }
 
     sourceSets {
@@ -85,6 +85,16 @@ kotlin {
         }
 
         iosTest {
+            dependencies {
+            }
+        }
+        watchMain {
+            dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+            }
+        }
+
+        watchTest {
             dependencies {
             }
         }

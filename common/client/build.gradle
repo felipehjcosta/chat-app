@@ -20,6 +20,14 @@ kotlin {
                 framework("$ios_framework_name")
             }
         }
+
+        final def watchTarget = System.getenv('SDK_NAME')?.startsWith("watchos") ? presets.watchosArm64 : presets.watchosX86
+
+        fromPreset(watchTarget, 'watch') {
+            binaries {
+                framework("$ios_framework_name")
+            }
+        }
     }
 
     sourceSets {
@@ -82,6 +90,17 @@ kotlin {
         }
 
         iosTest {
+            dependencies {
+            }
+        }
+
+        watchMain {
+            dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+            }
+        }
+
+        watchTest {
             dependencies {
             }
         }
