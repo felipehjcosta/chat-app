@@ -10,6 +10,17 @@
 		827E2AC823DBA21400292F26 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; };
 		827E2AC923DBA21400292F26 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D54051E22363D7AF00A0B56A /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54051E12363D7AF00A0B56A /* WelcomeScreen.swift */; };
+		D5505C0B23EEF509007FDBDF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5505C0923EEF509007FDBDF /* Interface.storyboard */; };
+		D5505C0D23EEF50C007FDBDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5505C0C23EEF50C007FDBDF /* Assets.xcassets */; };
+		D5505C1423EEF50D007FDBDF /* ChatWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5505C1323EEF50D007FDBDF /* ChatWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D5505C1923EEF50D007FDBDF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505C1823EEF50D007FDBDF /* ContentView.swift */; };
+		D5505C1B23EEF50D007FDBDF /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505C1A23EEF50D007FDBDF /* HostingController.swift */; };
+		D5505C1D23EEF50D007FDBDF /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505C1C23EEF50D007FDBDF /* ExtensionDelegate.swift */; };
+		D5505C1F23EEF50D007FDBDF /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505C1E23EEF50D007FDBDF /* NotificationController.swift */; };
+		D5505C2123EEF50D007FDBDF /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505C2023EEF50D007FDBDF /* NotificationView.swift */; };
+		D5505C2323EEF50D007FDBDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5505C2223EEF50D007FDBDF /* Assets.xcassets */; };
+		D5505C2623EEF50D007FDBDF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5505C2523EEF50D007FDBDF /* Preview Assets.xcassets */; };
+		D5505C2C23EEF50D007FDBDF /* ChatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5505C0723EEF509007FDBDF /* ChatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D5A5E0B0235DFDDE0035F58C /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0AF235DFDDE0035F58C /* ChatScreen.swift */; };
 		D5A5E0B2235E16C10035F58C /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0B1235E16C10035F58C /* ChatController.swift */; };
 		D5A5E0B4235E20BA0035F58C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0B3235E20BA0035F58C /* SceneDelegate.swift */; };
@@ -21,6 +32,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D5505C1523EEF50D007FDBDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5AA2E7122B47D1000EDD654 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5505C1223EEF50D007FDBDF;
+			remoteInfo = "ChatWatch Extension";
+		};
+		D5505C2923EEF50D007FDBDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5AA2E7122B47D1000EDD654 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5505C0623EEF509007FDBDF;
+			remoteInfo = ChatWatch;
+		};
 		D5AA2E8E22B47D1100EDD654 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5AA2E7122B47D1000EDD654 /* Project object */;
@@ -49,10 +74,46 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D5505C2B23EEF50D007FDBDF /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D5505C2C23EEF50D007FDBDF /* ChatWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5505C2F23EEF50D007FDBDF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D5505C1423EEF50D007FDBDF /* ChatWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D54051E12363D7AF00A0B56A /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		D5505C0723EEF509007FDBDF /* ChatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5505C0A23EEF509007FDBDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		D5505C0C23EEF50C007FDBDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D5505C0E23EEF50C007FDBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5505C1323EEF50D007FDBDF /* ChatWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ChatWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5505C1823EEF50D007FDBDF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D5505C1A23EEF50D007FDBDF /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		D5505C1C23EEF50D007FDBDF /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		D5505C1E23EEF50D007FDBDF /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		D5505C2023EEF50D007FDBDF /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		D5505C2223EEF50D007FDBDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D5505C2523EEF50D007FDBDF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D5505C2723EEF50D007FDBDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5505C2823EEF50D007FDBDF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		D5971C3423DA9AB9009BEEBC /* Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Client.framework; path = "../common/client/build/xcode-frameworks/Client.framework"; sourceTree = "<group>"; };
 		D5A5E0AF235DFDDE0035F58C /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
 		D5A5E0B1235E16C10035F58C /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -71,6 +132,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D5505C1023EEF50D007FDBDF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D5AA2E7622B47D1000EDD654 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,6 +164,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D5505C0823EEF509007FDBDF /* ChatWatch */ = {
+			isa = PBXGroup;
+			children = (
+				D5505C0923EEF509007FDBDF /* Interface.storyboard */,
+				D5505C0C23EEF50C007FDBDF /* Assets.xcassets */,
+				D5505C0E23EEF50C007FDBDF /* Info.plist */,
+			);
+			path = ChatWatch;
+			sourceTree = "<group>";
+		};
+		D5505C1723EEF50D007FDBDF /* ChatWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D5505C1823EEF50D007FDBDF /* ContentView.swift */,
+				D5505C1A23EEF50D007FDBDF /* HostingController.swift */,
+				D5505C1C23EEF50D007FDBDF /* ExtensionDelegate.swift */,
+				D5505C1E23EEF50D007FDBDF /* NotificationController.swift */,
+				D5505C2023EEF50D007FDBDF /* NotificationView.swift */,
+				D5505C2223EEF50D007FDBDF /* Assets.xcassets */,
+				D5505C2723EEF50D007FDBDF /* Info.plist */,
+				D5505C2823EEF50D007FDBDF /* PushNotificationPayload.apns */,
+				D5505C2423EEF50D007FDBDF /* Preview Content */,
+			);
+			path = "ChatWatch Extension";
+			sourceTree = "<group>";
+		};
+		D5505C2423EEF50D007FDBDF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D5505C2523EEF50D007FDBDF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		D5971C3323DA9AB9009BEEBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +212,8 @@
 				D5AA2E7B22B47D1000EDD654 /* ios */,
 				D5AA2E9022B47D1100EDD654 /* iosTests */,
 				D5AA2E9B22B47D1100EDD654 /* iosUITests */,
+				D5505C0823EEF509007FDBDF /* ChatWatch */,
+				D5505C1723EEF50D007FDBDF /* ChatWatch Extension */,
 				D5AA2E7A22B47D1000EDD654 /* Products */,
 				D5971C3323DA9AB9009BEEBC /* Frameworks */,
 			);
@@ -121,6 +225,8 @@
 				D5AA2E7922B47D1000EDD654 /* ios.app */,
 				D5AA2E8D22B47D1100EDD654 /* iosTests.xctest */,
 				D5AA2E9822B47D1100EDD654 /* iosUITests.xctest */,
+				D5505C0723EEF509007FDBDF /* ChatWatch.app */,
+				D5505C1323EEF50D007FDBDF /* ChatWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,6 +267,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D5505C0623EEF509007FDBDF /* ChatWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5505C3323EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch" */;
+			buildPhases = (
+				D5505C0523EEF509007FDBDF /* Resources */,
+				D5505C2F23EEF50D007FDBDF /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D5505C1623EEF50D007FDBDF /* PBXTargetDependency */,
+			);
+			name = ChatWatch;
+			productName = ChatWatch;
+			productReference = D5505C0723EEF509007FDBDF /* ChatWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		D5505C1223EEF50D007FDBDF /* ChatWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5505C3223EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch Extension" */;
+			buildPhases = (
+				D5505C0F23EEF50D007FDBDF /* Sources */,
+				D5505C1023EEF50D007FDBDF /* Frameworks */,
+				D5505C1123EEF50D007FDBDF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ChatWatch Extension";
+			productName = "ChatWatch Extension";
+			productReference = D5505C1323EEF50D007FDBDF /* ChatWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		D5AA2E7822B47D1000EDD654 /* ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5AA2EA122B47D1100EDD654 /* Build configuration list for PBXNativeTarget "ios" */;
@@ -170,10 +310,12 @@
 				D5AA2E7622B47D1000EDD654 /* Frameworks */,
 				D5AA2E7722B47D1000EDD654 /* Resources */,
 				827E2ACA23DBA21400292F26 /* Embed Frameworks */,
+				D5505C2B23EEF50D007FDBDF /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D5505C2A23EEF50D007FDBDF /* PBXTargetDependency */,
 			);
 			name = ios;
 			productName = ios;
@@ -222,10 +364,16 @@
 		D5AA2E7122B47D1000EDD654 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Felipe Costa";
 				TargetAttributes = {
+					D5505C0623EEF509007FDBDF = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					D5505C1223EEF50D007FDBDF = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					D5AA2E7822B47D1000EDD654 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
@@ -255,11 +403,31 @@
 				D5AA2E7822B47D1000EDD654 /* ios */,
 				D5AA2E8C22B47D1100EDD654 /* iosTests */,
 				D5AA2E9722B47D1100EDD654 /* iosUITests */,
+				D5505C0623EEF509007FDBDF /* ChatWatch */,
+				D5505C1223EEF50D007FDBDF /* ChatWatch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D5505C0523EEF509007FDBDF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5505C0D23EEF50C007FDBDF /* Assets.xcassets in Resources */,
+				D5505C0B23EEF509007FDBDF /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5505C1123EEF50D007FDBDF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5505C2623EEF50D007FDBDF /* Preview Assets.xcassets in Resources */,
+				D5505C2323EEF50D007FDBDF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D5AA2E7722B47D1000EDD654 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +475,18 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D5505C0F23EEF50D007FDBDF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5505C1B23EEF50D007FDBDF /* HostingController.swift in Sources */,
+				D5505C1923EEF50D007FDBDF /* ContentView.swift in Sources */,
+				D5505C1F23EEF50D007FDBDF /* NotificationController.swift in Sources */,
+				D5505C1D23EEF50D007FDBDF /* ExtensionDelegate.swift in Sources */,
+				D5505C2123EEF50D007FDBDF /* NotificationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D5AA2E7522B47D1000EDD654 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,6 +518,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D5505C1623EEF50D007FDBDF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5505C1223EEF50D007FDBDF /* ChatWatch Extension */;
+			targetProxy = D5505C1523EEF50D007FDBDF /* PBXContainerItemProxy */;
+		};
+		D5505C2A23EEF50D007FDBDF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5505C0623EEF509007FDBDF /* ChatWatch */;
+			targetProxy = D5505C2923EEF50D007FDBDF /* PBXContainerItemProxy */;
+		};
 		D5AA2E8F22B47D1100EDD654 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D5AA2E7822B47D1000EDD654 /* ios */;
@@ -351,6 +541,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D5505C0923EEF509007FDBDF /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5505C0A23EEF509007FDBDF /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		D5AA2E8522B47D1100EDD654 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -362,6 +560,92 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D5505C2D23EEF50D007FDBDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				IBSC_MODULE = ChatWatch_Extension;
+				INFOPLIST_FILE = ChatWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.1;
+			};
+			name = Debug;
+		};
+		D5505C2E23EEF50D007FDBDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				IBSC_MODULE = ChatWatch_Extension;
+				INFOPLIST_FILE = ChatWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.1;
+			};
+			name = Release;
+		};
+		D5505C3023EEF50D007FDBDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"ChatWatch Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "ChatWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		D5505C3123EEF50D007FDBDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"ChatWatch Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "ChatWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.felipehjcosta.chatapp.ios.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
 		D5AA2E9F22B47D1100EDD654 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -599,6 +883,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D5505C3223EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5505C3023EEF50D007FDBDF /* Debug */,
+				D5505C3123EEF50D007FDBDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5505C3323EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5505C2D23EEF50D007FDBDF /* Debug */,
+				D5505C2E23EEF50D007FDBDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D5AA2E7422B47D1000EDD654 /* Build configuration list for PBXProject "ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
