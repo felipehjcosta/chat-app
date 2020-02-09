@@ -146,3 +146,18 @@ task iosTest {
     }
 }
 tasks.check.dependsOn iosTest
+
+task watchTest {
+    def device = project.findProperty("watchDevice")?.toString() ?: "Apple Watch Series 5 - 44mm"
+    dependsOn 'linkDebugTestWatch'
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'watch' on an WatchOS simulator"
+
+    doLast {
+        def binary = kotlin.targets.watch.binaries.getTest("DEBUG").outputFile
+        exec {
+            commandLine 'xcrun', 'simctl', 'spawn', '--standalone', device, binary.absolutePath
+        }
+    }
+}
+tasks.check.dependsOn watchTest
