@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-struct ChatMessage: Hashable{
-    var author: String
-    var message: String
-}
-
 struct ChatScreen: View {
     
     var username: String
