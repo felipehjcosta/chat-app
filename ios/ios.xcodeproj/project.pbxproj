@@ -32,6 +32,8 @@
 		D5B49AE023EFC07900E24989 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD923EFBEBE00E24989 /* Client.framework */; };
 		D5B49AE123EFC07A00E24989 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD923EFBEBE00E24989 /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5B49AE423EFC10F00E24989 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B49AE323EFC10F00E24989 /* ChatMessage.swift */; };
+		D5B49AE623EFC1D400E24989 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B49AE323EFC10F00E24989 /* ChatMessage.swift */; };
+		D5B49AE723EFC1D700E24989 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A5E0B1235E16C10035F58C /* ChatController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -545,7 +547,9 @@
 			files = (
 				D5505C1B23EEF50D007FDBDF /* HostingController.swift in Sources */,
 				D5505C1923EEF50D007FDBDF /* ContentView.swift in Sources */,
+				D5B49AE723EFC1D700E24989 /* ChatController.swift in Sources */,
 				D5505C1F23EEF50D007FDBDF /* NotificationController.swift in Sources */,
+				D5B49AE623EFC1D400E24989 /* ChatMessage.swift in Sources */,
 				D5505C1D23EEF50D007FDBDF /* ExtensionDelegate.swift in Sources */,
 				D5505C2123EEF50D007FDBDF /* NotificationView.swift in Sources */,
 			);
