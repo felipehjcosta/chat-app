@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		827E2AC823DBA21400292F26 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; };
-		827E2AC923DBA21400292F26 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5971C3423DA9AB9009BEEBC /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D54051E22363D7AF00A0B56A /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54051E12363D7AF00A0B56A /* WelcomeScreen.swift */; };
 		D5505C0B23EEF509007FDBDF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5505C0923EEF509007FDBDF /* Interface.storyboard */; };
 		D5505C0D23EEF50C007FDBDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5505C0C23EEF50C007FDBDF /* Assets.xcassets */; };
@@ -29,6 +27,11 @@
 		D5AA2E8722B47D1100EDD654 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA2E8522B47D1100EDD654 /* LaunchScreen.storyboard */; };
 		D5AA2E9222B47D1100EDD654 /* iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA2E9122B47D1100EDD654 /* iosTests.swift */; };
 		D5AA2E9D22B47D1100EDD654 /* iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA2E9C22B47D1100EDD654 /* iosUITests.swift */; };
+		D5B49AD623EFBEAB00E24989 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD523EFBEAB00E24989 /* Client.framework */; };
+		D5B49AD723EFBEAB00E24989 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD523EFBEAB00E24989 /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5B49AE023EFC07900E24989 /* Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD923EFBEBE00E24989 /* Client.framework */; };
+		D5B49AE123EFC07A00E24989 /* Client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D5B49AD923EFBEBE00E24989 /* Client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5B49AE423EFC10F00E24989 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B49AE323EFC10F00E24989 /* ChatMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,17 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		827E2ACA23DBA21400292F26 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				827E2AC923DBA21400292F26 /* Client.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D5505C2B23EEF50D007FDBDF /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,6 +86,28 @@
 				D5505C1423EEF50D007FDBDF /* ChatWatch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5B49AD823EFBEAB00E24989 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D5B49AD723EFBEAB00E24989 /* Client.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5B49AE223EFC07A00E24989 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D5B49AE123EFC07A00E24989 /* Client.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -129,6 +143,11 @@
 		D5AA2E9822B47D1100EDD654 /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AA2E9C22B47D1100EDD654 /* iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosUITests.swift; sourceTree = "<group>"; };
 		D5AA2E9E22B47D1100EDD654 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5B49AD423EFBE8100E24989 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios; path = ../common/client/build/bin/ios; sourceTree = "<group>"; };
+		D5B49AD523EFBEAB00E24989 /* Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Client.framework; path = "../common/client/build/xcode-frameworks/ios/Client.framework"; sourceTree = "<group>"; };
+		D5B49AD923EFBEBE00E24989 /* Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Client.framework; path = "../common/client/build/xcode-frameworks/watch/Client.framework"; sourceTree = "<group>"; };
+		D5B49ADF23EFC06B00E24989 /* watch */ = {isa = PBXFileReference; lastKnownFileType = folder; name = watch; path = "../common/client/build/xcode-frameworks/watch"; sourceTree = "<group>"; };
+		D5B49AE323EFC10F00E24989 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5B49AE023EFC07900E24989 /* Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827E2AC823DBA21400292F26 /* Client.framework in Frameworks */,
+				D5B49AD623EFBEAB00E24989 /* Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +221,10 @@
 		D5971C3323DA9AB9009BEEBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5B49ADF23EFC06B00E24989 /* watch */,
+				D5B49AD523EFBEAB00E24989 /* Client.framework */,
+				D5B49AD923EFBEBE00E24989 /* Client.framework */,
+				D5B49AD423EFBE8100E24989 /* ios */,
 				D5971C3423DA9AB9009BEEBC /* Client.framework */,
 			);
 			name = Frameworks;
@@ -242,6 +266,7 @@
 				D5A5E0B1235E16C10035F58C /* ChatController.swift */,
 				D5A5E0B3235E20BA0035F58C /* SceneDelegate.swift */,
 				D54051E12363D7AF00A0B56A /* WelcomeScreen.swift */,
+				D5B49AE323EFC10F00E24989 /* ChatMessage.swift */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -271,6 +296,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5505C3323EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch" */;
 			buildPhases = (
+				D5B49ADE23EFC02C00E24989 /* Pack Client Watch for xcode */,
 				D5505C0523EEF509007FDBDF /* Resources */,
 				D5505C2F23EEF50D007FDBDF /* Embed App Extensions */,
 			);
@@ -288,9 +314,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5505C3223EEF50D007FDBDF /* Build configuration list for PBXNativeTarget "ChatWatch Extension" */;
 			buildPhases = (
+				D5B49ACF23EFB5C500E24989 /* Pack Client Watch for xcode */,
 				D5505C0F23EEF50D007FDBDF /* Sources */,
 				D5505C1023EEF50D007FDBDF /* Frameworks */,
 				D5505C1123EEF50D007FDBDF /* Resources */,
+				D5B49AE223EFC07A00E24989 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,12 +333,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5AA2EA122B47D1100EDD654 /* Build configuration list for PBXNativeTarget "ios" */;
 			buildPhases = (
-				D5971C3823DA9B21009BEEBC /* Pack Client for xcode */,
+				D5971C3823DA9B21009BEEBC /* Pack Client iOS for xcode */,
 				D5AA2E7522B47D1000EDD654 /* Sources */,
 				D5AA2E7622B47D1000EDD654 /* Frameworks */,
 				D5AA2E7722B47D1000EDD654 /* Resources */,
-				827E2ACA23DBA21400292F26 /* Embed Frameworks */,
 				D5505C2B23EEF50D007FDBDF /* Embed Watch Content */,
+				D5B49AD823EFBEAB00E24989 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -454,7 +482,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D5971C3823DA9B21009BEEBC /* Pack Client for xcode */ = {
+		D5971C3823DA9B21009BEEBC /* Pack Client iOS for xcode */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -463,14 +491,50 @@
 			);
 			inputPaths = (
 			);
-			name = "Pack Client for xcode";
+			name = "Pack Client iOS for xcode";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/../common/client/build/xcode-frameworks\" ./gradlew :common:client:packForXcode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+			shellScript = "cd \"$SRCROOT/../common/client/build/xcode-frameworks/ios\" ./gradlew :common:client:packIOSForXcode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+		D5B49ACF23EFB5C500E24989 /* Pack Client Watch for xcode */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Pack Client Watch for xcode";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../common/client/build/xcode-frameworks/watch\" ./gradlew :common:client:packWatchForXcode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+		D5B49ADE23EFC02C00E24989 /* Pack Client Watch for xcode */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Pack Client Watch for xcode";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../common/client/build/xcode-frameworks/watch\" ./gradlew :common:client:packWatchForXcode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -494,6 +558,7 @@
 				D5A5E0B0235DFDDE0035F58C /* ChatScreen.swift in Sources */,
 				D5AA2E7D22B47D1000EDD654 /* AppDelegate.swift in Sources */,
 				D5A5E0B2235E16C10035F58C /* ChatController.swift in Sources */,
+				D5B49AE423EFC10F00E24989 /* ChatMessage.swift in Sources */,
 				D54051E22363D7AF00A0B56A /* WelcomeScreen.swift in Sources */,
 				D5A5E0B4235E20BA0035F58C /* SceneDelegate.swift in Sources */,
 			);
@@ -606,6 +671,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatWatch Extension/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/watch/**";
 				INFOPLIST_FILE = "ChatWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -630,6 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatWatch Extension/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/watch/**";
 				INFOPLIST_FILE = "ChatWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -769,7 +836,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/**";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/ios/**";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -788,7 +855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/**";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../common/client/build/xcode-frameworks/ios/**";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

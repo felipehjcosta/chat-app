@@ -113,8 +113,8 @@ kotlin {
     }
 }
 
-task packForXcode {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+task packIOSForXcode {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks/ios")
     final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
     def keyFrameworkPrefix = "$ios_framework_name${buildType.toLowerCase().capitalize()}"
     dependsOn "link${keyFrameworkPrefix}FrameworkIos"
@@ -130,7 +130,31 @@ task packForXcode {
         }
     }
 }
-tasks.build.dependsOn packForXcode
+tasks.build.dependsOn packIOSForXcode
+
+task packWatchForXcode {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks/watch")
+    final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+    def keyFrameworkPrefix = "$ios_framework_name${buildType.toLowerCase().capitalize()}"
+    dependsOn "link${keyFrameworkPrefix}FrameworkWatch"
+    doLast {
+        def srcFile = kotlin.targets.watch.binaries.getFramework("$ios_framework_name", buildType).outputFile
+        copy {
+            from srcFile.parent
+            into frameworkDir
+        }
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+tasks.build.dependsOn packWatchForXcode
+
+task packForXcode {
+    dependsOn packIOSForXcode
+    dependsOn packWatchForXcode
+}
 
 task iosTest {
     def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 11"
