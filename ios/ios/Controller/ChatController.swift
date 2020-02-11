@@ -19,9 +19,6 @@ class ChatController: ObservableObject {
     
     init(_ chatViewModel: ChatViewModel) {
         self.chatViewModel = chatViewModel
-    }
-    
-    func onViewAppear() {
         setupChatViewModel()
     }
     
@@ -41,5 +38,12 @@ class ChatController: ObservableObject {
     
     func sendMessage(_ chatMessage: ChatMessage) {
         self.chatViewModel.sendMessage(message: CoreMessage(author: chatMessage.author, message: chatMessage.message))
+    }
+}
+
+extension ChatController {
+    class func createChatController() -> ChatController {
+        let chatViewModel = ChatInjector.init().createViewModel()
+        return ChatController(chatViewModel)
     }
 }

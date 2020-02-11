@@ -7,10 +7,13 @@
 //
 
 import WatchKit
+import Client
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
+        ChatInjector.init().baseUrl = "ws://localhost:8080/chat"
+        
         // Perform any final initialization of your application.
     }
 
