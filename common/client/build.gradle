@@ -95,14 +95,22 @@ kotlin {
             dependsOn commonTest
         }
 
-        configure([targets['ios'],
-                   targets['watch']
-        ]){
-            compilations.main.source(sourceSets.appleMain)
-            compilations.test.source(sourceSets.appleTest)
+        iosMain {
+            dependsOn appleMain
+        }
+
+        iosTest {
+            dependsOn appleTest
+        }
+
+        watchMain {
+            dependsOn appleMain
+        }
+
+        watchTest {
+            dependsOn appleTest
         }
     }
-
     // Configure all compilations of all targets:
     targets.all {
         compilations.all {
