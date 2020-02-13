@@ -25,10 +25,10 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField 'String', 'CHAT_URL_SERVER', "\"ws://${getIP()}:8080\""
+            buildConfigField 'String', 'CHAT_URL_SERVER', "\"ws://${getIP()}:8089\""
         }
         release {
-            buildConfigField 'String', 'CHAT_URL_SERVER', "\"ws://${getIP()}:8080\""
+            buildConfigField 'String', 'CHAT_URL_SERVER', "\"ws://${getIP()}:8089\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

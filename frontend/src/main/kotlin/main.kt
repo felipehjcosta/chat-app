@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     }
 
     ChatInjector {
-        baseUrl = "ws://localhost:8080/chat"
+        baseUrl = "ws://localhost:8089/chat"
     }
 
     render(document.getElementById("root")) {

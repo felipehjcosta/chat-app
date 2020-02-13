@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        ChatInjector.init().baseUrl = "ws://localhost:8080/chat"
+        ChatInjector.init().baseUrl = "ws://localhost:8089/chat"
         return true
     }
     
