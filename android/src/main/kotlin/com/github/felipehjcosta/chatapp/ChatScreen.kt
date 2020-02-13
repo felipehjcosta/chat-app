@@ -2,9 +2,7 @@ package com.github.felipehjcosta.chatapp
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -16,16 +14,10 @@ import kotlinx.android.synthetic.main.chat_screen.message_input as messageInput
 import kotlinx.android.synthetic.main.chat_screen.messages_recycler_view as messagesRecyclerView
 import kotlinx.android.synthetic.main.chat_screen.send_button as sendButton
 
-class ChatScreen : Fragment() {
+class ChatScreen : Fragment(R.layout.chat_screen) {
 
     private lateinit var userName: String
     private val chatViewModel: ChatViewModel by ChatInjector.viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.chat_screen, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

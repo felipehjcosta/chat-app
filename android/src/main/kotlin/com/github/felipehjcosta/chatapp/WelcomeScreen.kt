@@ -2,20 +2,13 @@ package com.github.felipehjcosta.chatapp
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.welcome_screen.go_to_chat as goToChat
 import kotlinx.android.synthetic.main.welcome_screen.username_input as usernameInput
 
-class WelcomeScreen : Fragment() {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.welcome_screen, container, false)
-    }
+class WelcomeScreen : Fragment(R.layout.welcome_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
