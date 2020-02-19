@@ -33,9 +33,6 @@ subprojects {
     apply plugin: "io.gitlab.arturbosch.detekt"
 
     detekt {
-        toolVersion = "$detekt_gradle_plugin"
-        input = files("src")
-        filters = ".*/resources/.*,.*/build/.*"
         config = files("${project.rootDir}/default-detekt-config.yml")
     }
 
