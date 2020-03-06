@@ -32,12 +32,6 @@ kotlin {
     }
 
     sourceSets {
-        all {
-            languageSettings {
-                useExperimentalAnnotation 'kotlin.Experimental'
-                useExperimentalAnnotation 'kotlinx.serialization.UnstableDefault'
-            }
-        }
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
@@ -85,8 +79,7 @@ kotlin {
         }
 
         iosTest {
-            dependencies {
-            }
+            dependencies {}
         }
         watchMain {
             dependencies {
@@ -95,8 +88,7 @@ kotlin {
         }
 
         watchTest {
-            dependencies {
-            }
+            dependencies {}
         }
     }
 }

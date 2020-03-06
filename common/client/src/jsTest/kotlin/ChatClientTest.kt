@@ -2,7 +2,6 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
-import kotlinx.io.IOException
 import org.w3c.dom.WebSocket
 import kotlin.js.Promise
 import kotlin.test.Test
@@ -10,7 +9,7 @@ import kotlin.test.assertEquals
 
 class ChatClientTest {
 
-    private val fakeURL = "ws://localhost:8080"
+    private val fakeURL = "ws://localhost:8089"
 
     private val mockServer = Server(fakeURL)
 
@@ -67,7 +66,7 @@ class ChatClientTest {
 
         ChatClient(fakeURL).apply {
             onFailure {
-                assertEquals(IOException::class, it::class)
+                assertEquals(Error::class, it::class)
                 assertEquals("error", it.message)
                 mockServer.stop()
                 resolve(Unit)

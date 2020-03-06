@@ -31,17 +31,10 @@ kotlin {
     }
 
     sourceSets {
-        all {
-            languageSettings {
-                useExperimentalAnnotation 'kotlin.Experimental'
-                useExperimentalAnnotation 'kotlinx.serialization.UnstableDefault'
-            }
-        }
         commonMain {
             dependencies {
                 api project(":common:core")
                 implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
             }
         }
 
@@ -55,7 +48,6 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
                 implementation 'com.squareup.okhttp3:okhttp:4.3.0'
             }
         }
@@ -73,7 +65,6 @@ kotlin {
         jsMain {
             dependencies {
                 implementation kotlin('stdlib-js')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
             }
         }
 
@@ -86,9 +77,6 @@ kotlin {
 
         appleMain {
             dependsOn commonMain
-            dependencies {
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
-            }
         }
 
         appleTest {
@@ -163,33 +151,3 @@ task packForXcode {
     dependsOn packIOSForXcode
     dependsOn packWatchForXcode
 }
-
-task iosTest {
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 11"
-    dependsOn 'linkDebugTestIos'
-    group = JavaBasePlugin.VERIFICATION_GROUP
-    description = "Runs tests for target 'ios' on an iOS simulator"
-
-    doLast {
-        def binary = kotlin.targets.ios.binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine 'xcrun', 'simctl', 'spawn', '--standalone', device, binary.absolutePath
-        }
-    }
-}
-tasks.check.dependsOn iosTest
-
-task watchTest {
-    def device = project.findProperty("watchDevice")?.toString() ?: "Apple Watch Series 5 - 44mm"
-    dependsOn 'linkDebugTestWatch'
-    group = JavaBasePlugin.VERIFICATION_GROUP
-    description = "Runs tests for target 'watch' on an WatchOS simulator"
-
-    doLast {
-        def binary = kotlin.targets.watch.binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine 'xcrun', 'simctl', 'spawn', '--standalone', device, binary.absolutePath
-        }
-    }
-}
-tasks.check.dependsOn watchTest

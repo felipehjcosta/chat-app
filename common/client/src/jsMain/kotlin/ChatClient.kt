@@ -4,7 +4,6 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
-import kotlinx.io.IOException
 import org.w3c.dom.WebSocket
 
 internal actual open class ChatClient actual constructor(private val url: String) {
@@ -27,7 +26,7 @@ internal actual open class ChatClient actual constructor(private val url: String
         }
         socket?.onerror = { event ->
             Logger.info("on error event: $event")
-            failure?.let { it(IOException(event.type)) }
+            failure?.let { it(Error(event.type)) }
         }
     }
 
