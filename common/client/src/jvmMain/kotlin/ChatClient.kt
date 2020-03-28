@@ -4,6 +4,9 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -34,8 +37,10 @@ internal actual open class ChatClient actual constructor(private val url: String
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        Logger.info("Message Received: $text")
-        receiveMessage?.invoke(text.toMessage())
+        GlobalScope.launch(Dispatchers.Main) {
+            Logger.info("Message Received: $text")
+            receiveMessage?.invoke(text.toMessage())
+        }
     }
 
     actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
@@ -43,7 +48,9 @@ internal actual open class ChatClient actual constructor(private val url: String
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-        Logger.info("WebSocket Failure: $t")
-        failure?.invoke(t)
+        GlobalScope.launch(Dispatchers.Main) {
+            Logger.info("WebSocket Failure: $t")
+            failure?.invoke(t)
+        }
     }
 }

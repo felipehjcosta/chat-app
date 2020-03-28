@@ -1,12 +1,13 @@
 package com.github.felipehjcosta.chatapp.client
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
 import platform.Foundation.NSURLSession
 import platform.Foundation.NSURLSessionWebSocketMessage
 import platform.Foundation.NSURLSessionWebSocketTask
-import platform.darwin.dispatch_async
-import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.freeze
 
 @ThreadLocal
@@ -31,11 +32,12 @@ class URLSessionWebSocketTaskWrapper {
                         println("WebSocket couldn’t receive message because: $error")
                     }
 
-                    val dispatchAsyncOnMainThread: platform.darwin.dispatch_block_t = {
-                        receiveMessageBlock(webSocketMessage?.string ?: "")
-                    }.freeze()
+                    val message = webSocketMessage?.string ?: ""
+                    GlobalScope.launch(Dispatchers.Main) {
+                        receiveMessageBlock(message)
+                    }
 
-                    dispatch_async(dispatch_get_main_queue(), dispatchAsyncOnMainThread)
+
                     prepareToReceiveIncomingMessage(receiveMessageBlock)
                 }.freeze()
 

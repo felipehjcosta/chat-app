@@ -26,7 +26,7 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
 
         setupRecyclerView()
 
-        chatViewModel.onChat = { activity?.runOnUiThread { receiveMessage(it) } }
+        chatViewModel.onChat = { receiveMessage(it) }
 
         sendButton.setOnClickListener { sendMessage() }
         messageInput.setOnEditorActionListener { _, actionId, _ ->
