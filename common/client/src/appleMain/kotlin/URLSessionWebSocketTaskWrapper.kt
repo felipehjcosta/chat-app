@@ -2,6 +2,7 @@ package com.github.felipehjcosta.chatapp.client
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
@@ -17,31 +18,46 @@ class URLSessionWebSocketTaskWrapper {
 
     private lateinit var webSocketTask: NSURLSessionWebSocketTask
 
+    private val webSocketChannel = Channel<String>()
+
     fun start(url: String, receiveMessageBlock: (String) -> Unit) {
+        prepareWebSocketConsumer(receiveMessageBlock)
         webSocketTask = createWebSocketTask(url)
-        prepareToReceiveIncomingMessage(receiveMessageBlock)
+        prepareToReceiveIncomingMessage()
         webSocketTask.resume()
+    }
+
+    private fun prepareWebSocketConsumer(receiveMessageBlock: (String) -> Unit) {
+        consumeWebSocketMessage(receiveMessageBlock)
     }
 
     private fun createWebSocketTask(url: String) = NSURLSession.sharedSession.webSocketTaskWithURL(NSURL(string = url))
 
-    private fun prepareToReceiveIncomingMessage(receiveMessageBlock: (String) -> Unit) {
+    private fun prepareToReceiveIncomingMessage() {
         val receiveIncomingMessageCompletionHandler =
                 { webSocketMessage: NSURLSessionWebSocketMessage?, error: NSError? ->
                     if (error != null) {
                         println("WebSocket couldn’t receive message because: $error")
                     }
-
-                    val message = webSocketMessage?.string ?: ""
-                    GlobalScope.launch(Dispatchers.Main) {
-                        receiveMessageBlock(message)
-                    }
-
-
-                    prepareToReceiveIncomingMessage(receiveMessageBlock)
+                    produceWebSocketMessage(webSocketMessage?.string ?: "")
+                    prepareToReceiveIncomingMessage()
                 }.freeze()
 
         webSocketTask.receiveMessageWithCompletionHandler(receiveIncomingMessageCompletionHandler)
+    }
+
+    private fun produceWebSocketMessage(message: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            webSocketChannel.send(message)
+        }
+    }
+
+    private fun consumeWebSocketMessage(block: (String) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            for (message in webSocketChannel) {
+                block(message)
+            }
+        }
     }
 
     fun sendMessage(message: String) {

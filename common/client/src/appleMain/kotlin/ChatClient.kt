@@ -3,9 +3,7 @@ package com.github.felipehjcosta.chatapp.client
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
-import kotlinx.cinterop.StableRef
 import kotlin.native.concurrent.ensureNeverFrozen
-import kotlin.native.concurrent.freeze
 
 internal actual open class ChatClient actual constructor(private val url: String) {
 
@@ -18,10 +16,9 @@ internal actual open class ChatClient actual constructor(private val url: String
     }
 
     actual open fun start() {
-        val chatClientReference = StableRef.create(this)
         val receiveMessageBlock = { webSocketMessage: String ->
-            chatClientReference.get().receiveMessage?.invoke(webSocketMessage.toMessage()) ?: Unit
-        }.freeze()
+            receiveMessage?.invoke(webSocketMessage.toMessage()) ?: Unit
+        }
 
         urlSessionWebSocketTaskWrapper.start(url, receiveMessageBlock)
     }
