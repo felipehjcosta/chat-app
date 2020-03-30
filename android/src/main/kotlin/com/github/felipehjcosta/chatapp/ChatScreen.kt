@@ -61,7 +61,6 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
     }
 
     private fun sendMessage() {
-        hideKeyboard()
         val message = messageInput.text.toString()
         chatViewModel.sendMessage(Message(userName, message))
         messageInput.text?.clear()
@@ -73,12 +72,6 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
                 addExtraItems(listOf(message))
             }
         }
-    }
-
-    private fun hideKeyboard() {
-        view?.findViewById<View>(android.R.id.content)?.run {
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager?
-            imm?.hideSoftInputFromWindow(windowToken, 0)
-        }
+        messagesRecyclerView.scheduleScrollToEnd()
     }
 }

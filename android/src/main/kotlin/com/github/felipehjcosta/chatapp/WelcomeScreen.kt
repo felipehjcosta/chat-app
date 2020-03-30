@@ -14,6 +14,7 @@ class WelcomeScreen : Fragment(R.layout.welcome_screen) {
         super.onViewCreated(view, savedInstanceState)
 
         goToChat.setOnClickListener {
+            activity?.hideKeyboard()
             val userName = usernameInput.text.toString()
             val action = WelcomeScreenDirections.actionGoToChat(userName)
             findNavController().navigate(action)
