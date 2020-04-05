@@ -38,9 +38,10 @@ class URLSessionWebSocketTaskWrapper {
                 { webSocketMessage: NSURLSessionWebSocketMessage?, error: NSError? ->
                     if (error != null) {
                         println("WebSocket couldn’t receive message because: $error")
+                    } else {
+                        produceWebSocketMessage(webSocketMessage?.string ?: "")
+                        prepareToReceiveIncomingMessage()
                     }
-                    produceWebSocketMessage(webSocketMessage?.string ?: "")
-                    prepareToReceiveIncomingMessage()
                 }.freeze()
 
         webSocketTask.receiveMessageWithCompletionHandler(receiveIncomingMessageCompletionHandler)
