@@ -18,4 +18,7 @@ jobs:
         java-version: 1.8
 
     - name: Runs all checks
-      run: ./gradlew check --console=plain -Dorg.gradle.parallel=false
+      run: ./gradlew check --console=plain
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
