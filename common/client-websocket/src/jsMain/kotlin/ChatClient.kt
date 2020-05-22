@@ -6,7 +6,7 @@ import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 import org.w3c.dom.WebSocket
 
-internal actual open class ChatClient actual constructor(private val url: String) {
+actual open class ChatClient actual constructor(private val url: String) {
 
     private var socket: WebSocket? = null
 

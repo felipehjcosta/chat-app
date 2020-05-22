@@ -23,7 +23,7 @@ pluginManagement {
 enableFeaturePreview("GRADLE_METADATA")
 
 rootProject.name = 'chatapp'
-include ':common:core', ':common:client'
+include ':common:core', ':common:client', ':common:client-websocket'
 include ':backend'
 include ':frontend'
 include ':android'

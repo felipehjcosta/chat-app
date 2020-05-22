@@ -33,9 +33,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api project(":common:core")
+                api project(":common:client-websocket")
                 implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.5"
             }
         }
 
@@ -49,9 +48,6 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
-                implementation 'com.squareup.okhttp3:okhttp:4.3.0'
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5"
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
             }
         }
 
@@ -59,56 +55,28 @@ kotlin {
             dependencies {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
-                implementation "junit:junit:$junit_version"
-                implementation "io.mockk:mockk:1.9"
-                implementation 'com.squareup.okhttp3:mockwebserver:4.3.0'
             }
         }
 
         jsMain {
             dependencies {
                 implementation kotlin('stdlib-js')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.3.5"
             }
         }
 
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation npm("mock-socket", "^9.0.0")
             }
         }
 
-        appleMain {
-            dependsOn commonMain
-            dependencies {
-                implementation('org.jetbrains.kotlinx:kotlinx-coroutines-core-native') {
-                    version {
-                        strictly '1.3.5-native-mt'
-                    }
-                }
-            }
-        }
+        iosMain {}
 
-        appleTest {
-            dependsOn commonTest
-        }
+        iosTest {}
 
-        iosMain {
-            dependsOn appleMain
-        }
+        watchMain {}
 
-        iosTest {
-            dependsOn appleTest
-        }
-
-        watchMain {
-            dependsOn appleMain
-        }
-
-        watchTest {
-            dependsOn appleTest
-        }
+        watchTest {}
     }
     // Configure all compilations of all targets:
     targets.all {

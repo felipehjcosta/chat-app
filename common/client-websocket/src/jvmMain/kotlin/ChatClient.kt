@@ -13,7 +13,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-internal actual open class ChatClient actual constructor(private val url: String) : WebSocketListener() {
+actual open class ChatClient actual constructor(private val url: String) {
 
     private var websocketClient: WebSocket? = null
 
@@ -25,7 +25,7 @@ internal actual open class ChatClient actual constructor(private val url: String
         val okHttpClient = OkHttpClient.Builder().build()
         val request = Request.Builder().url(url).build()
 
-        websocketClient = okHttpClient.newWebSocket(request, this)
+        websocketClient = okHttpClient.newWebSocket(request, ChatClientWebSocketListener())
     }
 
     actual open fun send(message: Message) {
@@ -36,21 +36,24 @@ internal actual open class ChatClient actual constructor(private val url: String
         receiveMessage = receiveBlock
     }
 
-    override fun onMessage(webSocket: WebSocket, text: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            Logger.info("Message Received: $text")
-            receiveMessage?.invoke(text.toMessage())
-        }
-    }
-
     actual open fun onFailure(throwableBlock: (Throwable) -> Unit) {
         failure = throwableBlock
     }
 
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-        GlobalScope.launch(Dispatchers.Main) {
-            Logger.info("WebSocket Failure: $t")
-            failure?.invoke(t)
+    inner class ChatClientWebSocketListener : WebSocketListener() {
+
+        override fun onMessage(webSocket: WebSocket, text: String) {
+            GlobalScope.launch(Dispatchers.Main) {
+                Logger.info("Message Received: $text")
+                receiveMessage?.invoke(text.toMessage())
+            }
+        }
+
+        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+            GlobalScope.launch(Dispatchers.Main) {
+                Logger.info("WebSocket Failure: $t")
+                failure?.invoke(t)
+            }
         }
     }
 }
