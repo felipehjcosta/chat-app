@@ -33,7 +33,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api project(":common:client-websocket")
+                implementation project(":common:client-websocket")
+                api project(":common:core")
                 implementation kotlin('stdlib-common')
             }
         }
