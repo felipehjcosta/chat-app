@@ -2,7 +2,7 @@ package com.github.felipehjcosta.chatapp.client
 
 import com.github.felipehjcosta.chatapp.Message
 
-class ChatViewModel internal constructor(private val chatClient: ChatClient) {
+class ChatViewModel internal constructor(private val chatClient: WebSocketClient) {
 
     init {
         chatClient.onFailure {

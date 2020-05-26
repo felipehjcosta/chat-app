@@ -1,5 +1,5 @@
 import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.WebSocketClient
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 import org.w3c.dom.WebSocket
@@ -7,7 +7,7 @@ import kotlin.js.Promise
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ChatClientTest {
+class WebSocketClientTest {
 
     private val fakeURL = "ws://localhost:8089"
 
@@ -21,7 +21,7 @@ class ChatClientTest {
             resolve(Unit)
         }
 
-        ChatClient(fakeURL).apply { start() }
+        WebSocketClient(fakeURL).apply { start() }
     }
 
     @Test
@@ -35,7 +35,7 @@ class ChatClientTest {
             }
         }
 
-        ChatClient(fakeURL).apply {
+        WebSocketClient(fakeURL).apply {
             start()
             send(messageSent)
         }
@@ -48,7 +48,7 @@ class ChatClientTest {
             socket.send(messageSent.stringify())
         }
 
-        ChatClient(fakeURL).apply {
+        WebSocketClient(fakeURL).apply {
             start()
             receive {
                 assertEquals(messageSent, it)
@@ -64,7 +64,7 @@ class ChatClientTest {
             mockServer.simulate("error")
         }
 
-        ChatClient(fakeURL).apply {
+        WebSocketClient(fakeURL).apply {
             onFailure {
                 assertEquals(Error::class, it::class)
                 assertEquals("error", it.message)

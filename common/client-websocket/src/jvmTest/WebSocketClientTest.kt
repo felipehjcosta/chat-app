@@ -17,7 +17,7 @@ private const val TEST_TIMEOUT = 5000L
 private const val WAIT_THREAD = 500L
 private const val WEBSOCKET_CONNECTION_CODE = 11
 
-class ChatClientTest {
+class WebSocketClientTest {
 
     private val mockWebServer = MockWebServer()
 

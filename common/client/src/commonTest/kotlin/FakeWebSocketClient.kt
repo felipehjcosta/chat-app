@@ -1,9 +1,9 @@
 import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.client.ChatClient
+import com.github.felipehjcosta.chatapp.client.WebSocketClient
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-internal class FakeChatClient : ChatClient("") {
+internal class FakeWebSocketClient : WebSocketClient("") {
 
     private var isStartCalled: Boolean = false
 

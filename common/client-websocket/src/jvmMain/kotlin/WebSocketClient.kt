@@ -13,7 +13,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-actual open class ChatClient actual constructor(private val url: String) {
+actual open class WebSocketClient actual constructor(private val url: String) {
 
     private var websocketClient: WebSocket? = null
 

@@ -1,7 +1,7 @@
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class ChatClientTest {
+class WebSocketClientTest {
 
     @Test
     fun ensureAStartedConnectionIsOpenedByClient() {

@@ -15,7 +15,7 @@ object ChatInjector {
         var baseUrl: String = ""
     }
 
-    fun createViewModel(): ChatViewModel = ChatViewModel(ChatClient(ChatInjector.baseUrl))
+    fun createViewModel(): ChatViewModel = ChatViewModel(WebSocketClient(ChatInjector.baseUrl))
 
     fun viewModel(): Lazy<ChatViewModel> = lazy {
         createViewModel()

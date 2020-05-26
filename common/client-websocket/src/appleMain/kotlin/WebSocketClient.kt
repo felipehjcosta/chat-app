@@ -5,7 +5,7 @@ import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 import kotlin.native.concurrent.ensureNeverFrozen
 
-actual open class ChatClient actual constructor(private val url: String) {
+actual open class WebSocketClient actual constructor(private val url: String) {
 
     private var receiveMessage: ((Message) -> Unit)? = null
 

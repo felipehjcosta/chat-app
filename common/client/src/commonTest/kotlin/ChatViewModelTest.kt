@@ -6,7 +6,7 @@ import kotlin.test.assertTrue
 
 class ChatViewModelTest {
 
-    private val stubChatClient = FakeChatClient()
+    private val stubChatClient = FakeWebSocketClient()
 
     private val chatViewModel = ChatViewModel(stubChatClient)
 
