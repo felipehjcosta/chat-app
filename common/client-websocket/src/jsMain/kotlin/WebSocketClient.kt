@@ -15,10 +15,10 @@ actual open class WebSocketClient actual constructor(private val url: String) {
         socket = WebSocket(url)
         socket?.onmessage = { event ->
             Logger.info("on String event: $event")
-            if (event.type == "String") {
+            if (event.type == "message") {
                 receiveMessage?.invoke(event.asDynamic().data.toString())
             } else {
-                Logger.info("String event unhandled")
+                Logger.info("message event unhandled")
             }
         }
         socket?.onerror = { event ->

@@ -1,7 +1,4 @@
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.WebSocketClient
-import com.github.felipehjcosta.chatapp.stringify
-import com.github.felipehjcosta.chatapp.toMessage
 import org.w3c.dom.WebSocket
 import kotlin.js.Promise
 import kotlin.test.Test
