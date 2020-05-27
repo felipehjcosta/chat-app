@@ -1,4 +1,3 @@
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.WebSocketClient
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -7,9 +6,9 @@ internal class FakeWebSocketClient : WebSocketClient("") {
 
     private var isStartCalled: Boolean = false
 
-    private var sentMessage: Message? = null
+    private var sentMessage: String? = null
 
-    private var receiveMessageLambda: ((Message) -> Unit)? = null
+    private var receiveMessageLambda: ((String) -> Unit)? = null
 
     private var onFailureLambda: ((Throwable) -> Unit)? = null
 
@@ -19,17 +18,17 @@ internal class FakeWebSocketClient : WebSocketClient("") {
 
     fun assertStartWasCalled() = assertTrue { isStartCalled }
 
-    override fun send(message: Message) {
-        sentMessage = message
+    override fun send(webSocketMessage: String) {
+        sentMessage = webSocketMessage
     }
 
-    fun assetSendMessageWasCalled(message: Message) = assertEquals(message, sentMessage)
+    fun assetSendMessageWasCalled(String: String) = assertEquals(String, sentMessage)
 
-    override fun receive(receiveBlock: (Message) -> Unit) {
+    override fun receive(receiveBlock: (String) -> Unit) {
         receiveMessageLambda = receiveBlock
     }
 
-    fun forceCallReceive(message: Message) = receiveMessageLambda?.invoke(message)
+    fun forceCallReceive(String: String) = receiveMessageLambda?.invoke(String)
 
     override fun onFailure(throwableBlock: (Throwable) -> Unit) {
         onFailureLambda = throwableBlock

@@ -1,5 +1,6 @@
 import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
+import com.github.felipehjcosta.chatapp.stringify
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -22,7 +23,7 @@ class ChatViewModelTest {
         val message = Message("author", "message")
         chatViewModel.sendMessage(message)
 
-        stubChatClient.assetSendMessageWasCalled(message)
+        stubChatClient.assetSendMessageWasCalled(message.stringify())
     }
 
     @Test
@@ -47,7 +48,7 @@ class ChatViewModelTest {
             receivedOnChat = it
         }
 
-        stubChatClient.forceCallReceive(message)
+        stubChatClient.forceCallReceive(message.stringify())
 
         assertEquals(message, receivedOnChat)
     }

@@ -1,4 +1,3 @@
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.client.ChatClient
 import io.mockk.mockk
 import io.mockk.slot
@@ -55,12 +54,12 @@ class WebSocketClientTest {
         val webSocketSlot = slot<WebSocket>()
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
 
-        val message = Message("Test", "Hello, WebSockets!")
-        webSocketSlot.captured.send(message.stringify())
+        val message = "{\"author\": \"Test\", \"message\":\"Hello, WebSockets!\"}"
+        webSocketSlot.captured.send(message)
 
         Thread.sleep(WAIT_THREAD)
 
-        val receivedMessageSlot = slot<Message>()
+        val receivedMessageSlot = slot<String>()
         verify { mockOnReceive(capture(receivedMessageSlot)) }
         assertEquals(message, receivedMessageSlot.captured)
     }
@@ -74,12 +73,12 @@ class WebSocketClientTest {
 
         verify { mockServerWebSocketListener.onOpen(any(), any()) }
 
-        val message = Message("Test", "Hello, WebSockets!")
+        val message = "{\"author\": \"Test\", \"message\":\"Hello, WebSockets!\"}"
         chatClient.send(message)
 
         Thread.sleep(WAIT_THREAD)
 
-        verify { mockServerWebSocketListener.onMessage(any(), message.stringify()) }
+        verify { mockServerWebSocketListener.onMessage(any(), message) }
     }
 
     @Test(timeout = TEST_TIMEOUT)

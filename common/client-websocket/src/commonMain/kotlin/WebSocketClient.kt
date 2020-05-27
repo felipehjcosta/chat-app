@@ -1,10 +1,8 @@
 package com.github.felipehjcosta.chatapp.client
 
-import com.github.felipehjcosta.chatapp.Message
-
 expect open class WebSocketClient(url: String) {
     open fun start()
-    open fun send(message: Message)
-    open fun receive(receiveBlock: (Message) -> Unit)
+    open fun send(webSocketMessage: String)
+    open fun receive(receiveBlock: (String) -> Unit)
     open fun onFailure(throwableBlock: (Throwable) -> Unit)
 }

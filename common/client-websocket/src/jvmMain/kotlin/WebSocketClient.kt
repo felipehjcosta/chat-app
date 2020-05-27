@@ -1,9 +1,6 @@
 package com.github.felipehjcosta.chatapp.client
 
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
-import com.github.felipehjcosta.chatapp.stringify
-import com.github.felipehjcosta.chatapp.toMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,7 +14,7 @@ actual open class WebSocketClient actual constructor(private val url: String) {
 
     private var websocketClient: WebSocket? = null
 
-    private var receiveMessage: ((Message) -> Unit)? = null
+    private var receiveMessage: ((String) -> Unit)? = null
 
     private var failure: ((Throwable) -> Unit)? = null
 
@@ -28,11 +25,11 @@ actual open class WebSocketClient actual constructor(private val url: String) {
         websocketClient = okHttpClient.newWebSocket(request, ChatClientWebSocketListener())
     }
 
-    actual open fun send(message: Message) {
-        websocketClient?.send(message.stringify())
+    actual open fun send(webSocketMessage: String) {
+        websocketClient?.send(webSocketMessage)
     }
 
-    actual open fun receive(receiveBlock: (Message) -> Unit) {
+    actual open fun receive(receiveBlock: (String) -> Unit) {
         receiveMessage = receiveBlock
     }
 
@@ -44,8 +41,8 @@ actual open class WebSocketClient actual constructor(private val url: String) {
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             GlobalScope.launch(Dispatchers.Main) {
-                Logger.info("Message Received: $text")
-                receiveMessage?.invoke(text.toMessage())
+                Logger.info("String Received: $text")
+                receiveMessage?.invoke(text)
             }
         }
 

@@ -1,27 +1,24 @@
 package com.github.felipehjcosta.chatapp.client
 
-import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.logging.Logger
-import com.github.felipehjcosta.chatapp.stringify
-import com.github.felipehjcosta.chatapp.toMessage
 import org.w3c.dom.WebSocket
 
 actual open class WebSocketClient actual constructor(private val url: String) {
 
     private var socket: WebSocket? = null
 
-    private var receiveMessage: ((Message) -> Unit)? = null
+    private var receiveMessage: ((String) -> Unit)? = null
 
     private var failure: ((Throwable) -> Unit)? = null
 
     actual open fun start() {
         socket = WebSocket(url)
         socket?.onmessage = { event ->
-            Logger.info("on message event: $event")
-            if (event.type == "message") {
-                receiveMessage?.invoke(event.asDynamic().data.toString().toMessage())
+            Logger.info("on String event: $event")
+            if (event.type == "String") {
+                receiveMessage?.invoke(event.asDynamic().data.toString())
             } else {
-                Logger.info("message event unhandled")
+                Logger.info("String event unhandled")
             }
         }
         socket?.onerror = { event ->
@@ -30,11 +27,11 @@ actual open class WebSocketClient actual constructor(private val url: String) {
         }
     }
 
-    actual open fun send(message: Message) {
-        socket?.send(message.stringify())
+    actual open fun send(webSocketMessage: String) {
+        socket?.send(webSocketMessage)
     }
 
-    actual open fun receive(receiveBlock: (Message) -> Unit) {
+    actual open fun receive(receiveBlock: (String) -> Unit) {
         receiveMessage = receiveBlock
     }
 

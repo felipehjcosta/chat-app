@@ -26,10 +26,10 @@ class WebSocketClientTest {
 
     @Test
     fun ensureSendMessageIsReceivedByServer() = Promise<Unit> { resolve, _ ->
-        val messageSent = Message("Test", "Hello, WebSockets!")
+        val messageSent = "{\"author\": \"Test\", \"message\":\"Hello, WebSockets!\"}"
         mockServer.on("connection") { socket ->
             socket.on("message") { data ->
-                assertEquals(messageSent, data.toString().toMessage())
+                assertEquals(messageSent, data.toString())
                 mockServer.stop()
                 resolve(Unit)
             }
@@ -43,9 +43,9 @@ class WebSocketClientTest {
 
     @Test
     fun ensureMessageSendByServerIsReceivedByClient() = Promise<Unit> { resolve, _ ->
-        val messageSent = Message("Test", "Hello, WebSockets!")
+        val messageSent = "{\"author\": \"Test\", \"message\":\"Hello, WebSockets!\"}"
         mockServer.on("connection") { socket ->
-            socket.send(messageSent.stringify())
+            socket.send(messageSent)
         }
 
         WebSocketClient(fakeURL).apply {

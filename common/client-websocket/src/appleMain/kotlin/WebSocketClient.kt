@@ -1,13 +1,10 @@
 package com.github.felipehjcosta.chatapp.client
 
-import com.github.felipehjcosta.chatapp.Message
-import com.github.felipehjcosta.chatapp.stringify
-import com.github.felipehjcosta.chatapp.toMessage
 import kotlin.native.concurrent.ensureNeverFrozen
 
 actual open class WebSocketClient actual constructor(private val url: String) {
 
-    private var receiveMessage: ((Message) -> Unit)? = null
+    private var receiveMessage: ((String) -> Unit)? = null
 
     private var failure: ((Throwable) -> Unit)? = null
 
@@ -17,17 +14,17 @@ actual open class WebSocketClient actual constructor(private val url: String) {
 
     actual open fun start() {
         val receiveMessageBlock = { webSocketMessage: String ->
-            receiveMessage?.invoke(webSocketMessage.toMessage()) ?: Unit
+            receiveMessage?.invoke(webSocketMessage) ?: Unit
         }
 
         urlSessionWebSocketTaskWrapper.start(url, receiveMessageBlock)
     }
 
-    actual open fun send(message: Message) {
-        urlSessionWebSocketTaskWrapper.sendMessage(message.stringify())
+    actual open fun send(webSocketMessage: String) {
+        urlSessionWebSocketTaskWrapper.sendMessage(webSocketMessage)
     }
 
-    actual open fun receive(receiveBlock: (Message) -> Unit) {
+    actual open fun receive(receiveBlock: (String) -> Unit) {
         receiveMessage = receiveBlock
     }
 
