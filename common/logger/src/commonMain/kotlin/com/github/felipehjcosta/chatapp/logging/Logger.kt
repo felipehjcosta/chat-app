@@ -11,7 +11,7 @@ object Logger {
     operator fun invoke(block: LoggerConfiguration.() -> Unit) {
         LoggerConfiguration().apply {
             block(this)
-            this@Logger.loggerAdapter = this.loggerAdapter
+            loggerAdapter = this.loggerAdapter
         }
     }
 

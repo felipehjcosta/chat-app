@@ -35,6 +35,7 @@ kotlin {
             dependencies {
                 implementation project(":common:client-websocket")
                 api project(":common:core")
+                api project(":common:logger")
                 implementation kotlin('stdlib-common')
             }
         }
