@@ -1,36 +1,23 @@
 import com.github.felipehjcosta.chatapp.toMessage
 import io.ktor.application.Application
-import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.features.CallLogging
-import io.ktor.http.ContentType
 import io.ktor.http.cio.websocket.DefaultWebSocketSession
 import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.readText
-import io.ktor.response.respondText
 import io.ktor.routing.Routing
-import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import org.slf4j.LoggerFactory
-import org.slf4j.event.Level
 import java.util.*
 import java.util.Collections.synchronizedSet
 
 private val LOGGER = LoggerFactory.getLogger("ChatBackend")
 
-fun Application.main() {
+fun Application.installChat() {
     install(WebSockets)
-    install(CallLogging) {
-        level = Level.INFO
-    }
-    routing {
-        get("/") { call.respondText("Hello World server!", ContentType.Text.Plain) }
-        chat()
-    }
+    routing { chat() }
 }
-
 
 fun Routing.chat() {
     val wsConnections = synchronizedSet(LinkedHashSet<DefaultWebSocketSession>())

@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 class ChatTest {
     @Test(timeout = 10000L)
     fun testSimpleConversation() {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::installChat) {
             val log = arrayListOf<String>()
 
             handleWebSocketConversation("/chat") { incoming, outgoing ->
