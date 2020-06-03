@@ -53,11 +53,17 @@ android {
         test.java.srcDirs += "src/test/kotlin"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         allWarningsAsErrors = true
+        jvmTarget = "1.8"
     }
 }
 
