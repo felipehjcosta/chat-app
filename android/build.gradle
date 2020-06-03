@@ -80,6 +80,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$android_nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$android_nav_version"
 
+    implementation "androidx.lifecycle:lifecycle-runtime:$android_jetpack_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$android_jetpack_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$android_jetpack_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$android_jetpack_lifecycle"
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junit_version"
 

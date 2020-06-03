@@ -13,7 +13,7 @@ import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
 
 class ChatScreen : Fragment(R.layout.chat_screen) {
 
-    private var screenBinding: ChatScreenBinding? = null
+    private val binding by viewBinding(ChatScreenBinding::bind)
 
     private lateinit var userName: String
 
@@ -26,10 +26,10 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
 
         chatViewModel.onChat = { receiveMessage(it) }
 
-        screenBinding = ChatScreenBinding.bind(view).also {
-            setupRecyclerView(it.messagesRecyclerView)
-            it.sendButton.setOnClickListener { sendMessage() }
-            it.messageInput.setOnEditorActionListener { _, actionId, _ ->
+        binding.apply {
+            setupRecyclerView(messagesRecyclerView)
+            sendButton.setOnClickListener { sendMessage() }
+            messageInput.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener when (actionId) {
                     EditorInfo.IME_ACTION_SEND -> {
                         sendMessage()
@@ -63,7 +63,7 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
     }
 
     private fun sendMessage() {
-        screenBinding?.let {
+        binding.let {
             val message = it.messageInput.text.toString()
             chatViewModel.sendMessage(Message(userName, message))
             it.messageInput.text?.clear()
@@ -71,7 +71,7 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
     }
 
     private fun receiveMessage(message: Message) {
-        screenBinding?.let {
+        binding.let {
             onRecyclerView(it.messagesRecyclerView) {
                 bind(android.R.layout.simple_list_item_1) {
                     addExtraItems(listOf(message))
@@ -79,10 +79,5 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
             }
             it.messagesRecyclerView.scheduleScrollToEnd()
         }
-    }
-
-    override fun onDestroyView() {
-        screenBinding = null
-        super.onDestroyView()
     }
 }
