@@ -1,6 +1,6 @@
 # Chat App
 
-[![CircleCI](https://circleci.com/gh/felipehjcosta/chat-app.svg?style=svg)](https://circleci.com/gh/felipehjcosta/chat-app)
+![CI](https://github.com/felipehjcosta/chat-app/workflows/CI/badge.svg)
 
 A chat app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
 
