@@ -29,6 +29,13 @@ kotlin {
             }
         }
 
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+
         jvmMain {
             dependencies {
                 implementation 'com.squareup.okhttp3:okhttp:4.3.0'
@@ -48,6 +55,7 @@ kotlin {
 
         jsTest {
             dependencies {
+                implementation kotlin('test-js')
                 implementation npm("mock-socket", "^9.0.0")
             }
         }
