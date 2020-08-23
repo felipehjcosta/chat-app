@@ -4,9 +4,9 @@ import com.github.felipehjcosta.chatapp.logging.LoggerAdapter
 import kotlinext.js.require
 import kotlinext.js.requireAll
 import react.dom.render
-import kotlin.browser.document
+import kotlinx.browser.document
 
-fun main(args: Array<String>) {
+fun main() {
     requireAll(require.context("/", true, js("/\\.css$/")))
 
     Logger {

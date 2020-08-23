@@ -1,5 +1,8 @@
 package com.github.felipehjcosta.chatapp.logging
 
+import kotlin.native.concurrent.ThreadLocal
+
+@ThreadLocal
 object Logger {
 
     private var loggerAdapter: LoggerAdapter? = createDefaultLoggerAdapter()
