@@ -47,22 +47,10 @@ kotlin {
             }
         }
 
-        jvmMain {
-            dependencies {
-                implementation kotlin('stdlib-jdk8')
-            }
-        }
-
         jvmTest {
             dependencies {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
-            }
-        }
-
-        jsMain {
-            dependencies {
-                implementation kotlin('stdlib-js')
             }
         }
 
@@ -71,14 +59,6 @@ kotlin {
                 implementation kotlin('test-js')
             }
         }
-
-        iosMain {}
-
-        iosTest {}
-
-        watchMain {}
-
-        watchTest {}
     }
     // Configure all compilations of all targets:
     targets.all {
