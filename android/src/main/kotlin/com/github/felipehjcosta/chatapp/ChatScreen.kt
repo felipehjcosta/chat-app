@@ -44,6 +44,11 @@ class ChatScreen : Fragment(R.layout.chat_screen) {
         chatViewModel.start()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        chatViewModel.onChat = null
+    }
+
     private fun readArguments() = arguments?.let {
         val passedArguments = ChatScreenArgs.fromBundle(it)
         userName = passedArguments.username
