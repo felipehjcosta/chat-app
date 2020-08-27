@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.felipehjcosta.chatapp.client.ChatInjector
 import com.github.felipehjcosta.chatapp.client.ChatViewModel
 import com.github.felipehjcosta.chatapp.databinding.ChatScreenBinding
@@ -13,7 +14,7 @@ import com.github.felipehjcosta.recyclerviewdsl.onRecyclerView
 
 class ChatScreen : Fragment(R.layout.chat_screen) {
 
-    private val binding by viewBinding(ChatScreenBinding::bind)
+    private val binding: ChatScreenBinding by viewBinding()
 
     private lateinit var userName: String
 
