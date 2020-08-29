@@ -5,20 +5,12 @@ kotlin {
     jvm {
         compilations.main.kotlinOptions {
             jvmTarget = "1.8"
-            allWarningsAsErrors = true
         }
         compilations.test.kotlinOptions {
             jvmTarget = "1.8"
-            allWarningsAsErrors = true
         }
     }
     js {
-        compilations.main.kotlinOptions {
-            allWarningsAsErrors = true
-        }
-        compilations.test.kotlinOptions {
-            allWarningsAsErrors = true
-        }
         browser()
     }
     targets {
@@ -35,6 +27,14 @@ kotlin {
         commonMain {
             dependencies {
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version"
+            }
+        }
+    }
+    // Configure all compilations of all targets:
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                allWarningsAsErrors = true
             }
         }
     }
