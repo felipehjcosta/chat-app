@@ -1,114 +1,147 @@
-apply plugin: "kotlin-multiplatform"
+import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
+plugins {
+    kotlin("multiplatform")
+}
 
 version = "0.1.0"
-def ios_framework_name = "Client"
+val ios_framework_name = "Client"
 
 kotlin {
     jvm {
-        compilations.main.kotlinOptions {
-            jvmTarget = "1.8"
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     js {
-        browser()
-    }
-    targets {
-        final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
-
-        fromPreset(iOSTarget, 'ios') {
-            binaries {
-                framework("$ios_framework_name")
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
             }
         }
+    }
+    iOSTarget("ios") {
+        binaries {
+            framework(ios_framework_name)
+        }
+    }
 
-        final def watchTarget = System.getenv('SDK_NAME')?.startsWith("watchos") ? presets.watchosArm64 : presets.watchosX86
-
-        fromPreset(watchTarget, 'watch') {
-            binaries {
-                framework("$ios_framework_name")
-            }
+    watchOSTarget("watch") {
+        binaries {
+            framework(ios_framework_name)
         }
     }
 
     sourceSets {
-        commonMain {
+        val commonMain by getting {
             dependencies {
-                implementation project(":common:client-websocket")
-                api project(":common:core")
-                api project(":common:logger")
-                implementation kotlin('stdlib-common')
+                implementation(project(":common:client-websocket"))
+                api(project(":common:core"))
+                api(project(":common:logger"))
             }
         }
 
-        commonTest {
+        val commonTest by getting {
             dependencies {
-                implementation kotlin('test-common')
-                implementation kotlin('test-annotations-common')
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
             }
         }
 
-        jvmTest {
+        val jvmTest by getting {
             dependencies {
-                implementation kotlin('test')
-                implementation kotlin('test-junit')
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
 
-        jsTest {
+        val jsTest by getting {
             dependencies {
-                implementation kotlin('test-js')
+                implementation(kotlin("test-js"))
             }
         }
     }
     // Configure all compilations of all targets:
     targets.all {
         compilations.all {
-            kotlinOptions {
-                allWarningsAsErrors = true
-            }
+            kotlinOptions.allWarningsAsErrors = true
         }
     }
 }
 
-task packIOSForXcode {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks/ios")
-    final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
-    def keyFrameworkPrefix = "$ios_framework_name${buildType.toLowerCase().capitalize()}"
-    dependsOn "link${keyFrameworkPrefix}FrameworkIos"
+val packIOSForXcode by tasks.creating(Sync::class) {
+    val targetDir = File(buildDir, "xcode-frameworks")
+
+    /// selecting the right configuration for the iOS
+    /// framework depending on the environment
+    /// variables set by Xcode build
+    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+    val framework = kotlin.targets
+            .getByName<KotlinNativeTarget>("ios")
+            .binaries.getFramework(ios_framework_name, mode)
+    inputs.property("mode", mode)
+    dependsOn(framework.linkTask)
+
+    from({ framework.outputDirectory })
+    into(targetDir)
+
+    /// generate a helpful ./gradlew wrapper with embedded Java path
     doLast {
-        def srcFile = kotlin.targets.ios.binaries.getFramework("$ios_framework_name", buildType).outputFile
-        copy {
-            from srcFile.parent
-            into frameworkDir
-        }
-        new File(frameworkDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-            setExecutable(true)
-        }
+        val gradlew = File(targetDir, "gradlew")
+        gradlew.writeText("#!/bin/bash\n"
+                + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n"
+                + "cd '${rootProject.rootDir}'\n"
+                + "./gradlew \$@\n")
+        gradlew.setExecutable(true)
     }
 }
-tasks.build.dependsOn packIOSForXcode
+tasks.getByName("build").dependsOn(packIOSForXcode)
 
-task packWatchForXcode {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks/watch")
-    final String buildType = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
-    def keyFrameworkPrefix = "$ios_framework_name${buildType.toLowerCase().capitalize()}"
-    dependsOn "link${keyFrameworkPrefix}FrameworkWatch"
+val packWatchForXcode by tasks.creating(Sync::class) {
+    val targetDir = File(buildDir, "xcode-frameworks")
+
+    /// selecting the right configuration for the iOS
+    /// framework depending on the environment
+    /// variables set by Xcode build
+    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+    val framework = kotlin.targets
+            .getByName<KotlinNativeTarget>("watch")
+            .binaries.getFramework(ios_framework_name, mode)
+    inputs.property("mode", mode)
+    dependsOn(framework.linkTask)
+
+    from({ framework.outputDirectory })
+    into(targetDir)
+
+    /// generate a helpful ./gradlew wrapper with embedded Java path
     doLast {
-        def srcFile = kotlin.targets.watch.binaries.getFramework("$ios_framework_name", buildType).outputFile
-        copy {
-            from srcFile.parent
-            into frameworkDir
-        }
-        new File(frameworkDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-            setExecutable(true)
-        }
+        val gradlew = File(targetDir, "gradlew")
+        gradlew.writeText("#!/bin/bash\n"
+                + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n"
+                + "cd '${rootProject.rootDir}'\n"
+                + "./gradlew \$@\n")
+        gradlew.setExecutable(true)
     }
 }
-tasks.build.dependsOn packWatchForXcode
+tasks.getByName("build").dependsOn(packWatchForXcode)
 
-task packForXcode {
-    dependsOn packIOSForXcode
-    dependsOn packWatchForXcode
+val packForXcode by tasks.creating(Sync::class) {
+    dependsOn(packIOSForXcode, packWatchForXcode)
+}
+
+fun KotlinTargetContainerWithPresetFunctions.iOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+        iosArm64(name, block)
+    else
+        iosX64(name, block)
+}
+
+fun KotlinTargetContainerWithPresetFunctions.watchOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("watchos") == true)
+        watchosArm64(name, block)
+    else
+        watchosX86(name, block)
 }

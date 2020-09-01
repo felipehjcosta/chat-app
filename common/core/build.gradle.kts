@@ -1,41 +1,53 @@
-apply plugin: "kotlin-multiplatform"
-apply plugin: 'kotlinx-serialization'
+import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
+plugins {
+    kotlin("multiplatform")
+    id("kotlinx-serialization")
+}
+
+val serialization_version: String by project
 
 kotlin {
     jvm {
-        compilations.main.kotlinOptions {
-            jvmTarget = "1.8"
-        }
-        compilations.test.kotlinOptions {
-            jvmTarget = "1.8"
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     js {
         browser()
     }
-    targets {
-        final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
 
-        fromPreset(iOSTarget, 'ios')
+    iOSTarget("ios")
 
-        final def watchTarget = System.getenv('SDK_NAME')?.startsWith("watchos") ? presets.watchosArm64 : presets.watchosX86
-
-        fromPreset(watchTarget, 'watch')
-    }
+    watchOSTarget("watch")
 
     sourceSets {
         commonMain {
             dependencies {
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version"
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
             }
         }
     }
     // Configure all compilations of all targets:
     targets.all {
         compilations.all {
-            kotlinOptions {
-                allWarningsAsErrors = true
-            }
+            kotlinOptions.allWarningsAsErrors = true
         }
     }
+
+}
+
+fun KotlinTargetContainerWithPresetFunctions.iOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+        iosArm64(name, block)
+    else
+        iosX64(name, block)
+}
+
+fun KotlinTargetContainerWithPresetFunctions.watchOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("watchos") == true)
+        watchosArm64(name, block)
+    else
+        watchosX86(name, block)
 }

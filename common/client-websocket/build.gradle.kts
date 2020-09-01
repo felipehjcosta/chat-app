@@ -1,95 +1,117 @@
-apply plugin: "kotlin-multiplatform"
+import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
+plugins {
+    kotlin("multiplatform")
+}
+
+val coroutines_version: String by project
+val junit_version: String by project
 
 kotlin {
     jvm {
-        compilations.main.kotlinOptions {
-            jvmTarget = "1.8"
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     js {
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
+            }
+        }
     }
-    targets {
-        final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") ? presets.iosArm64 : presets.iosX64
 
-        fromPreset(iOSTarget, 'ios')
+    iOSTarget("ios")
 
-        final def watchTarget = System.getenv('SDK_NAME')?.startsWith("watchos") ? presets.watchosArm64 : presets.watchosX86
-
-        fromPreset(watchTarget, 'watch')
-    }
+    watchOSTarget("watch")
 
     sourceSets {
-        commonMain {
+        val commonMain by getting {
             dependencies {
-                implementation project(":common:core")
-                implementation project(":common:logger")
-                implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+                implementation(project(":common:core"))
+                implementation(project(":common:logger"))
+                implementation(kotlin("stdlib-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
             }
         }
 
-        commonTest {
+        val commonTest by getting {
             dependencies {
-                implementation kotlin('test-common')
-                implementation kotlin('test-annotations-common')
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
             }
         }
 
-        jvmMain {
+        val jvmMain by getting {
             dependencies {
-                implementation 'com.squareup.okhttp3:okhttp:4.3.0'
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+                implementation("com.squareup.okhttp3:okhttp:4.3.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
 
-        jvmTest {
+        val jvmTest by getting {
             dependencies {
-                implementation kotlin('test')
-                implementation kotlin('test-junit')
-                implementation "junit:junit:$junit_version"
-                implementation "io.mockk:mockk:1.9"
-                implementation 'com.squareup.okhttp3:mockwebserver:4.3.0'
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+                implementation("junit:junit:$junit_version")
+                implementation("io.mockk:mockk:1.9")
+                implementation("com.squareup.okhttp3:mockwebserver:4.3.0")
             }
         }
 
-        jsTest {
+        val jsTest by getting {
             dependencies {
-                implementation kotlin('test-js')
-                implementation npm("mock-socket", "^9.0.0")
+                implementation(kotlin("test-js"))
+                implementation(npm("mock-socket", "^9.0.0"))
             }
         }
 
-        appleMain {
-            dependsOn commonMain
+        val appleMain by creating {
+            dependsOn(commonMain)
         }
 
-        appleTest {
-            dependsOn commonTest
+        val appleTest by creating {
+            dependsOn(commonTest)
         }
 
-        iosMain {
-            dependsOn appleMain
+        val iosMain by getting {
+            dependsOn(appleMain)
         }
 
-        iosTest {
-            dependsOn appleTest
+        val iosTest by getting {
+            dependsOn(appleTest)
         }
 
-        watchMain {
-            dependsOn appleMain
+        val watchMain by getting {
+            dependsOn(appleMain)
         }
 
-        watchTest {
-            dependsOn appleTest
+        val watchTest by getting {
+            dependsOn(appleTest)
         }
     }
     // Configure all compilations of all targets:
     targets.all {
         compilations.all {
-            kotlinOptions {
-                allWarningsAsErrors = true
-            }
+            kotlinOptions.allWarningsAsErrors = true
         }
     }
+
+}
+
+fun KotlinTargetContainerWithPresetFunctions.iOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+        iosArm64(name, block)
+    else
+        iosX64(name, block)
+}
+
+fun KotlinTargetContainerWithPresetFunctions.watchOSTarget(name: String, block: KotlinNativeTarget.() -> Unit = {}): KotlinNativeTarget {
+    return if (System.getenv("SDK_NAME")?.startsWith("watchos") == true)
+        watchosArm64(name, block)
+    else
+        watchosX86(name, block)
 }
