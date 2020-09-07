@@ -53,5 +53,12 @@ subprojects {
     }
 }
 
-//task runBackend(dependsOn: ':backend:run')
-//task runFrontend(dependsOn: ':frontend:browserDevelopmentRun')
+tasks {
+    register("runBackend") {
+        dependsOn(":backend:run")
+    }
+
+    register("runFrontend") {
+        dependsOn(":frontend:browserDevelopmentRun")
+    }
+}
