@@ -10,25 +10,39 @@ A chat app written in Kotlin multiplaform. This is a pet project which objective
 
 Explain how to run the application
 
-### Backend
+### Server
 Use the command below.
 ```
 ./gradlew runBackend
 ```
 
-### Frontend
+### Web client
 Use the command below.
 ```
 ./gradlew runFrontend
 ```
 
-### Android
-Use the command below (You need a connected device or a virtual device).
+### Android client
+
+If you prefer, you can provide a virtual device with the following commands or skip to the running step
+
+#### Emulator provisioning
+Install sdk
+```
+./gradlew -PinstallSdk
+```
+
+Then start emulator
+```
+./gradlew startEmulator
+```
+
+#### Running app
+
+You can use IntelliJ IDE to run or using the command below (You need a connected device or a virtual device).
 ```
 ./gradlew installDebug
 ```
-
-You can use IntelliJ IDE to run
 
 ### iOS
 Follow steps below in order to run iOS version:

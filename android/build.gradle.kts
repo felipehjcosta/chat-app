@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("androidx.navigation.safeargs.kotlin")
+    id("org.catrobat.gradle.androidemulators")
 }
 
 extra["CIBuild"] = System.getenv("CI") == "true"
@@ -75,6 +76,30 @@ tasks {
             jvmTarget = "1.8"
         }
     }
+}
+
+emulators {
+    install(project.hasProperty("installSdk"))
+
+    dependencies(delegateClosureOf<org.catrobat.gradle.androidemulators.DependenciesExtension> {
+        sdk()
+    })
+
+    emulator("pixel_2_android29", delegateClosureOf<org.catrobat.gradle.androidemulators.EmulatorExtension> {
+
+        avd(delegateClosureOf<org.catrobat.gradle.androidemulators.AvdSettings> {
+            systemImage = "system-images;android-29;default;x86_64"
+            sdcardSizeMb = 512
+            hardwareProperties = mapOf("hw.ramSize" to 1536, "vm.heapSize" to 256, "disk.dataPartition.size" to "1024MB")
+            screenDensity = "xxhdpi"
+
+            parameters(delegateClosureOf<org.catrobat.gradle.androidemulators.EmulatorStarter> {
+                resolution = "1080x1920"
+                language = "en"
+                country = "US"
+            })
+        })
+    })
 }
 
 val kotlin_version: String by project
