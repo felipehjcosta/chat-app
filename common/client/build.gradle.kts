@@ -73,7 +73,7 @@ kotlin {
 }
 
 val packIOSForXcode by tasks.creating(Sync::class) {
-    val targetDir = File(buildDir, "xcode-frameworks")
+    val targetDir = File(buildDir, "xcode-frameworks/ios")
 
     /// selecting the right configuration for the iOS
     /// framework depending on the environment
@@ -101,7 +101,7 @@ val packIOSForXcode by tasks.creating(Sync::class) {
 tasks.getByName("build").dependsOn(packIOSForXcode)
 
 val packWatchForXcode by tasks.creating(Sync::class) {
-    val targetDir = File(buildDir, "xcode-frameworks")
+    val targetDir = File(buildDir, "xcode-frameworks/watch")
 
     /// selecting the right configuration for the iOS
     /// framework depending on the environment
