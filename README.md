@@ -4,7 +4,7 @@
 
 A chat app written in Kotlin multiplaform. This is a pet project which objective is to experiment the language in both frontend, mobile and backend. Stay tuned! :)
 
-![kotlin-mpp-demo](kotlin-mpp-demo.gif)
+![kotlin-mpp-demo](kotlin-mpp-watch-demo.gif)
 
 ## Running
 
