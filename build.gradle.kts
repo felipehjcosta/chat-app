@@ -25,6 +25,7 @@ buildscript {
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_gradle_plugin")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$android_nav_version")
         classpath("org.catrobat.gradle.androidemulators:android-emulators-gradle:$android_emulator_version")
+        classpath("com.novoda:gradle-android-command-plugin:2.1.0")
     }
 }
 
@@ -62,5 +63,13 @@ tasks {
 
     register("runFrontend") {
         dependsOn(":frontend:browserDevelopmentRun")
+    }
+
+    register("runAndroid") {
+        val startEmulatorTask = project(":android").tasks["startEmulator"]
+        val runDebugTask = project(":android").tasks["runDebug"]
+        dependsOn(startEmulatorTask)
+        dependsOn(runDebugTask)
+        runDebugTask.mustRunAfter(startEmulatorTask)
     }
 }

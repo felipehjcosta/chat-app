@@ -1,3 +1,4 @@
+import com.android.aaptcompiler.android.isTruthy
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,6 +6,7 @@ plugins {
     id("kotlin-android")
     id("androidx.navigation.safeargs.kotlin")
     id("org.catrobat.gradle.androidemulators")
+    id("com.novoda.android-command")
 }
 
 extra["CIBuild"] = System.getenv("CI") == "true"

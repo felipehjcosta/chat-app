@@ -23,25 +23,15 @@ Use the command below.
 ```
 
 ### Android client
-
-If you prefer, you can provide a virtual device with the following commands or skip to the running step
-
-#### Emulator provisioning
-Install sdk
+Use the command below.
 ```
-./gradlew -PinstallSdk
+./gradlew runAndroid -PinstallSdk 
 ```
 
-Then start emulator
+#### Your own device
+Use the command below.
 ```
-./gradlew startEmulator
-```
-
-#### Running app
-
-You can use IntelliJ IDE to run or using the command below (You need a connected device or a virtual device).
-```
-./gradlew installDebug
+./gradlew runDebug
 ```
 
 ### iOS
