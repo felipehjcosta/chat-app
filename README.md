@@ -35,10 +35,11 @@ Use the command below.
 ```
 
 ### iOS
-Follow steps below in order to run iOS version:
 
-1. Install `Xcode 11.3`
-2. Open `ios/ios.xcodeproj` with Xcode
+In order to execute the project, you need to install `Xcode 11.6`. Use the command below to run on a simulator.
+```
+./gradlew runIOS
+```
 
 License
 -------

@@ -16,6 +16,7 @@ buildscript {
         maven(url = "http://dl.bintray.com/kotlin/kotlin-eap")
         maven(url = "https://dl.bintray.com/jetbrains/kotlin-native-dependencies")
         maven(url = "https://kotlin.bintray.com/kotlinx")
+        maven(url = "http://repository.openbakery.org/")
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
@@ -26,6 +27,7 @@ buildscript {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$android_nav_version")
         classpath("org.catrobat.gradle.androidemulators:android-emulators-gradle:$android_emulator_version")
         classpath("com.novoda:gradle-android-command-plugin:2.1.0")
+        classpath("gradle.plugin.org.openbakery:plugin:0.20.0")
     }
 }
 
@@ -71,5 +73,13 @@ tasks {
         dependsOn(startEmulatorTask)
         dependsOn(runDebugTask)
         runDebugTask.mustRunAfter(startEmulatorTask)
+    }
+
+    register("runIOS") {
+        val packForXcodeTask = project(":common:client").tasks["packForXcode"]
+        val simulatorRunAppTask = project(":ios").tasks["simulatorRunApp"]
+        dependsOn(packForXcodeTask)
+        dependsOn(simulatorRunAppTask)
+        simulatorRunAppTask.mustRunAfter(packForXcodeTask)
     }
 }

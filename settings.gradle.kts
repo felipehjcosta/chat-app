@@ -3,4 +3,4 @@ include(":common:core", ":common:logger", ":common:client", ":common:client-webs
 include(":backend")
 include(":frontend")
 include(":android")
-
+include(":ios")
