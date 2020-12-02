@@ -7,15 +7,15 @@ import kotlin.test.assertTrue
 
 class ChatViewModelTest {
 
-    private val stubChatClient = FakeWebSocketClient()
+    private val fakePlatformSocket = FakePlatformSocket()
 
-    private val chatViewModel = ChatViewModel(stubChatClient)
+    private val chatViewModel = ChatViewModel(fakePlatformSocket)
 
     @Test
     fun ensureViewModelStartsChatConnection() {
         chatViewModel.start()
 
-        stubChatClient.assertStartWasCalled()
+        fakePlatformSocket.assertStartWasCalled()
     }
 
     @Test
@@ -23,7 +23,7 @@ class ChatViewModelTest {
         val message = Message("author", "message")
         chatViewModel.sendMessage(message)
 
-        stubChatClient.assetSendMessageWasCalled(message.stringify())
+        fakePlatformSocket.assetSendMessageWasCalled(message.stringify())
     }
 
     @Test
@@ -34,7 +34,9 @@ class ChatViewModelTest {
             receivedShowFailureMessageResult = it
         }
 
-        stubChatClient.forceCallOnFailure(Throwable())
+        chatViewModel.start()
+
+        fakePlatformSocket.forceCallOnFailure(Throwable())
 
         assertTrue { receivedShowFailureMessageResult }
     }
@@ -48,7 +50,9 @@ class ChatViewModelTest {
             receivedOnChat = it
         }
 
-        stubChatClient.forceCallReceive(message.stringify())
+        chatViewModel.start()
+
+        fakePlatformSocket.forceCallReceive(message.stringify())
 
         assertEquals(message, receivedOnChat)
     }

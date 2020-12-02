@@ -4,23 +4,28 @@ import com.github.felipehjcosta.chatapp.Message
 import com.github.felipehjcosta.chatapp.stringify
 import com.github.felipehjcosta.chatapp.toMessage
 
-class ChatViewModel internal constructor(private val chatClient: WebSocketClient) {
-
-    init {
-        chatClient.onFailure {
-            showFailureMessage?.invoke(true)
-        }
-        chatClient.receive {
-            onChat?.invoke(it.toMessage())
-        }
-    }
+class ChatViewModel internal constructor(private val platformSocket: PlatformSocket) {
 
     fun start() {
-        chatClient.start()
+        platformSocket.openSocket(listener = object : PlatformSocketListener {
+            override fun onOpen() {}
+
+            override fun onFailure(t: Throwable) {
+                showFailureMessage?.invoke(true)
+            }
+
+            override fun onMessage(msg: String) {
+                onChat?.invoke(msg.toMessage())
+            }
+
+            override fun onClosing(code: Int, reason: String) {}
+
+            override fun onClosed(code: Int, reason: String) {}
+        })
     }
 
     fun sendMessage(message: Message) {
-        chatClient.send(message.stringify())
+        platformSocket.sendMessage(message.stringify())
     }
 
     var onChat: ((Message) -> Unit)? = null
