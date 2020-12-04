@@ -47,7 +47,7 @@ class PlatformSocketTest {
             socket.send(messageSent)
         }
 
-        PlatformSocket(fakeURL).openSocket(object :PlatformSocketListener by EmptyPlatformSocketListener {
+        PlatformSocket(fakeURL).openSocket(object : PlatformSocketListener by EmptyPlatformSocketListener {
             override fun onMessage(msg: String) {
                 assertEquals(messageSent, msg)
                 mockServer.stop()
@@ -62,7 +62,7 @@ class PlatformSocketTest {
             mockServer.simulate("error")
         }
 
-        PlatformSocket(fakeURL).openSocket(object :PlatformSocketListener by EmptyPlatformSocketListener {
+        PlatformSocket(fakeURL).openSocket(object : PlatformSocketListener by EmptyPlatformSocketListener {
             override fun onFailure(t: Throwable) {
                 assertEquals(Error::class, t::class)
                 assertEquals("error", t.message)
