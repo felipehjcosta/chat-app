@@ -57,7 +57,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:$junit_version")
-                implementation("io.mockk:mockk:1.10.3")
+                implementation("io.mockk:mockk:1.10.3-jdk8")
                 implementation("com.squareup.okhttp3:mockwebserver:4.3.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
             }
