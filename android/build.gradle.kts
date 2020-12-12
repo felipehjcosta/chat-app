@@ -6,7 +6,10 @@ plugins {
     id("kotlin-android")
     id("androidx.navigation.safeargs.kotlin")
     id("org.catrobat.gradle.androidemulators")
-    id("com.novoda.android-command")
+}
+
+afterEvaluate {
+        apply(plugin = "com.novoda.android-command")
 }
 
 extra["CIBuild"] = System.getenv("CI") == "true"
@@ -34,7 +37,7 @@ android {
             buildConfigField("String", "CHAT_URL_SERVER", "\"ws://10.0.2.2:8089\"")
             isMinifyEnabled = true
             proguardFiles(
-                    getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -92,7 +95,8 @@ emulators {
         avd(delegateClosureOf<org.catrobat.gradle.androidemulators.AvdSettings> {
             systemImage = "system-images;android-29;default;x86_64"
             sdcardSizeMb = 512
-            hardwareProperties = mapOf("hw.ramSize" to 1536, "vm.heapSize" to 256, "disk.dataPartition.size" to "1024MB")
+            hardwareProperties =
+                mapOf("hw.ramSize" to 1536, "vm.heapSize" to 256, "disk.dataPartition.size" to "1024MB")
             screenDensity = "xxhdpi"
 
             parameters(delegateClosureOf<org.catrobat.gradle.androidemulators.EmulatorStarter> {
