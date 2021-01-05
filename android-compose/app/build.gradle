@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation project(":common:client")
+
     def composeVersion = "1.0.0-alpha08"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

@@ -1,2 +1,10 @@
 rootProject.name = "android-compose"
 include ':app'
+include ':common:core'
+project(':common:core').projectDir = new File('../common/core')
+include ':common:logger'
+project(':common:logger').projectDir = new File('../common/logger')
+include ':common:client'
+project(':common:client').projectDir = new File('../common/client')
+include ':common:client-websocket'
+project(':common:client-websocket').projectDir = new File('../common/client-websocket')
