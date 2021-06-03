@@ -8,8 +8,12 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.*
-import react.router.dom.navLink
+import react.dom.button
+import react.dom.div
+import react.dom.h3
+import react.dom.input
+import react.dom.span
+import react.dom.attrs
 import react.router.dom.routeLink
 import react.setState
 
