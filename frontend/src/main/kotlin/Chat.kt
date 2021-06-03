@@ -13,12 +13,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.br
-import react.dom.button
-import react.dom.div
-import react.dom.findDOMNode
-import react.dom.hr
-import react.dom.input
+import react.dom.*
 import react.setState
 
 external fun require(module: String): dynamic

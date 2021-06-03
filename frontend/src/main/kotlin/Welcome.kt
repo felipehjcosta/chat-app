@@ -8,12 +8,9 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.button
-import react.dom.div
-import react.dom.h3
-import react.dom.input
-import react.dom.span
+import react.dom.*
 import react.router.dom.navLink
+import react.router.dom.routeLink
 import react.setState
 
 class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
@@ -61,7 +58,7 @@ class Welcome : RComponent<RProps, Welcome.WelcomeState>() {
 
     private fun RBuilder.renderLoginButton() {
         span(classes = "input-group-append") {
-            navLink("/chat/${state.username}") {
+            routeLink("/chat/${state.username}") {
                 button(classes = "btn btn-outline-secondary", type = ButtonType.button) {
                     +"Enter"
                 }
