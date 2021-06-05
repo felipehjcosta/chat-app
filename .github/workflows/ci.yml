@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  check:
+  run-lint:
     runs-on: macos-10.15
 
     steps:
@@ -17,8 +17,106 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: Runs all checks
-      run: ./gradlew check --console=plain
+    - name: Runs all lint checks
+      run: ./gradlew lint --console=plain
+
+  run-common-jvm-test:
+    runs-on: macos-10.15
+    needs: run-lint
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :common:jvmTest --console=plain
+
+  run-common-ios-test:
+    runs-on: macos-10.15
+    needs: run-lint
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :common:iosTest --console=plain
+
+  run-common-watch-test:
+    runs-on: macos-10.15
+    needs: run-lint
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :common:watchTest --console=plain
+
+  run-common-js-test:
+    runs-on: macos-10.15
+    needs: run-lint
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :common:jsTest --console=plain
+
+  run-backend-client-test:
+    runs-on: macos-10.15
+    needs: run-common-jvm-test
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :backend:test --console=plain
+
+  run-android-client-test:
+    runs-on: macos-10.15
+    needs: run-common-jvm-test
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :android:test --console=plain
+
+  run-frontend-client-test:
+    runs-on: macos-10.15
+    needs: run-common-js-test
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Runs all tests
+        run: ./gradlew :frontend:test --console=plain
 
 env:
   GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
