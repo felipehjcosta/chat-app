@@ -57,6 +57,7 @@ class PlatformSocketTest {
         PlatformSocket("http://${mockWebServer.hostName}:${mockWebServer.port}")
             .openSocket(mockPlatformSocketListener)
 
+        Thread.sleep(WAIT_THREAD)
         val webSocketSlot = slot<WebSocket>()
         verify { mockServerWebSocketListener.onOpen(capture(webSocketSlot), any()) }
 
