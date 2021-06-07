@@ -11,7 +11,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         gradlePluginPortal()
         maven(url = "http://dl.bintray.com/kotlin/kotlin-eap")
         maven(url = "https://dl.bintray.com/jetbrains/kotlin-native-dependencies")
@@ -35,7 +34,6 @@ subprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         gradlePluginPortal()
         maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
         maven(url = "https://kotlin.bintray.com/kotlinx")
