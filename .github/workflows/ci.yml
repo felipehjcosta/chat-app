@@ -32,7 +32,7 @@ jobs:
           java-version: 1.8
 
       - name: Runs all tests
-        run: ./gradlew :common:jvmTest --console=plain
+        run: ./gradlew runAllJvmTests --console=plain
 
   run-common-ios-test:
     runs-on: macos-10.15
@@ -46,7 +46,7 @@ jobs:
           java-version: 1.8
 
       - name: Runs all tests
-        run: ./gradlew :common:iosTest --console=plain
+        run: ./gradlew runAlliOSOSTests --console=plain
 
   run-common-watch-test:
     runs-on: macos-10.15
@@ -60,7 +60,7 @@ jobs:
           java-version: 1.8
 
       - name: Runs all tests
-        run: ./gradlew :common:watchTest --console=plain
+        run: ./gradlew runAllWatchTests --console=plain
 
   run-common-js-test:
     runs-on: macos-10.15
@@ -74,7 +74,7 @@ jobs:
           java-version: 1.8
 
       - name: Runs all tests
-        run: ./gradlew :common:jsTest --console=plain
+        run: ./gradlew runAllJsTests --console=plain
 
   run-backend-client-test:
     runs-on: macos-10.15

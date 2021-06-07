@@ -82,4 +82,40 @@ tasks {
         dependsOn(simulatorRunAppTask)
         simulatorRunAppTask.mustRunAfter(packForXcodeTask)
     }
+
+    register("runAllJvmTests") {
+        subprojects
+            .filter { it.path.startsWith(":common") }
+            .map { it.getTasksByName("jvmTest", false) }
+            .forEach {
+                dependsOn(it)
+            }
+    }
+
+    register("runAllJsTests") {
+        subprojects
+            .filter { it.path.startsWith(":common") }
+            .map { it.getTasksByName("jsTest", false) }
+            .forEach {
+                dependsOn(it)
+            }
+    }
+
+    register("runAlliOSOSTests") {
+        subprojects
+            .filter { it.path.startsWith(":common") }
+            .map { it.getTasksByName("iosTest", false) }
+            .forEach {
+                dependsOn(it)
+            }
+    }
+
+    register("runAllWatchTests") {
+        subprojects
+            .filter { it.path.startsWith(":common") }
+            .map { it.getTasksByName("watchTest", false) }
+            .forEach {
+                dependsOn(it)
+            }
+    }
 }
