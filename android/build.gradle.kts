@@ -17,12 +17,12 @@ extra["CIBuild"] = System.getenv("CI") == "true"
 extra["preDexEnabled"] = System.getProperty("pre-dex", "true") == "true"
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         applicationId = "com.github.felipehjcosta.chatapp"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
 
