@@ -5,6 +5,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.Children
 import com.arkivanov.decompose.pop
 import com.arkivanov.decompose.push
+import com.github.felipehjcosta.chatapp.client.ChatInjector
 import screen.chat.ChatScreenComponent
 import screen.welcome.WelcomeScreenComponent
 
@@ -32,6 +33,7 @@ class Root(componentContext: ComponentContext) : Component, ComponentContext by 
 
             is ScreenConfiguration.Chat -> ChatScreenComponent(
                 componentContext,
+                chatViewModel = ChatInjector.viewModel().value,
                 configuration.userName,
                 ::onGoBackClicked
             )
