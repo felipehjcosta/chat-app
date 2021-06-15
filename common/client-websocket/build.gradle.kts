@@ -48,7 +48,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("com.squareup.okhttp3:okhttp:4.3.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
 
